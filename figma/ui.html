@@ -1,0 +1,2234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RuGBy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Display:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --figma-color-bg: #ffffff;
+      --figma-color-text: #333333;
+      --figma-color-border: #e5e5e5;
+      --figma-color-accent: #18a0fb;
+      --figma-color-accent-hover: #0d8fe8;
+      --figma-color-disabled: #cccccc;
+      --figma-color-success: #1bc47d;
+      --border-radius: 8px;
+      --font-family-display: 'Inter Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-family-mono: 'JetBrains Mono', Consolas, 'Courier New', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-family-display);
+      margin: 0;
+      padding: 0;
+      color: var(--figma-color-text);
+      background-color: var(--figma-color-bg);
+      font-size: 12px;
+      line-height: 1.5;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .container {
+      padding: 16px;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      max-height: 460px;
+      border-radius: var(--border-radius);
+    }
+
+    .top-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 8px;
+      flex: 1;
+      min-height: 240px;
+    }
+
+    .color-section {
+      flex: 1;
+      margin-bottom: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .center-section {
+      flex: 1.2;
+      margin-bottom: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .gradient-section {
+      margin: 0;
+      flex: 1;
+    }
+
+    .bottom-row {
+      flex-shrink: 0;
+      height: auto;
+      margin-top: 10px;
+    }
+
+    .vertical-gradient {
+      background: linear-gradient(to bottom, #f0f0f0 0%, #e0e0e0 100%);
+    }
+
+    .gradient-preview {
+      height: 100%;
+      border-radius: var(--border-radius);
+      border: 2px solid var(--figma-color-border);
+      background: linear-gradient(to bottom, #f0f0f0 0%, #e0e0e0 100%);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      flex: 1;
+    }
+
+    .controls-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(145deg, #f8f9fa 0%, #e9ecef 100%);
+      border-radius: 16px;
+      padding: 20px 24px;
+      border: 1px solid #dee2e6;
+      height: 130px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+    }
+
+    .lock-controls, .count-section, .center-controls {
+      flex-grow: 0;
+      flex-shrink: 0;
+      flex-basis: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
+
+    .section-title {
+      font-size: 10px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #495057;
+      text-align: center;
+      font-family: var(--font-family-display);
+      text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+      width: 100%;
+    }
+
+    .lock-buttons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin-top: 0;
+      width: auto;
+    }
+
+    .lock-btn {
+      background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+      border: 2px solid #e9ecef;
+      border-radius: 10px;
+      padding: 0;
+      cursor: pointer;
+      font-size: 12px;
+      color: #6c757d;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 45px;
+      height: 50px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .lock-btn:hover {
+      border-color: #0066cc;
+      box-shadow: 0 5px 15px rgba(0, 102, 204, 0.1);
+    }
+
+    .lock-btn.linked {
+      border-color: #0066cc;
+      background: linear-gradient(145deg, #e6f3ff 0%, #cce7ff 100%);
+      color: #0066cc;
+      box-shadow: 0 4px 12px rgba(0, 102, 204, 0.15);
+    }
+
+    .lock-btn.linked:hover {
+      border-color: #0052a3;
+      box-shadow: 0 5px 15px rgba(0, 102, 204, 0.2);
+    }
+    
+    .lock-btn:active {
+      background: linear-gradient(145deg, #e9ecef 0%, #dde2e6 100%);
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .lock-btn.linked:active {
+      background: linear-gradient(145deg, #cce7ff 0%, #b3d9ff 100%);
+      box-shadow: inset 0 2px 4px rgba(0, 82, 163,0.15);
+    }
+
+    .lock-icon {
+      font-size: 18px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .component-label {
+      font-size: 10px;
+      font-weight: 700;
+      font-family: var(--font-family-display);
+      color: inherit;
+      position: relative;
+      z-index: 1;
+    }
+
+    .count-display {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      height: 50px;
+      width: 150px;
+      border: 2px solid #e9ecef;
+      border-radius: 10px;
+      font-size: 20px;
+      font-weight: 800;
+      font-family: var(--font-family-mono);
+      background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+      color: #2d3436;
+      text-align: center;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .count-display:hover {
+      border-color: #ced4da;
+      box-shadow: 0 7px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .generate-btn {
+      width: 164px;
+      height: 55px;
+      padding: 0;
+      margin: 0;
+      background: linear-gradient(125deg, #5e72e4 0%, #825ee4 100%);
+      color: #ffffff;
+      border: none;
+      border-radius: 10px;
+      font-family: var(--font-family-display);
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: background 0.2s ease, box-shadow 0.2s ease;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      box-shadow: 0 8px 24px rgba(94, 114, 228, 0.3);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 8px;
+    }
+
+    .generate-btn:hover {
+      background: linear-gradient(125deg, #5265d8 0%, #734fd0 100%);
+      box-shadow: 0 10px 26px rgba(94, 114, 228, 0.35);
+    }
+
+    .generate-btn:active {
+      background: linear-gradient(125deg, #4a5ac7 0%, #6746bf 100%);
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+
+
+    .reset-btn {
+      background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+      border: 1px solid #dee2e6;
+      color: #6c757d;
+      padding: 0;
+      font-size: 11px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: var(--font-family-display);
+      font-weight: 600;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+      height: 50px;
+      width: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    .reset-btn:hover {
+      border-color: #adb5bd;
+      color: #495057;
+      background: linear-gradient(145deg, #f1f3f5 0%, #e2e6ea 100%);
+      box-shadow: 0 3px 7px rgba(0, 0, 0, 0.07);
+    }
+    
+    .reset-btn:active {
+       background: linear-gradient(145deg, #e9ecef 0%, #d8dde2 100%);
+       box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .warning-text {
+      font-size: 9px;
+      color: #ff6b6b;
+      margin-top: 2px;
+      text-align: center;
+      font-style: italic;
+      font-family: var(--font-family-display);
+    }
+
+    .color-preview-section {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1;
+    }
+
+    .color-preview-box {
+      height: 100%;
+      width: 100%;
+      border-radius: 10px !important;
+      border: 1px solid var(--figma-color-border);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      margin: 0 auto;
+      flex: 1;
+    }
+
+    .color-inputs {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+
+    .rgb-input {
+      flex: 1;
+      text-align: center;
+    }
+
+    .rgb-input input {
+      width: 100%;
+      padding: 8px 6px;
+      border: 2px solid var(--figma-color-border);
+      border-radius: var(--border-radius);
+      font-size: 12px;
+      font-weight: 600;
+      text-align: center;
+      text-transform: uppercase;
+      font-family: 'JetBrains Mono', monospace;
+      background-color: #f8f9fa;
+    }
+
+    .rgb-input input:focus {
+      outline: none;
+      border-color: var(--figma-color-accent);
+      background-color: #ffffff;
+    }
+
+    .rgb-input label {
+      display: block;
+      margin-bottom: 4px;
+      font-weight: 600;
+      font-size: 11px;
+      color: #666;
+      font-family: var(--font-family-display);
+    }
+
+    .color-preview-text {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 6px;
+      font-family: var(--font-family-mono);
+      font-size: 11px;
+      font-weight: 600;
+      text-align: center;
+      backdrop-filter: blur(4px);
+    }
+
+    .gradient-preview-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 14px;
+      font-weight: 600;
+      color: #999;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-family: var(--font-family-display);
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #333;
+      color: white;
+      padding: 12px 20px;
+      border-radius: var(--border-radius);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s, visibility 0.3s;
+      z-index: 1000;
+      font-weight: 600;
+      text-align: center;
+      max-width: 90%;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .toast.show {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    /* Specific styling for progress toast */
+    .toast.progress {
+      background-color: #4a5ac7;
+      font-weight: 700;
+    }
+
+    .checkbox-container {
+      margin-bottom: 0;
+    }
+
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 12px;
+      cursor: pointer;
+      line-height: 1.4;
+      font-weight: 500;
+      font-family: var(--font-family-display);
+    }
+
+    .checkbox-text {
+      font-size: 12px;
+      line-height: 1.4;
+      color: #666;
+      font-family: var(--font-family-display);
+    }
+
+    .reset-container {
+      text-align: center;
+      margin-top: 0;
+    }
+
+    .export-format-section {
+      margin-top: 6px;
+      text-align: center;
+      width: 164px;
+    }
+
+    .export-format-title {
+      font-size: 8px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #6c757d;
+      text-align: center;
+      font-family: var(--font-family-display);
+    }
+
+    .export-format-options {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+      border: 1px solid #dee2e6;
+      border-radius: 6px;
+      padding: 6px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    .export-format-option {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      transition: color 0.2s ease;
+    }
+
+    .export-format-option:hover {
+      color: #495057;
+    }
+
+    .export-format-option input[type="radio"] {
+      margin: 0;
+      accent-color: #5e72e4;
+    }
+
+    .export-format-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #6c757d;
+      font-family: var(--font-family-display);
+      user-select: none;
+    }
+
+    .loading-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-top: 10px;
+    }
+
+    .spinner {
+      border: 4px solid rgba(0, 0, 0, 0.1);
+      border-top: 4px solid #007bff;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .loading-text {
+      margin-top: 10px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #666;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Top Row: Initial Hexcode, Gradient Preview, Final Hexcode -->
+    <div class="top-row">
+      <!-- Initial Hexcode Section -->
+      <div class="color-section initial-section">
+        <div class="section-title">Initial Hexcode</div>
+        <div class="color-inputs">
+          <div class="rgb-input">
+            <label>RR</label>
+            <input type="text" id="initial-r" maxlength="2">
+          </div>
+          <div class="rgb-input">
+            <label>GG</label>
+            <input type="text" id="initial-g" maxlength="2">
+          </div>
+          <div class="rgb-input">
+            <label>BB</label>
+            <input type="text" id="initial-b" maxlength="2">
+          </div>
+        </div>
+        <div class="color-preview-section">
+          <div class="color-preview-box" id="initial-preview">
+            <div class="color-preview-text" id="initial-hex-text">#000000</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gradient Preview Section -->
+      <div class="gradient-section center-section">
+        <div class="section-title">Gradient Preview</div>
+        <div class="gradient-preview vertical-gradient" id="gradient-preview">
+          <div class="gradient-preview-text" id="gradient-preview-text">Preview will appear here</div>
+        </div>
+      </div>
+
+      <!-- Final Hexcode Section -->
+      <div class="color-section final-section">
+        <div class="section-title">Final Hexcode</div>
+        
+        <div class="color-inputs">
+          <div class="rgb-input">
+            <label>RR</label>
+            <input type="text" id="final-r" maxlength="2">
+          </div>
+          <div class="rgb-input">
+            <label>GG</label>
+            <input type="text" id="final-g" maxlength="2">
+          </div>
+          <div class="rgb-input">
+            <label>BB</label>
+            <input type="text" id="final-b" maxlength="2">
+          </div>
+        </div>
+        <div class="color-preview-section">
+          <div class="color-preview-box" id="final-preview">
+            <div class="color-preview-text" id="final-hex-text">#000000</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Row: Controls with new layout -->
+    <div class="bottom-row">
+      <div class="controls-row">
+        <!-- Link Controls (Left) -->
+        <div class="lock-controls">
+          <div class="section-title">Link Values</div>
+          <div class="lock-buttons">
+            <button class="lock-btn" id="lock-r" data-component="r">
+              <span class="lock-icon">🔗</span>
+              <span class="component-label">R</span>
+            </button>
+            <button class="lock-btn" id="lock-g" data-component="g">
+              <span class="lock-icon">🔗</span>
+              <span class="component-label">G</span>
+            </button>
+            <button class="lock-btn" id="lock-b" data-component="b">
+              <span class="lock-icon">🔗</span>
+              <span class="component-label">B</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Count Section (Center) -->
+        <div class="count-section">
+          <div class="section-title">Hexcode Count</div>
+          <div class="count-display" id="hex-count">XXX</div>
+          <div class="warning-text" id="warning-text" style="display: none;">
+          </div>
+        </div>
+
+        <!-- Generate and Export Format (Right) -->
+        <div class="center-controls">
+          <button class="generate-btn" id="generate-btn">GENERATE</button>
+          
+          <!-- Loading spinner with dynamic count -->
+          <div id="loading-spinner" class="loading-container hidden">
+            <div class="spinner"></div>
+            <div class="loading-text" id="loading-text">Rendering colors...</div>
+          </div>
+          
+          <div class="export-format-section">
+            <div class="export-format-title">Auto-export as:</div>
+            <div class="export-format-options">
+              <label class="export-format-option">
+                <input type="radio" name="exportFormat" value="png" checked>
+                <span class="export-format-label">PNG</span>
+              </label>
+              <label class="export-format-option">
+                <input type="radio" name="exportFormat" value="svg">
+                <span class="export-format-label">SVG</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // DOM Elements - declare globally
+    let initialR, initialG, initialB, finalR, finalG, finalB;
+    let initialPreview, finalPreview, initialHexText, finalHexText;
+    let gradientPreview, hexCount, warningText, generateBtn, toast;
+    let lockButtons = {};
+    let exportFormatRadios;
+
+    // Lock state for R, G, B components
+    let lockState = {
+      r: false, // R is unlocked by default
+      g: false, // G is unlocked by default
+      b: false  // B is unlocked by default
+    };
+
+    // Export format state
+    let exportFormat = 'png'; // Default to PNG
+
+    // --- WebGL Optimization for All-RGB Generation ---
+    let webglWorker = null;
+    let workerURL = null; // To store the Blob URL for the worker
+
+    // Initialize benchmark data
+    let benchmarkData = {
+      webgl: { available: false, renderTime: 0, pixelsPerSecond: 0 },
+      cpu: { available: true, renderTime: 0, pixelsPerSecond: 0 }
+    };
+
+    // Function to initialize the WebGL worker
+    function initWebGLWorker() {
+      try {
+      if (webglWorker) {
+        webglWorker.terminate();
+          if (workerURL) {
+            // Don't revoke the URL here - will do it when shutting down
+            // URL.revokeObjectURL(workerURL);
+            workerURL = null;
+          }
+      }
+
+        // Check if Web Workers are available
+        if (typeof Worker === 'undefined') {
+          console.warn('⚠️ Web Workers not available in this environment');
+          return;
+        }
+
+        const workerCode = `
+// WebGL Worker for generating All-RGB image
+// This worker handles the rendering of 16.7M colors in parallel using WebGL
+
+// Helper function to create and compile a shader
+function createShader(gl, type, source) {
+  const shader = gl.createShader(type);
+  gl.shaderSource(shader, source);
+  gl.compileShader(shader);
+  
+  const success = gl.getShaderParameter(shader, gl.COMPILE_STATUS);
+  if (success) {
+    return shader;
+  }
+  
+  const error = gl.getShaderInfoLog(shader);
+  gl.deleteShader(shader);
+  throw new Error(\`Could not compile shader: \${error}\`);
+}
+
+// Helper function to create a shader program
+function createProgram(gl, vertexShaderSource, fragmentShaderSource) {
+  const vertexShader = createShader(gl, gl.VERTEX_SHADER, vertexShaderSource);
+  const fragmentShader = createShader(gl, gl.FRAGMENT_SHADER, fragmentShaderSource);
+  
+  const program = gl.createProgram();
+  gl.attachShader(program, vertexShader);
+  gl.attachShader(program, fragmentShader);
+  gl.linkProgram(program);
+  
+  const success = gl.getProgramParameter(program, gl.LINK_STATUS);
+  if (success) {
+    return program;
+  }
+  
+  const error = gl.getProgramInfoLog(program);
+  gl.deleteProgram(program);
+  throw new Error(\`Could not link program: \${error}\`);
+}
+
+self.onmessage = async ({ data }) => {
+  const { width, height, baseIndex = 0, bucketMode = false } = data;
+  
+  try {
+    console.time('rgb-render');
+    
+    // Create OffscreenCanvas and get WebGL2 context
+    const canvas = new OffscreenCanvas(width, height);
+    const gl = canvas.getContext('webgl2');
+    
+    if (!gl) {
+      throw new Error('WebGL2 not supported');
+    }
+    
+    // Vertex shader (simple passthrough for single quad)
+    const vertexShaderSource = \`#version 300 es
+    in vec4 a_position;
+    void main() {
+      gl_Position = a_position;
+    }\`;
+    
+    // Fragment shader (calculates RGB color for each pixel)
+    // This is the key optimization - GPU calculates all 16M colors in parallel
+    const fragmentShaderSource = \`#version 300 es
+    precision highp float;
+    uniform vec2 u_resolution;
+    uniform int u_baseIndex;
+    out vec4 outColor;
+    
+    void main() {
+      // Get pixel coordinates
+      vec2 pixelCoord = gl_FragCoord.xy;
+      
+      // Calculate the index (0 to 16,777,215)
+      int idx = int(pixelCoord.y * u_resolution.x + pixelCoord.x) + u_baseIndex;
+      
+      // Optimized bit-shift approach for RGB extraction
+      int r = (idx >> 16) & 0xFF;
+      int g = (idx >> 8) & 0xFF;
+      int b = idx & 0xFF;
+      
+      // Output color (normalized to 0-1)
+      outColor = vec4(float(r) / 255.0, float(g) / 255.0, float(b) / 255.0, 1.0);
+    }\`;
+    
+    // Create shader program
+    const program = createProgram(gl, vertexShaderSource, fragmentShaderSource);
+    gl.useProgram(program);
+    
+    // Set up resolution uniform
+    const resolutionUniformLocation = gl.getUniformLocation(program, 'u_resolution');
+    gl.uniform2f(resolutionUniformLocation, width, height);
+    
+    // Set up base index uniform for bucket mode
+    const baseIndexUniformLocation = gl.getUniformLocation(program, 'u_baseIndex');
+    gl.uniform1i(baseIndexUniformLocation, baseIndex);
+    
+    // Set up a single quad covering the entire canvas
+    const positionAttributeLocation = gl.getAttribLocation(program, 'a_position');
+    const positionBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+    
+    // Quad vertices (2 triangles covering NDC space from -1 to 1)
+    const positions = [
+      -1, -1,  // bottom left
+       1, -1,  // bottom right
+      -1,  1,  // top left
+       1,  1,  // top right
+    ];
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
+    
+    // Set up vertex attributes
+    const vao = gl.createVertexArray();
+    gl.bindVertexArray(vao);
+    gl.enableVertexAttribArray(positionAttributeLocation);
+    gl.vertexAttribPointer(positionAttributeLocation, 2, gl.FLOAT, false, 0, 0);
+    
+    // Clear canvas and draw
+    gl.viewport(0, 0, width, height);
+    gl.clearColor(0, 0, 0, 0);
+    gl.clear(gl.COLOR_BUFFER_BIT);
+    
+    // Draw the quad (2 triangles)
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    
+    // Read pixels back to CPU
+    const pixels = new Uint8Array(width * height * 4);
+    gl.readPixels(0, 0, width, height, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
+    
+    console.timeEnd('rgb-render');
+    
+    // Add rendering stats
+    const renderTime = performance.now() - data.startTime;
+    const pixelsPerSecond = (width * height) / (renderTime / 1000);
+    
+    // Send the pixel data back to the main thread
+    self.postMessage({ 
+      type: 'pixels', 
+      width, 
+      height, 
+      pixels,
+      renderTime,
+      pixelsPerSecond,
+      renderMethod: 'webgl'
+    }, [pixels.buffer]);
+    
+  } catch (error) {
+    console.error('WebGL render error:', error);
+    // Signal that we need to fall back to CPU rendering
+    self.postMessage({ 
+      type: 'error', 
+      message: error.message,
+      requiresFallback: true 
+    });
+  }
+};
+
+// CPU-based fallback implementation for systems without WebGL
+function renderWithCPU(width, height, baseIndex = 0, startTime) {
+  console.time('cpu-render');
+  
+  // Create pixel array (RGBA)
+  const pixels = new Uint8ClampedArray(width * height * 4);
+  
+  // Fill with colors
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      const pixelIndex = (y * width + x);
+      const colorIndex = pixelIndex + baseIndex;
+      const offset = pixelIndex * 4;
+      
+      // Extract RGB components using bit operations
+      pixels[offset]     = (colorIndex >>> 16) & 0xFF; // R
+      pixels[offset + 1] = (colorIndex >>> 8) & 0xFF;  // G
+      pixels[offset + 2] = colorIndex & 0xFF;          // B
+      pixels[offset + 3] = 255;                        // A
+    }
+  }
+  
+  console.timeEnd('cpu-render');
+  
+  // Calculate performance metrics
+  const renderTime = startTime ? performance.now() - startTime : 0;
+  const pixelsPerSecond = renderTime > 0 ? (width * height) / (renderTime / 1000) : 0;
+  
+  return { pixels, renderTime, pixelsPerSecond };
+}
+
+// Add a fallback handler for WebGL errors
+self.addEventListener('unhandledrejection', (event) => {
+  console.error('Unhandled rejection in worker:', event.reason);
+  
+  // Try to get the original request data
+  if (event.reason && event.reason.data) {
+    const { width, height, baseIndex = 0, startTime } = event.reason.data;
+    
+    // Fall back to CPU rendering
+    console.warn('Falling back to CPU rendering due to error:', event.reason);
+    
+    try {
+      const { pixels, renderTime, pixelsPerSecond } = renderWithCPU(width, height, baseIndex, startTime);
+      
+      self.postMessage({
+        type: 'pixels',
+        width,
+        height,
+        pixels,
+        renderTime,
+        pixelsPerSecond,
+        renderMethod: 'cpu'
+      }, [pixels.buffer]);
+    } catch (cpuError) {
+      self.postMessage({ 
+        type: 'error', 
+        message: \`Both WebGL and CPU rendering failed: \${cpuError.message}\`
+      });
+    }
+  }
+});
+`;
+
+        const blob = new Blob([workerCode], { type: 'application/javascript' });
+        workerURL = URL.createObjectURL(blob);
+        webglWorker = new Worker(workerURL);
+
+      // Listen for messages from the worker
+      webglWorker.onmessage = function(event) {
+        const data = event.data;
+
+        if (data.type === 'pixels') {
+          // Send the pixel data back to the plugin
+          parent.postMessage({
+            pluginMessage: {
+              type: 'webgl-pixels',
+              width: data.width,
+              height: data.height,
+              pixels: data.pixels
+            }
+          }, '*');
+          
+          showToast('WebGL rendering complete! Creating Figma image...');
+        } else if (data.type === 'error') {
+          // Send the error back to the plugin
+          parent.postMessage({
+            pluginMessage: {
+              type: 'webgl-error',
+              error: data.message
+            }
+          }, '*');
+          
+          showToast(`WebGL error: ${data.message}`);
+        }
+      };
+
+      // Handle worker errors
+      webglWorker.onerror = function(error) {
+        console.error('WebGL Worker error:', error);
+        
+        parent.postMessage({
+          pluginMessage: {
+            type: 'webgl-error',
+            error: error.message
+          }
+        }, '*');
+        
+        showToast(`WebGL worker error: ${error.message}`);
+      };
+        
+        console.log('✅ WebGL worker initialized successfully');
+      } catch (error) {
+        console.warn('⚠️ WebGL worker initialization failed:', error.message);
+        // Don't throw - this is expected in some plugin environments
+        // Attempt to load with a more explicit path if the first attempt fails
+        try {
+          webglWorker = new Worker('./worker.js');
+          console.log('✅ WebGL worker initialized successfully with ./worker.js');
+        } catch (error2) {
+            console.warn('⚠️ WebGL worker initialization failed with ./worker.js as well:', error2.message);
+             try {
+                // As a last resort, try using an absolute path if the plugin is hosted
+                const absoluteWorkerPath = new URL('worker.js', window.location.href).href;
+                webglWorker = new Worker(absoluteWorkerPath);
+                console.log('✅ WebGL worker initialized successfully with absolute path:', absoluteWorkerPath);
+            } catch (error3) {
+                console.error('❌ Critial error: WebGL worker could not be initialized with any path:', error3.message);
+            }
+        }
+      }
+    }
+
+    // Helper functions
+    function isValidHex(value) {
+      return /^[0-9A-Fa-f]{0,2}$/.test(value);
+    }
+
+    function padHex(value) {
+      if (!value || value.length === 0) {
+        return '00';
+      }
+      return value.padStart(2, '0').toUpperCase();
+    }
+
+    function buildHexCode(r, g, b) {
+      return '#' + padHex(r) + padHex(g) + padHex(b);
+    }
+
+    // LocalStorage functions
+    function saveInputValues() {
+      try {
+        const values = {
+          initialR: initialR.value,
+          initialG: initialG.value,
+          initialB: initialB.value,
+          finalR: finalR.value,
+          finalG: finalG.value,
+          finalB: finalB.value,
+          lockState: lockState,
+          exportFormat: exportFormat
+        };
+        localStorage.setItem('rugby-values', JSON.stringify(values));
+        console.log('✅ Saved values:', values);
+      } catch (e) {
+        console.warn('⚠️ localStorage not available in plugin environment:', e.message);
+        // Silently fail - this is expected in Figma plugins
+      }
+    }
+
+    function loadInputValues() {
+      try {
+        const saved = localStorage.getItem('rugby-values');
+        console.log('📋 Loading saved data:', saved);
+        
+        if (saved) {
+          const values = JSON.parse(saved);
+          console.log('📊 Parsed values:', values);
+          
+          // Set values
+          initialR.value = values.initialR || '00';
+          initialG.value = values.initialG || '00';
+          initialB.value = values.initialB || '00';
+          finalR.value = values.finalR || 'FF';
+          finalG.value = values.finalG || 'FF';
+          finalB.value = values.finalB || 'FF';
+          lockState = values.lockState || { r: false, g: true, b: true };
+          exportFormat = values.exportFormat || 'png';
+          
+          console.log('✅ Values loaded successfully');
+          return true;
+        } else {
+          console.log('ℹ️ No saved values found, using defaults');
+          setDefaults();
+          return false;
+        }
+      } catch (e) {
+        console.warn('⚠️ localStorage not available in plugin environment:', e.message);
+        setDefaults();
+        return false;
+      }
+    }
+
+    function setDefaults() {
+      initialR.value = '00';
+      initialG.value = '00';
+      initialB.value = '00';
+      finalR.value = 'FF';
+      finalG.value = 'FF';
+      finalB.value = 'FF';
+      // Set default lock state - all unlinked
+      lockState = { r: false, g: false, b: false };
+      console.log('🔄 Set default values');
+    }
+
+    function updateColorPreview(previewElement, textElement, r, g, b) {
+      try {
+        const hexCode = buildHexCode(r, g, b);
+        previewElement.style.backgroundColor = hexCode;
+        textElement.textContent = hexCode;
+      } catch (error) {
+        console.error('❌ Error updating color preview:', error);
+      }
+    }
+
+    function updateGradientPreview() {
+      try {
+        const initialHex = buildHexCode(initialR.value, initialG.value, initialB.value);
+        const finalHex = buildHexCode(finalR.value, finalG.value, finalB.value);
+        
+        // Main gradient (vertical)
+        gradientPreview.style.background = `linear-gradient(to bottom, ${initialHex} 0%, ${finalHex} 100%)`;
+        
+        const textElement = gradientPreview.querySelector('.gradient-preview-text');
+        if (textElement) {
+          textElement.style.display = 'none';
+        }
+      } catch (error) {
+        console.error('❌ Error updating gradient preview:', error);
+      }
+    }
+
+    function calculateHexCount() {
+      const initialHex = buildHexCode(initialR.value, initialG.value, initialB.value);
+      const finalHex = buildHexCode(finalR.value, finalG.value, finalB.value);
+      
+      // Calculate count locally for validation
+      const initialInt = parseInt(initialHex.replace('#', ''), 16);
+      const finalInt = parseInt(finalHex.replace('#', ''), 16);
+      const count = Math.abs(finalInt - initialInt) + 1;
+      
+      // Check if count exceeds 65,536 limit
+      if (count > 65536) {
+        hexCount.textContent = `${count.toLocaleString()} colors`;
+        warningText.textContent = `⚠️ WARNING: ${count.toLocaleString()} colors exceeds the 65,536 limit. Reduce range to prevent crashes.`;
+        warningText.style.display = 'block';
+        generateBtn.disabled = true;
+        return;
+      } else {
+        warningText.style.display = 'none';
+        generateBtn.disabled = false;
+      }
+      
+      parent.postMessage({
+        pluginMessage: {
+          type: 'count-hexcodes',
+          initialHex: initialHex,
+          finalHex: finalHex
+        }
+      }, '*');
+    }
+
+    function validateAndUpdate() {
+      // Validate all inputs
+      const inputs = [initialR, initialG, initialB, finalR, finalG, finalB];
+      let allValid = true;
+
+      inputs.forEach(input => {
+        if (!isValidHex(input.value)) {
+          input.style.borderColor = '#ff6b6b';
+          allValid = false;
+        } else {
+          input.style.borderColor = 'var(--figma-color-border)';
+          input.value = input.value.toUpperCase();
+        }
+      });
+
+      // Update previews
+      updateColorPreview(initialPreview, initialHexText, initialR.value, initialG.value, initialB.value);
+      updateColorPreview(finalPreview, finalHexText, finalR.value, finalG.value, finalB.value);
+      updateGradientPreview();
+      
+      if (allValid) {
+        calculateHexCount();
+        // Don't set generateBtn.disabled here - let calculateHexCount() handle it based on the 65,536 limit
+        saveInputValues();
+      } else {
+        generateBtn.disabled = true;
+        warningText.style.display = 'none';
+      }
+    }
+
+    // ULTRA-SIMPLIFIED GENERATOR - Maximum efficiency, no overhead
+    function generateColors() {
+      console.log('⭐ GENERATE FUNCTION STARTED');
+      
+      // IMMEDIATE visual feedback
+      showToast('🚀 Generate button clicked! Starting...');
+      generateBtn.textContent = 'GENERATING...';
+      generateBtn.style.background = 'red';
+      
+      try {
+        // Get hex codes directly - no computation
+        const initialHex = buildHexCode(initialR.value, initialG.value, initialB.value);
+        const finalHex = buildHexCode(finalR.value, finalG.value, finalB.value);
+        const format = document.querySelector('input[name="exportFormat"]:checked')?.value || 'PNG';
+        
+        console.log('📊 COLORS:', initialHex, 'to', finalHex);
+        console.log('📊 FORMAT:', format);
+        console.log('📊 INPUT VALUES:', initialR.value, initialG.value, initialB.value, finalR.value, finalG.value, finalB.value);
+
+        // Calculate total colors (hex math only)
+        const initialInt = parseInt(initialHex.replace('#', ''), 16);
+        const finalInt = parseInt(finalHex.replace('#', ''), 16);
+        const totalColors = Math.abs(finalInt - initialInt) + 1;
+        
+        console.log('🔢 TOTAL COLORS:', totalColors);
+        console.log('🔢 INITIAL INT:', initialInt);
+        console.log('🔢 FINAL INT:', finalInt);
+        
+        // Show progress - immediate feedback
+        showToast(`🔄 Calculated ${totalColors.toLocaleString()} colors. Processing...`);
+        
+        // For extremely simple cases (1-100 colors), use special ultra-fast path
+        let width, height, pixels;
+        
+        // SPECIAL FAST PATH for single color
+        if (totalColors === 1) {
+          console.log('🏎️ USING SINGLE COLOR FAST PATH');
+          
+          // Just create a 1×1 pixel array with the single color
+          width = 1;
+          height = 1;
+          pixels = new Uint8Array(4);
+          pixels[0] = (initialInt >> 16) & 0xFF;  // R
+          pixels[1] = (initialInt >> 8) & 0xFF;   // G
+          pixels[2] = initialInt & 0xFF;          // B
+          pixels[3] = 255;                        // A
+          
+          console.log('🎨 COLOR VALUES:', pixels[0], pixels[1], pixels[2]);
+          
+          // Send immediately
+          sendPixelsToFigma(pixels, width, height, initialHex, finalHex, 0, format);
+          return;
+        }
+        
+        // SPECIAL FAST PATH for very small ranges (2-1000 colors)
+        if (totalColors <= 1000) {
+          width = totalColors;
+          height = 1;
+          pixels = new Uint8Array(totalColors * 4);
+          
+          // Direct loop - no overhead
+          for (let i = 0; i < totalColors; i++) {
+            const colorValue = initialInt + i * (finalInt > initialInt ? 1 : -1);
+            const offset = i * 4;
+            pixels[offset] = (colorValue >> 16) & 0xFF;     // R
+            pixels[offset + 1] = (colorValue >> 8) & 0xFF;  // G
+            pixels[offset + 2] = colorValue & 0xFF;         // B
+            pixels[offset + 3] = 255;                       // A
+          }
+          
+          // Send immediately
+          sendPixelsToFigma(pixels, width, height, initialHex, finalHex, 0, format);
+          return;
+        }
+        
+        // For larger ranges, optimize dimensions
+        if (totalColors <= 65536) {
+          // Medium range - use square-ish dimensions
+          width = Math.ceil(Math.sqrt(totalColors));
+          height = Math.ceil(totalColors / width);
+        } else {
+          // Large range - use 4096-width
+          width = 4096;
+          height = Math.ceil(totalColors / 4096);
+        }
+        
+        // Ensure we don't waste canvas space
+        const actualPixels = width * height;
+        
+        // Generate directly with CPU for medium ranges
+        if (totalColors <= 65536) {
+          const startTime = performance.now();
+          pixels = new Uint8Array(actualPixels * 4);
+          
+          // For medium ranges, use step calculation
+          const step = totalColors > 1 ? (finalInt - initialInt) / (totalColors - 1) : 0;
+          
+          for (let i = 0; i < totalColors; i++) {
+            const colorValue = Math.floor(initialInt + i * step);
+            const offset = i * 4;
+            pixels[offset] = (colorValue >> 16) & 0xFF;     // R
+            pixels[offset + 1] = (colorValue >> 8) & 0xFF;  // G
+            pixels[offset + 2] = colorValue & 0xFF;         // B
+            pixels[offset + 3] = 255;                       // A
+          }
+          
+          // Fill remaining pixels with the last color (if canvas is larger than needed)
+          if (actualPixels > totalColors) {
+            const lastColor = Math.floor(initialInt + (totalColors - 1) * step);
+            for (let i = totalColors; i < actualPixels; i++) {
+              const offset = i * 4;
+              pixels[offset] = (lastColor >> 16) & 0xFF;      // R
+              pixels[offset + 1] = (lastColor >> 8) & 0xFF;   // G
+              pixels[offset + 2] = lastColor & 0xFF;          // B
+              pixels[offset + 3] = 255;                       // A
+            }
+          }
+          
+          const renderTime = performance.now() - startTime;
+          sendPixelsToFigma(pixels, width, height, initialHex, finalHex, renderTime, format);
+          return;
+        }
+        
+        // Large ranges - use direct pixel calculation with tiny batches
+        const startTime = performance.now();
+        generateLargeRange(initialInt, finalInt, width, height, initialHex, finalHex, format);
+        
+      } catch (error) {
+        console.error('❌ GENERATION ERROR:', error);
+        
+        // Reset button state
+        resetGenerateButton();
+        
+        alert('Generation failed: ' + error.message);
+        showToast(`❌ Generation failed: ${error.message}`);
+      }
+    }
+
+    // Function to send pixels to Figma, but only metadata for placeholder creation
+    function sendPixelsToFigma(pixels, width, height, initialHex, finalHex, renderTime, format) {
+      // Calculate pixels per second first
+      const totalPixels = width * height;
+      const pixelsPerSecond = renderTime > 0 ? totalPixels / (renderTime / 1000) : totalPixels * 1000; // Assume 1ms for very fast renders
+      
+      console.log('[UI] → sending direct-pixel-data:', {
+        width, height, initialHex, finalHex, renderTime, pixelsPerSecond
+      });
+      
+      console.log(`📤 Sending metadata to Figma plugin for placeholder creation...`);
+      
+      try {
+        // Send metadata for placeholder creation
+        parent.postMessage({
+          pluginMessage: {
+            type: 'direct-pixel-data',
+            width,
+            height,
+            initialHex,
+            finalHex,
+            renderTime,
+            pixelsPerSecond,
+            exportFormat: format
+          }
+        }, '*');
+        
+        console.log('✅ Successfully sent metadata to Figma');
+      
+      // Clear any existing progress indicator first
+      toast.classList.remove('show');
+      
+      // Reset button state
+      resetGenerateButton();
+      
+      // Show success toast with location information
+      const totalColors = Math.abs(parseInt(initialHex.replace('#', ''), 16) - parseInt(finalHex.replace('#', ''), 16)) + 1;
+        showToast(`✅ Generating ${totalColors.toLocaleString()} colors (placeholder only)...`);
+        
+      } catch (error) {
+        console.error('❌ Failed to send message to Figma:', error);
+        showToast(`❌ Failed to communicate with Figma: ${error.message}`);
+        resetGenerateButton();
+      }
+    }
+
+    // For large ranges, generate in tiny batches to avoid UI freezing
+    function generateLargeRange(initialInt, finalInt, width, height, initialHex, finalHex, format) {
+      const totalPixels = width * height;
+      const totalColors = Math.abs(finalInt - initialInt) + 1;
+      const step = totalColors > 1 ? (finalInt - initialInt) / (totalColors - 1) : 0;
+      
+      const pixels = new Uint8Array(totalPixels * 4);
+      const startTime = performance.now();
+      
+      // Process in very small batches of 10,000 pixels
+      const BATCH_SIZE = 10000;
+      let processedPixels = 0;
+      
+      function processBatch() {
+        const batchEnd = Math.min(processedPixels + BATCH_SIZE, totalColors);
+        
+        for (let i = processedPixels; i < batchEnd; i++) {
+          const colorValue = Math.floor(initialInt + i * step);
+          const offset = i * 4;
+          pixels[offset] = (colorValue >> 16) & 0xFF;     // R
+          pixels[offset + 1] = (colorValue >> 8) & 0xFF;  // G
+          pixels[offset + 2] = colorValue & 0xFF;         // B
+          pixels[offset + 3] = 255;                       // A
+        }
+        
+        processedPixels = batchEnd;
+        
+        // Update progress with persistent indicator
+        const progress = Math.round((processedPixels / totalColors) * 100);
+        showToast(`Generating... ${progress}% (${processedPixels.toLocaleString()}/${totalColors.toLocaleString()} colors)`);
+        
+        if (processedPixels < totalColors) {
+          // Process next batch
+          setTimeout(processBatch, 0);
+        } else {
+          // Fill any remaining pixels
+          if (totalPixels > totalColors) {
+            const lastColor = Math.floor(initialInt + (totalColors - 1) * step);
+            for (let i = totalColors; i < totalPixels; i++) {
+              const offset = i * 4;
+              pixels[offset] = (lastColor >> 16) & 0xFF;      // R
+              pixels[offset + 1] = (lastColor >> 8) & 0xFF;   // G
+              pixels[offset + 2] = lastColor & 0xFF;          // B
+              pixels[offset + 3] = 255;                       // A
+            }
+          }
+          
+          // Send to Figma
+          const renderTime = performance.now() - startTime;
+          sendPixelsToFigma(pixels, width, height, initialHex, finalHex, renderTime, format);
+        }
+      }
+      
+      // Start the first batch
+      processBatch();
+    }
+
+    function setupEventListeners() {
+      // Lock button event listeners
+      Object.keys(lockButtons).forEach(component => {
+        lockButtons[component].addEventListener('click', () => {
+          toggleLock(component);
+        });
+      });
+
+      // Input field event listeners
+      [initialR, initialG, initialB, finalR, finalG, finalB].forEach(input => {
+        input.addEventListener('input', () => {
+          // Only allow hex characters
+          input.value = input.value.replace(/[^0-9A-Fa-f]/g, '');
+          
+          // Sync linked values immediately when any value changes
+          syncLinkedValues(input);
+          
+          validateAndUpdate();
+        });
+
+        input.addEventListener('blur', () => {
+          // Pad with zeros if needed
+          if (input.value.length === 1) {
+            input.value = '0' + input.value;
+          }
+          
+          // Sync linked values after padding
+          syncLinkedValues(input);
+          
+          validateAndUpdate();
+        });
+
+        // Add Enter key listener to each input field
+        input.addEventListener('keydown', (event) => {
+          if (event.key === 'Enter') {
+            event.preventDefault();
+            if (!generateBtn.disabled) {
+              generateColors();
+            }
+          }
+        });
+      });
+
+      // Generate button
+      generateBtn.addEventListener('click', generateColors);
+
+      // Export format radio listeners
+      exportFormatRadios = document.querySelectorAll('input[name="exportFormat"]');
+      exportFormatRadios.forEach(radio => {
+        radio.addEventListener('change', () => {
+          exportFormat = radio.value;
+          saveInputValues();
+        });
+      });
+    }
+
+    // Variable to store pending encode request details
+    let pendingEncodeRequest = null;
+
+    // Listen for messages from plugin code
+    window.onmessage = (event) => {
+      const message = event.data.pluginMessage;
+      
+      if (message.type === 'count-result') {
+        const count = message.count;
+        hexCount.textContent = count;
+        
+        // Show warning if count exceeds 16,777,216
+        if (count > 16777216) {
+          warningText.style.display = 'block';
+        } else {
+          warningText.style.display = 'none';
+        }
+      } 
+      else if (message.type === 'generation-complete') {
+        // Handle completion message from the plugin
+        const spinner = document.getElementById('loading-spinner');
+        if (spinner) {
+          spinner.classList.add('hidden');
+        }
+        
+        if (message.success) {
+          showToast(`✅ Placeholder frame created successfully! Look for bright magenta frame on canvas.`);
+        } else {
+          showToast(`❌ Error creating placeholder: ${message.message}`);
+        }
+        
+        resetGenerateButton();
+      } 
+      else if (message.type === 'encode-to-png') {
+        // This might be the old direct approach or the new two-step approach
+        if (message.hasPixelData === true) {
+          // New approach: just store dimensions and wait for pixel data
+          console.log(`🔄 Preparing to encode ${message.width}×${message.height} image to PNG...`);
+          pendingEncodeRequest = {
+            width: message.width,
+            height: message.height
+          };
+        } else if (message.pixels) {
+          // Old approach: directly encode with the provided pixels
+        encodeToPNG(message.width, message.height, message.pixels);
+        } else {
+          console.error('❌ Invalid encode-to-png message: missing pixels and hasPixelData flag');
+        }
+      }
+      else if (message.type === 'pixel-data-for-encoding') {
+        // Handle the second step of the two-step encoding process
+        if (!pendingEncodeRequest) {
+          console.error('❌ Received pixel data but no pending encode request!');
+          return;
+        }
+        
+        console.log('📊 Received pixel data for pending encode request');
+        
+        // Now perform the actual encoding with the stored dimensions
+        encodeToPNG(
+          pendingEncodeRequest.width, 
+          pendingEncodeRequest.height, 
+          message.pixels
+        );
+        
+        // Clear the pending request
+        pendingEncodeRequest = null;
+      }
+      else if (message.type === 'colors-generated') {
+        // Hide loading spinner
+        const spinner = document.getElementById('loading-spinner');
+        if (spinner) {
+          spinner.classList.add('hidden');
+        }
+        
+        showToast(`Generated ${message.count} color squares in Figma!`);
+      }
+      else if (message.type === 'save-export' || message.type === 'save-direct-image') {
+        // Hide loading spinner
+        const spinner = document.getElementById('loading-spinner');
+        if (spinner) {
+          spinner.classList.add('hidden');
+        }
+        
+        // Handle automatic file saving
+        saveExportedFile(message.fileName, message.data, message.format);
+      }
+      else if (message.type === 'generate-all-rgb-webgl') {
+        generateAllRGBWithWebGL(message.width, message.height, message.startTime);
+      }
+      else if (message.type === 'generate-rgb-buckets') {
+        generateRGBBuckets(message.bucketSize, message.totalBuckets, message.startTime);
+      }
+      else if (message.type === 'calculate-hexcodes') {
+        calculateHexcodes(message.initialHex, message.finalHex);
+      }
+      else if (message.type === 'check-browser-support') {
+        checkBrowserSupport();
+      }
+    };
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add('show');
+      
+      // Add or remove progress class based on message content
+      if (message.includes('Generating...')) {
+        toast.classList.add('progress');
+      } else {
+        toast.classList.remove('progress');
+      }
+      
+      // Only auto-hide non-progress messages
+      if (!message.includes('Generating...')) {
+        setTimeout(() => {
+          // Only hide if it's not showing a newer progress message
+          if (!toast.textContent.includes('Generating...')) {
+            toast.classList.remove('show');
+            toast.classList.remove('progress');
+          }
+        }, 5000);
+      }
+    }
+
+    function resetGenerateButton() {
+      generateBtn.textContent = 'GENERATE';
+      generateBtn.style.background = '';
+      generateBtn.disabled = false;
+    }
+
+    function toggleLock(component) {
+      // FIXED: Only toggle the requested component, don't affect others
+      lockState[component] = !lockState[component];
+      updateLockButton(component);
+      
+      // Only sync the specific component that was toggled
+      if (component === 'r') {
+        if (lockState.r) finalR.value = initialR.value;
+      } else if (component === 'g') {
+        if (lockState.g) finalG.value = initialG.value;
+      } else if (component === 'b') {
+        if (lockState.b) finalB.value = initialB.value;
+      }
+      
+      // Update visuals
+      updateColorPreview(initialPreview, initialHexText, initialR.value, initialG.value, initialB.value);
+      updateColorPreview(finalPreview, finalHexText, finalR.value, finalG.value, finalB.value);
+      updateGradientPreview();
+      calculateHexCount();
+      saveInputValues();
+    }
+
+    function updateLockButton(component) {
+      const button = lockButtons[component];
+      const icon = button.querySelector('.lock-icon');
+      
+      if (lockState[component]) {
+        icon.textContent = '🔗';
+        button.classList.add('linked');
+        button.style.color = '#0066cc';
+      } else {
+        icon.textContent = '🔓';
+        button.classList.remove('linked');
+        button.style.color = '#666';
+      }
+    }
+
+    function syncLinkedValues(changedInput) {
+      // Determine which component was changed and if it's linked
+      let component = null;
+      let isInitial = false;
+      
+      if (changedInput === initialR) {
+        component = 'r';
+        isInitial = true;
+      } else if (changedInput === finalR) {
+        component = 'r';
+        isInitial = false;
+      } else if (changedInput === initialG) {
+        component = 'g';
+        isInitial = true;
+      } else if (changedInput === finalG) {
+        component = 'g';
+        isInitial = false;
+      } else if (changedInput === initialB) {
+        component = 'b';
+        isInitial = true;
+      } else if (changedInput === finalB) {
+        component = 'b';
+        isInitial = false;
+      }
+      
+      // If the component is linked, sync the values
+      if (component && lockState[component]) {
+        if (isInitial) {
+          // If initial was changed, update final
+          if (component === 'r') finalR.value = initialR.value;
+          else if (component === 'g') finalG.value = initialG.value;
+          else if (component === 'b') finalB.value = initialB.value;
+        } else {
+          // If final was changed, update initial
+          if (component === 'r') initialR.value = finalR.value;
+          else if (component === 'g') initialG.value = finalG.value;
+          else if (component === 'b') initialB.value = finalB.value;
+        }
+        
+        // Update color previews immediately
+        updateColorPreview(initialPreview, initialHexText, initialR.value, initialG.value, initialB.value);
+        updateColorPreview(finalPreview, finalHexText, finalR.value, finalG.value, finalB.value);
+        updateGradientPreview();
+      }
+    }
+
+    function syncLockedValues() {
+      // This function is now called when toggling links, not on input changes
+      // Sync values from initial to final for linked components
+      if (lockState.r) {
+        finalR.value = initialR.value;
+      }
+      if (lockState.g) {
+        finalG.value = initialG.value;
+      }
+      if (lockState.b) {
+        finalB.value = initialB.value;
+      }
+      
+      // Update all previews
+      updateColorPreview(initialPreview, initialHexText, initialR.value, initialG.value, initialB.value);
+      updateColorPreview(finalPreview, finalHexText, finalR.value, finalG.value, finalB.value);
+      updateGradientPreview();
+      calculateHexCount();
+      saveInputValues();
+    }
+
+    // Function to save exported files automatically
+    async function saveExportedFile(fileName, data, format) {
+      try {
+        console.log(`💾 Saving ${fileName} to cb-png directory...`);
+        
+        // Determine MIME type based on format
+        let mimeType = 'image/png';
+        if (fileName.toLowerCase().endsWith('.svg')) {
+          mimeType = 'image/svg+xml';
+        }
+        
+        // Create a blob from the exported data
+        const blob = new Blob([data], { type: mimeType });
+        
+        // Create download link
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = fileName;
+        
+        // Trigger download
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        // Clean up
+        URL.revokeObjectURL(url);
+        
+        const folderName = fileName.toLowerCase().endsWith('.svg') ? 'cb-svg' : 'cb-png';
+        showToast(`✅ Saved ${fileName} to Downloads (move to ${folderName} folder)`);
+        console.log(`✅ ${fileName} download initiated`);
+        
+      } catch (error) {
+        console.error(`❌ Save failed for ${fileName}:`, error);
+        showToast(`❌ Failed to save ${fileName}`);
+      }
+    }
+
+    // Function to check browser support
+    function checkBrowserSupport() {
+      // Check WebGL support
+      try {
+        const testCanvas = document.createElement('canvas');
+        testCanvas.width = 1;
+        testCanvas.height = 1;
+        
+        // Try WebGL 2 first
+        let testGL = testCanvas.getContext('webgl2', {
+          alpha: false,
+          antialias: false,
+          depth: false,
+          stencil: false,
+          preserveDrawingBuffer: false,
+          powerPreference: 'high-performance'
+        });
+        
+        // Fall back to WebGL 1
+        if (!testGL) {
+          testGL = testCanvas.getContext('webgl', {
+            alpha: false,
+            antialias: false,
+            depth: false,
+            stencil: false,
+            preserveDrawingBuffer: false,
+            powerPreference: 'high-performance'
+          });
+        }
+        
+        // Fall back to experimental WebGL
+        if (!testGL) {
+          testGL = testCanvas.getContext('experimental-webgl', {
+            alpha: false,
+            antialias: false,
+            depth: false,
+            stencil: false,
+            preserveDrawingBuffer: false,
+            powerPreference: 'high-performance'
+          });
+        }
+        
+        benchmarkData.webgl.available = !!testGL;
+        
+        if (testGL) {
+          console.log('✅ WebGL support detected');
+          // Check for specific WebGL extensions we might need
+          const extensions = testGL.getSupportedExtensions();
+          console.log('📊 WebGL extensions:', extensions);
+        } else {
+          console.warn('❌ WebGL not available - will use CPU fallback');
+        }
+        
+      } catch (e) {
+        console.error('❌ WebGL context creation failed:', e);
+        benchmarkData.webgl.available = false;
+      }
+      
+      // Send support information back to the plugin
+      parent.postMessage({
+        pluginMessage: {
+          type: 'browser-support',
+          webglSupport: benchmarkData.webgl.available
+        }
+      }, '*');
+    }
+
+    // Generate All-RGB image using WebGL
+    function generateAllRGBWithWebGL(width, height, startTime) {
+      try {
+        console.log(`Generating All-RGB image with dimensions ${width}x${height}`);
+        
+        // Create the WebGL worker if it doesn't exist
+        if (!webglWorker) {
+          webglWorker = new Worker('worker.js');
+        }
+        
+        // Set up message handler for worker responses
+        webglWorker.onmessage = (event) => {
+          const data = event.data;
+          
+          if (data.type === 'pixels') {
+            console.log(`Received ${data.width}x${data.height} pixels from worker`);
+            console.log(`Render method: ${data.renderMethod}`);
+            console.log(`Render time: ${data.renderTime.toFixed(2)}ms`);
+            console.log(`Pixels per second: ${(data.pixelsPerSecond / 1000000).toFixed(2)}M`);
+            
+            // Store benchmark data
+            const method = data.renderMethod.startsWith('webgl') ? 'webgl' : 'cpu';
+            benchmarkData[method].renderTime = data.renderTime;
+            benchmarkData[method].pixelsPerSecond = data.pixelsPerSecond;
+            
+            // Pass the pixel data back to the plugin
+            parent.postMessage({
+              pluginMessage: {
+                type: 'webgl-pixels',
+                width: data.width,
+                height: data.height,
+                pixels: data.pixels,
+                renderTime: data.renderTime,
+                pixelsPerSecond: data.pixelsPerSecond,
+                renderMethod: data.renderMethod
+              }
+            }, '*');
+          } else if (data.type === 'error') {
+            console.error('Worker error:', data.message);
+            
+            if (data.requiresFallback) {
+              console.warn('WebGL failed, falling back to CPU rendering');
+              fallbackToCPU(width, height, startTime);
+            } else {
+              // Report error to plugin
+              parent.postMessage({
+                pluginMessage: {
+                  type: 'webgl-error',
+                  error: data.message
+                }
+              }, '*');
+            }
+          }
+        };
+        
+        // Start the WebGL rendering
+        webglWorker.postMessage({
+          width,
+          height,
+          startTime: startTime || performance.now()
+        });
+        
+      } catch (error) {
+        console.error('WebGL generation error:', error);
+        
+        // Fall back to CPU rendering
+        fallbackToCPU(width, height, startTime);
+      }
+    }
+
+    // CPU fallback for browsers without WebGL support
+    function fallbackToCPU(width, height, startTime) {
+      console.log('Falling back to CPU rendering');
+      
+      // Create the worker if it doesn't exist
+      if (!webglWorker) {
+        webglWorker = new Worker('worker.js');
+      }
+      
+      // Request CPU rendering
+      webglWorker.postMessage({
+        type: 'cpu-fallback',
+        width,
+        height,
+        startTime: startTime || performance.now()
+      });
+    }
+
+
+
+    // Generate RGB buckets in parallel using WebGL
+    function generateRGBBuckets(bucketSize, totalBuckets, startTime) {
+      try {
+        console.log(`Generating ${totalBuckets} RGB buckets of size ${bucketSize}x${bucketSize}`);
+        
+        // Create the WebGL worker if it doesn't exist
+        if (!webglWorker) {
+          webglWorker = new Worker('worker.js');
+        }
+        
+        // Calculate total buckets needed to cover all colors
+        const totalColors = 256 * 256 * 256;
+        const colorsPerBucket = bucketSize * bucketSize;
+        const bucketsNeeded = Math.ceil(totalColors / colorsPerBucket);
+        
+        console.log(`Need ${bucketsNeeded} buckets to cover all ${totalColors} colors`);
+        
+        // Send bucket info back to plugin
+        parent.postMessage({
+          pluginMessage: {
+            type: 'bucket-info',
+            bucketsNeeded,
+            colorsPerBucket,
+            totalColors
+          }
+        }, '*');
+        
+        // Generate the first bucket
+        webglWorker.postMessage({
+          width: bucketSize,
+          height: bucketSize,
+          baseIndex: 0,
+          bucketMode: true,
+          bucketIndex: 0,
+          totalBuckets: bucketsNeeded,
+          startTime: startTime || performance.now()
+        });
+        
+      } catch (error) {
+        console.error('RGB buckets generation error:', error);
+        parent.postMessage({
+          pluginMessage: {
+            type: 'bucket-error',
+            error: error.message
+          }
+        }, '*');
+      }
+    }
+
+    // Function to calculate hexcodes and send result back to plugin
+    function calculateHexcodes(initialHex, finalHex) {
+      try {
+        // Strip '#' if present
+        initialHex = initialHex.replace(/^#/, '');
+        finalHex = finalHex.replace(/^#/, '');
+        
+        // Convert to integers
+        const initialInt = parseInt(initialHex, 16);
+        const finalInt = parseInt(finalHex, 16);
+        
+        // Calculate count
+        const count = Math.abs(finalInt - initialInt) + 1;
+        
+        // Send result back to plugin
+        parent.postMessage({
+          pluginMessage: {
+            type: 'hexcode-count',
+            count,
+            initialHex,
+            finalHex
+          }
+        }, '*');
+        
+      } catch (error) {
+        console.error('Error calculating hexcodes:', error);
+        parent.postMessage({
+          pluginMessage: {
+            type: 'hexcode-error',
+            error: error.message
+          }
+        }, '*');
+      }
+    }
+
+    // Function to encode raw pixel data to PNG format
+    async function encodeToPNG(width, height, pixelsBuffer) {
+      try {
+        console.log(`🔄 Encoding ${width}×${height} image to PNG...`);
+        
+        // Create a temporary canvas for PNG encoding
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        
+        // Create a new ImageData object (simplifies handling different buffer types)
+        const imageData = ctx.createImageData(width, height);
+        
+        try {
+          // Handle different possible pixel data formats
+          let sourcePixels;
+          
+          // 1. Handle if we received an ArrayBuffer
+          if (pixelsBuffer instanceof ArrayBuffer) {
+            sourcePixels = new Uint8Array(pixelsBuffer);
+            console.log('📊 Processing ArrayBuffer directly');
+          }
+          // 2. Handle TypedArray (Uint8Array/Uint8ClampedArray)
+          else if (pixelsBuffer.buffer instanceof ArrayBuffer) {
+            sourcePixels = new Uint8Array(pixelsBuffer.buffer);
+            console.log('📊 Processing TypedArray view');
+          }
+          // 3. Handle if we received a plain object that needs conversion
+          else if (typeof pixelsBuffer === 'object' && pixelsBuffer !== null) {
+            // Handle the case where we might have received a serialized array-like object
+            // Convert it to an array first then to Uint8Array
+            const tempArray = Array.from({length: width * height * 4}, (_, i) => 
+              pixelsBuffer[i] !== undefined ? Number(pixelsBuffer[i]) : 0);
+            sourcePixels = new Uint8Array(tempArray);
+            console.log('📊 Reconstructed pixels from serialized object');
+          }
+          // 4. Fallback case
+          else {
+            console.error('❌ Unrecognized pixel data format', typeof pixelsBuffer);
+            throw new Error('Unrecognized pixel data format');
+          }
+          
+          console.log(`📊 Source pixels: ${sourcePixels.length} bytes`);
+          
+          // Copy pixels to imageData (in a safe way ensuring we don't exceed bounds)
+          const maxLength = Math.min(sourcePixels.length, imageData.data.length);
+          for (let i = 0; i < maxLength; i++) {
+            imageData.data[i] = sourcePixels[i];
+        }
+        
+        // Put the image data on the canvas
+        ctx.putImageData(imageData, 0, 0);
+        
+        // Convert canvas to PNG blob
+        const blob = await new Promise((resolve, reject) => {
+          canvas.toBlob((blob) => {
+            if (blob) {
+              resolve(blob);
+            } else {
+              reject(new Error('Failed to create PNG blob'));
+            }
+          }, 'image/png');
+        });
+        
+        // Convert blob to ArrayBuffer
+        const arrayBuffer = await blob.arrayBuffer();
+        
+        console.log(`✅ PNG encoding complete: ${arrayBuffer.byteLength} bytes`);
+        
+          // Convert blob to ArrayBuffer and send as cloned data
+          const clonedBuffer = structuredClone(arrayBuffer);
+          
+        parent.postMessage({
+          pluginMessage: {
+            type: 'png-encoded',
+              data: clonedBuffer
+          }
+        }, '*');
+          
+        } catch (innerError) {
+          console.error('❌ Pixel data processing error:', innerError);
+          throw new Error(`Pixel processing failed: ${innerError.message}`);
+        }
+        
+      } catch (error) {
+        console.error('❌ PNG encoding error:', error);
+        
+        // Send error back to plugin
+        parent.postMessage({
+          pluginMessage: {
+            type: 'encoding-error',
+            error: error.message
+          }
+        }, '*');
+      }
+    }
+
+    // Function to properly clean up resources when done
+    function cleanupResources() {
+      if (webglWorker) {
+        try {
+          webglWorker.terminate();
+          console.log('✅ WebGL worker terminated');
+        } catch (err) {
+          console.error('Error terminating worker:', err);
+        }
+        webglWorker = null;
+      }
+      
+      if (workerURL) {
+        try {
+          URL.revokeObjectURL(workerURL);
+          console.log('✅ Worker URL revoked');
+        } catch (err) {
+          console.error('Error revoking URL:', err);
+        }
+        workerURL = null;
+      }
+    }
+
+    // Listen for close message to clean up
+    window.addEventListener('beforeunload', cleanupResources);
+
+    // Add function to handle plugin closing
+    function closePlugin() {
+      cleanupResources();
+      parent.postMessage({
+        pluginMessage: {
+          type: 'close'
+        }
+      }, '*');
+    }
+
+    // Hexcode Range Variables
+
+
+    // Function to validate hexcode input format
+    function validateHexInput(hex) {
+      // Remove # if present
+      const cleanHex = hex.replace('#', '');
+      
+      // Check if it's exactly 6 characters and all valid hex
+      const hexPattern = /^[0-9A-Fa-f]{6}$/;
+      return hexPattern.test(cleanHex);
+    }
+
+
+
+
+
+    // Initialize the plugin
+    function initializePlugin() {
+      console.log('🚀 Initializing RuGBy plugin...');
+      
+      // Get DOM elements
+      initialR = document.getElementById('initial-r');
+      initialG = document.getElementById('initial-g');
+      initialB = document.getElementById('initial-b');
+      finalR = document.getElementById('final-r');
+      finalG = document.getElementById('final-g');
+      finalB = document.getElementById('final-b');
+      
+      // Get lock buttons
+      lockButtons.r = document.getElementById('lock-r');
+      lockButtons.g = document.getElementById('lock-g');
+      lockButtons.b = document.getElementById('lock-b');
+      
+      initialPreview = document.getElementById('initial-preview');
+      finalPreview = document.getElementById('final-preview');
+      initialHexText = document.getElementById('initial-hex-text');
+      finalHexText = document.getElementById('final-hex-text');
+      
+      gradientPreview = document.getElementById('gradient-preview');
+      hexCount = document.getElementById('hex-count');
+      warningText = document.getElementById('warning-text');
+      generateBtn = document.getElementById('generate-btn');
+      toast = document.getElementById('toast');
+
+
+
+      // Get export format radios
+      exportFormatRadios = document.querySelectorAll('input[name="exportFormat"]');
+
+      // Check if all elements exist
+      const elements = [initialR, initialG, initialB, finalR, finalG, finalB,
+                       lockButtons.r, lockButtons.g, lockButtons.b,
+                       initialPreview, finalPreview, initialHexText, finalHexText, 
+                       gradientPreview, hexCount, warningText, generateBtn, toast];
+      
+      const missingElements = elements.filter(el => !el);
+      if (missingElements.length > 0) {
+        console.error('❌ Missing DOM elements:', missingElements.length);
+        return;
+      }
+      
+      console.log('✅ All DOM elements found');
+
+      // Initialize lock button states
+      Object.keys(lockState).forEach(component => {
+        updateLockButton(component);
+      });
+
+      // Load saved values
+      loadInputValues();
+        
+      // Set the saved export format
+      const savedFormatRadio = document.querySelector(`input[name="exportFormat"][value="${exportFormat}"]`);
+      if (savedFormatRadio) {
+        savedFormatRadio.checked = true;
+      }
+      
+      // Initialize WebGL worker for GPU-accelerated rendering
+      try {
+        initWebGLWorker();
+        console.log('✅ WebGL worker initialized');
+      } catch (error) {
+        console.warn('⚠️ WebGL initialization failed:', error.message);
+        // Continue without WebGL - CPU rendering will still work
+      }
+
+      // Set up event listeners
+      setupEventListeners();
+
+      // Initial validation and update
+      validateAndUpdate();
+
+      console.log('🎉 Plugin initialized successfully');
+    }
+
+    // Initialize when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initializePlugin);
+    } else {
+      initializePlugin();
+    }
+
+    // Debug the generateColors function
+    console.log('🔍 CHECKING GENERATE FUNCTION:', typeof generateColors);
+
+    // Make sure the button is connected to our function
+    document.addEventListener('DOMContentLoaded', function() {
+      // Get the generate button
+      const genButton = document.getElementById('generate-btn');
+      if (genButton) {
+        // Clear any existing listeners
+        genButton.removeEventListener('click', generateColors);
+        // Add our optimized function
+        genButton.addEventListener('click', function() {
+          console.log('🚀 GENERATE BUTTON CLICKED - Using direct color generation');
+          generateColors();
+        });
+        console.log('✅ Generate button connected to optimized function');
+      } else {
+        console.error('❌ Generate button not found');
+      }
+    });
+  </script>
+</body>
+</html> 
