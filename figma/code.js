@@ -112,12 +112,16 @@ const colorGenerator = {
       const g = (colorValue >> 8) & 0xFF;
       const b = colorValue & 0xFF;
       
+      // Generate hexcode for this color
+      const hexcode = colorUtils.intToHex(colorValue);
+      
       // Calculate grid position
       const col = colorIndex % cols;
       const row = Math.floor(colorIndex / cols);
       
       // Create and configure rectangle
       const rect = figma.createRectangle();
+      rect.name = hexcode; // Name rectangle with its hexcode
       rect.resize(pixelSize, pixelSize);
       rect.x = col * pixelSize;
       rect.y = row * pixelSize;
