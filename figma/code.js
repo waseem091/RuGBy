@@ -7,7 +7,7 @@
 let lastFramePosition = null;
 
 // Show the UI
-figma.showUI(__html__, { width: 640, height: 460 });
+figma.showUI(__html__, { width: 480, height: 360 });
 
 // Listen for messages from the UI
 figma.ui.onmessage = async (message) => {

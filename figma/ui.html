@@ -5,8 +5,43 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RuGBy</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter+Display:wght@500;600;700&display=swap');
-    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+    :root {
+      --primary-50: #f0f4ff;
+      --primary-100: #e0ecff;
+      --primary-200: #c7d2fe;
+      --primary-300: #a5b4fc;
+      --primary-400: #818cf8;
+      --primary-500: #6366f1;
+      --primary-600: #4f46e5;
+      --primary-700: #4338ca;
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb;
+      --gray-300: #d1d5db;
+      --gray-400: #9ca3af;
+      --gray-500: #6b7280;
+      --gray-600: #4b5563;
+      --gray-700: #374151;
+      --gray-800: #1f2937;
+      --gray-900: #111827;
+      --success-500: #10b981;
+      --error-50: #fef2f2;
+      --error-200: #fecaca;
+      --error-500: #ef4444;
+      --warning-500: #f59e0b;
+      --surface: #ffffff;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      --radius-sm: 6px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --radius-xl: 16px;
+    }
 
     * {
       box-sizing: border-box;
@@ -15,60 +50,85 @@
     }
 
     body {
-      font-family: 'Inter Display', sans-serif;
-      background-color: #fff;
-      color: #000;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, var(--gray-50) 0%, var(--primary-50) 100%);
+      color: var(--gray-900);
       font-size: 14px;
-      line-height: 1.4;
+      line-height: 1.5;
       overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
     .plugin-container {
-      width: 640px;
-      height: 460px;
+      width: 480px;
+      height: 360px;
       position: relative;
-      background-color: #fff;
-      border-radius: 12px;
+      background: var(--surface);
+      border-radius: var(--radius-xl);
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      padding: 20px;
-      gap: 20px;
+      padding: 16px;
+      gap: 16px;
+      box-shadow: var(--shadow-xl);
+      border: 1px solid var(--gray-200);
     }
 
     .header-section {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      gap: 20px;
+      align-items: stretch;
+      gap: 12px;
+      height: 140px;
     }
 
     .section-title {
-      font-size: 12px;
-      font-weight: 700;
+      font-size: 9px;
+      font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: #000;
-      margin-bottom: 12px;
+      letter-spacing: 0.8px;
+      color: var(--gray-500);
+      margin-bottom: 8px;
       text-align: center;
     }
 
     .hexcode-section {
-      flex: 1;
+      width: 120px;
       display: flex;
       flex-direction: column;
+      background: var(--gray-50);
+      border-radius: var(--radius-lg);
+      padding: 12px;
+      border: 1px solid var(--gray-200);
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .hexcode-section:hover {
+      border-color: var(--primary-200);
+      box-shadow: var(--shadow-md);
     }
 
     .gradient-section {
-      flex: 1.5;
+      flex: 1;
       display: flex;
       flex-direction: column;
+      background: var(--gray-50);
+      border-radius: var(--radius-lg);
+      padding: 12px;
+      border: 1px solid var(--gray-200);
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .gradient-section:hover {
+      border-color: var(--primary-200);
+      box-shadow: var(--shadow-md);
     }
 
     .rgb-inputs {
       display: flex;
-      gap: 8px;
-      margin-bottom: 12px;
+      gap: 4px;
+      margin-bottom: 8px;
     }
 
     .rgb-input-group {
@@ -79,37 +139,54 @@
     }
 
     .rgb-label {
-      font-size: 10px;
-      font-weight: 700;
+      font-size: 8px;
+      font-weight: 600;
       margin-bottom: 4px;
-      color: #000;
+      color: var(--gray-600);
+      letter-spacing: 0.5px;
     }
 
     .rgb-input {
       width: 100%;
-      height: 40px;
-      border: 2px solid #000;
-      border-radius: 8px;
+      height: 28px;
+      border: 1.5px solid var(--gray-300);
+      border-radius: var(--radius-sm);
       text-align: center;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 16px;
+      font-size: 11px;
       font-weight: 600;
-      background-color: #eee;
-      color: #000;
+      background: var(--surface);
+      color: var(--gray-900);
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .rgb-input:hover {
+      border-color: var(--primary-400);
+      box-shadow: var(--shadow-md);
     }
 
     .rgb-input:focus {
       outline: none;
-      background-color: #fff;
-      border-color: #000;
+      border-color: var(--primary-500);
+      box-shadow: 0 0 0 3px var(--primary-100);
+      background: var(--surface);
     }
 
     .color-preview {
       flex: 1;
-      border: 3px solid #000;
-      border-radius: 12px;
+      border: 2px solid var(--gray-200);
+      border-radius: var(--radius-md);
       position: relative;
-      min-height: 120px;
+      min-height: 60px;
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .color-preview:hover {
+      border-color: var(--primary-300);
+      box-shadow: var(--shadow-md);
     }
 
     .color-hex-display {
@@ -117,75 +194,126 @@
       bottom: 0;
       left: 0;
       right: 0;
-      background: rgba(0, 0, 0, 0.4);
-      color: #fff;
-      padding: 8px;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.4));
+      color: var(--surface);
+      padding: 4px;
       text-align: center;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
-      font-weight: 500;
-      border-radius: 0 0 8px 8px;
+      font-size: 9px;
+      font-weight: 600;
+      backdrop-filter: blur(4px);
+      border-radius: 0 0 var(--radius-md) var(--radius-md);
     }
 
     .gradient-preview {
       flex: 1;
-      border: 3px solid #000;
-      border-radius: 12px;
+      border: 2px solid var(--gray-200);
+      border-radius: var(--radius-md);
       background: linear-gradient(180deg, #000, #fff);
-      min-height: 120px;
+      min-height: 80px;
       position: relative;
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .gradient-preview:hover {
+      border-color: var(--primary-300);
+      box-shadow: var(--shadow-md);
     }
 
     .controls-section {
       display: flex;
-      gap: 20px;
-      align-items: flex-start;
+      gap: 12px;
+      align-items: stretch;
+      height: 160px;
     }
 
     .link-values-section {
-      flex: 1;
+      width: 120px;
       display: flex;
       flex-direction: column;
+      background: var(--gray-50);
+      border-radius: var(--radius-lg);
+      padding: 12px;
+      border: 1px solid var(--gray-200);
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .link-values-section:hover {
+      border-color: var(--primary-200);
+      box-shadow: var(--shadow-md);
     }
 
     .link-buttons {
       display: flex;
-      gap: 8px;
+      gap: 4px;
       justify-content: center;
     }
 
     .link-btn {
-      width: 60px;
+      width: 32px;
       height: 80px;
-      border: 2px solid #000;
-      border-radius: 8px;
-      background: #fff;
+      border: 1.5px solid var(--gray-300);
+      border-radius: var(--radius-md);
+      background: var(--surface);
       cursor: pointer;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      transition: all 0.2s ease;
+      gap: 6px;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .link-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, transparent 0%, var(--primary-50) 100%);
+      opacity: 0;
+      transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .link-btn:hover {
-      background: #f0f0f0;
+      border-color: var(--primary-400);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-1px);
+    }
+
+    .link-btn:hover::before {
+      opacity: 1;
     }
 
     .link-btn.linked {
-      background: #e6f3ff;
-      border-color: #0066cc;
-      color: #0066cc;
+      background: linear-gradient(135deg, var(--primary-50) 0%, var(--primary-100) 100%);
+      border-color: var(--primary-500);
+      color: var(--primary-700);
+      box-shadow: var(--shadow-md);
+    }
+
+    .link-btn.linked::before {
+      opacity: 0;
     }
 
     .link-icon {
-      font-size: 20px;
+      font-size: 14px;
+      position: relative;
+      z-index: 1;
     }
 
     .link-label {
-      font-size: 12px;
+      font-size: 10px;
       font-weight: 700;
+      position: relative;
+      z-index: 1;
+      letter-spacing: 0.5px;
     }
 
     .count-section {
@@ -193,133 +321,242 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      background: var(--gray-50);
+      border-radius: var(--radius-lg);
+      padding: 12px;
+      border: 1px solid var(--gray-200);
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .count-section:hover {
+      border-color: var(--primary-200);
+      box-shadow: var(--shadow-md);
     }
 
     .count-display {
       width: 100%;
-      height: 80px;
-      border: 2px solid #000;
-      border-radius: 8px;
-      background: #fff;
+      height: 60px;
+      border: 1.5px solid var(--gray-300);
+      border-radius: var(--radius-md);
+      background: linear-gradient(135deg, var(--surface) 0%, var(--gray-50) 100%);
       display: flex;
       align-items: center;
       justify-content: center;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 18px;
+      font-size: 12px;
       font-weight: 700;
       margin-bottom: 8px;
+      box-shadow: var(--shadow-sm);
+      color: var(--gray-900);
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .count-display:hover {
+      border-color: var(--primary-400);
+      box-shadow: var(--shadow-md);
     }
 
     .count-warning {
-      font-size: 10px;
-      color: #ff0000;
-      font-weight: 500;
+      font-size: 8px;
+      color: var(--error-500);
+      font-weight: 600;
       text-align: center;
-      font-style: italic;
+      font-style: normal;
+      padding: 2px 4px;
+      border-radius: var(--radius-sm);
+      background: var(--error-50);
+      border: 1px solid var(--error-200);
     }
 
     .generate-section {
-      flex: 1;
+      width: 120px;
       display: flex;
       flex-direction: column;
       align-items: center;
+      background: var(--gray-50);
+      border-radius: var(--radius-lg);
+      padding: 12px;
+      border: 1px solid var(--gray-200);
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .generate-section:hover {
+      border-color: var(--primary-200);
+      box-shadow: var(--shadow-md);
     }
 
     .generate-btn {
       width: 100%;
-      height: 50px;
+      height: 40px;
       border: none;
-      border-radius: 8px;
-      background: linear-gradient(125deg, #5e72e4 0%, #825ee4 100%);
-      color: #fff;
-      font-family: 'Inter Display', sans-serif;
-      font-size: 14px;
+      border-radius: var(--radius-md);
+      background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-700) 100%);
+      color: var(--surface);
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 1px;
       cursor: pointer;
-      transition: all 0.2s ease;
-      margin-bottom: 12px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      margin-bottom: 8px;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .generate-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s ease;
     }
 
     .generate-btn:hover {
-      background: linear-gradient(125deg, #5265d8 0%, #734fd0 100%);
-      transform: translateY(-1px);
+      background: linear-gradient(135deg, var(--primary-500) 0%, var(--primary-600) 100%);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-xl);
+    }
+
+    .generate-btn:hover::before {
+      left: 100%;
     }
 
     .generate-btn:active {
-      transform: translateY(0);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-lg);
     }
 
     .generate-btn:disabled {
       opacity: 0.6;
       cursor: not-allowed;
       transform: none;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .generate-btn:disabled:hover {
+      transform: none;
+      box-shadow: var(--shadow-sm);
     }
 
     .progress-container {
       width: 100%;
-      margin-bottom: 12px;
+      margin-bottom: 8px;
       display: none;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .progress-container.show {
       display: block;
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .progress-bar {
       width: 100%;
       height: 6px;
-      background: #e9ecef;
-      border-radius: 3px;
+      background: var(--gray-200);
+      border-radius: var(--radius-sm);
       overflow: hidden;
-      margin-bottom: 8px;
+      margin-bottom: 4px;
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
     }
 
     .progress-fill {
       height: 100%;
-      background: linear-gradient(125deg, #5e72e4 0%, #825ee4 100%);
-      border-radius: 3px;
+      background: linear-gradient(90deg, var(--primary-500) 0%, var(--primary-600) 50%, var(--primary-700) 100%);
+      border-radius: var(--radius-sm);
       width: 0%;
-      transition: width 0.3s ease;
+      transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .progress-fill::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      animation: shimmer 2s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
     }
 
     .progress-text {
-      font-size: 11px;
-      font-weight: 500;
-      color: #666;
+      font-size: 8px;
+      font-weight: 600;
+      color: var(--gray-600);
       text-align: center;
       font-family: 'JetBrains Mono', monospace;
     }
 
     .export-options {
       display: flex;
-      gap: 12px;
+      gap: 8px;
       align-items: center;
+      background: var(--gray-100);
+      padding: 6px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--gray-200);
     }
 
     .export-label {
-      font-size: 10px;
-      font-weight: 500;
+      font-size: 8px;
+      font-weight: 600;
       margin-bottom: 4px;
+      color: var(--gray-600);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      text-align: center;
     }
 
     .export-option {
       display: flex;
       align-items: center;
       gap: 4px;
-      font-size: 11px;
-      font-weight: 500;
+      font-size: 9px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      color: var(--gray-700);
+    }
+
+    .export-option:hover {
+      color: var(--primary-600);
     }
 
     .export-radio {
-      width: 16px;
-      height: 16px;
+      width: 12px;
+      height: 12px;
       border-radius: 50%;
-      border: 2px solid #000;
-      background: #fff;
+      border: 1.5px solid var(--gray-400);
+      background: var(--surface);
       position: relative;
       cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .export-radio:hover {
+      border-color: var(--primary-500);
+      box-shadow: var(--shadow-md);
+    }
+
+    .export-radio.selected {
+      border-color: var(--primary-500);
+      background: var(--primary-50);
     }
 
     .export-radio.selected::after {
@@ -327,10 +564,11 @@
       position: absolute;
       top: 2px;
       left: 2px;
-      width: 8px;
-      height: 8px;
+      width: 4px;
+      height: 4px;
       border-radius: 50%;
-      background: #000;
+      background: var(--primary-600);
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .toast {
@@ -356,22 +594,34 @@
     .loading {
       position: relative;
       overflow: hidden;
+      background: var(--gray-400) !important;
+      color: transparent !important;
+      cursor: not-allowed !important;
+      transform: none !important;
+      box-shadow: var(--shadow-sm) !important;
+    }
+
+    .loading::before {
+      display: none !important;
     }
 
     .loading::after {
       content: '';
       position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-      animation: loading 1.5s infinite;
+      top: 50%;
+      left: 50%;
+      width: 20px;
+      height: 20px;
+      margin: -10px 0 0 -10px;
+      border: 2px solid var(--gray-300);
+      border-top: 2px solid var(--surface);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
     }
 
-    @keyframes loading {
-      0% { left: -100%; }
-      100% { left: 100%; }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
   </style>
 </head>
@@ -434,29 +684,29 @@
     <div class="controls-section">
       <!-- Link Values -->
       <div class="link-values-section">
-        <div class="section-title">Link Values</div>
+          <div class="section-title">Link Values</div>
         <div class="link-buttons">
           <button class="link-btn" id="link-r" data-component="r">
             <div class="link-icon">🔗</div>
             <div class="link-label">R</div>
-          </button>
+            </button>
           <button class="link-btn" id="link-g" data-component="g">
             <div class="link-icon">🔗</div>
             <div class="link-label">G</div>
-          </button>
+            </button>
           <button class="link-btn" id="link-b" data-component="b">
             <div class="link-icon">🔗</div>
             <div class="link-label">B</div>
-          </button>
+            </button>
+          </div>
         </div>
-      </div>
 
       <!-- Hexcode Count -->
-      <div class="count-section">
-        <div class="section-title">Hexcode Count</div>
+        <div class="count-section">
+          <div class="section-title">Hexcode Count</div>
         <div class="count-display" id="hex-count">16,777,216</div>
         <div class="count-warning" id="count-warning">That's an allRGB spectrum!</div>
-      </div>
+        </div>
 
       <!-- Generate -->
       <div class="generate-section">
@@ -472,11 +722,11 @@
           <label class="export-option">
             <div class="export-radio selected" data-format="png"></div>
             <span>PNG</span>
-          </label>
+              </label>
           <label class="export-option">
             <div class="export-radio" data-format="svg"></div>
             <span>SVG</span>
-          </label>
+              </label>
         </div>
       </div>
     </div>
@@ -641,7 +891,7 @@
             elements[`final${component.toUpperCase()}`].value = value;
             state.final[component] = state.initial[component];
             updateColorPreview('final');
-            updateGradientPreview();
+      updateGradientPreview();
             updateHexCount();
           }
         });
@@ -703,7 +953,7 @@
         elements.progressFill.style.width = '100%';
         elements.progressText.textContent = 'Complete!';
         showToast(message || 'Generation completed successfully!');
-      } else {
+            } else {
         elements.progressFill.style.width = '0%';
         elements.progressText.textContent = 'Failed';
         showToast(message || 'Generation failed');
@@ -724,11 +974,11 @@
       updateHexCount();
       
       // Send ready message to plugin
-      parent.postMessage({
-        pluginMessage: {
+        parent.postMessage({
+          pluginMessage: {
           type: 'ui-ready'
-        }
-      }, '*');
+          }
+        }, '*');
     }
 
     // Listen for messages from plugin
