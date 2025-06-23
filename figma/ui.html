@@ -5,7 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RuGBy</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+    /* ========================================================================
+       GLOBAL VARIABLES & BASE STYLES
+       ========================================================================
+       This section contains all CSS custom properties (variables) and global
+       base styles that apply throughout the entire plugin interface. These
+       variables define the design system including colors, shadows, spacing,
+       and typography that ensure consistency across all components.
+    */
+    @import url('https://fonts.googleapis.com/css2?family=Inter+Display:wght@400;500;600;700;800&display=swap');
     @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
     :root {
@@ -41,6 +49,7 @@
       --radius-md: 8px;
       --radius-lg: 12px;
       --radius-xl: 16px;
+      --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     * {
@@ -50,7 +59,7 @@
     }
 
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-family: 'Inter Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       background: linear-gradient(135deg, var(--gray-50) 0%, var(--primary-50) 100%);
       color: var(--gray-900);
       font-size: 14px;
@@ -60,6 +69,72 @@
       -moz-osx-font-smoothing: grayscale;
     }
 
+    /* ========================================================================
+       UTILITY CLASSES - REUSABLE COMPONENTS
+       ========================================================================
+       These utility classes eliminate redundancy by providing common styling
+       patterns used throughout the interface. They handle transitions, hover
+       states, and interactive behaviors for consistent user experience.
+    */
+    .section-base {
+      display: flex;
+      flex-direction: column;
+      background: var(--gray-50);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      border: 1px solid var(--gray-200);
+      transition: var(--transition);
+      overflow: hidden;
+    }
+
+    .section-base:hover {
+      border-color: var(--primary-200);
+      box-shadow: var(--shadow-md);
+    }
+
+    .interactive-input {
+      border: 1.5px solid var(--gray-300);
+      border-radius: var(--radius-md);
+      background: var(--surface);
+      transition: var(--transition);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .interactive-input:hover {
+      border-color: var(--primary-400);
+      box-shadow: var(--shadow-md);
+    }
+
+    .interactive-input:focus {
+      outline: none;
+      border-color: var(--primary-500);
+      box-shadow: 0 0 0 3px var(--primary-100);
+    }
+
+    .preview-box {
+      border: 2px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .preview-box:hover {
+      border-color: var(--primary-300);
+      box-shadow: var(--shadow-md);
+    }
+
+    .mono-font {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* ========================================================================
+       MAIN CONTAINER & LAYOUT
+       ========================================================================
+       This section defines the main plugin container and overall layout structure.
+       It establishes the plugin dimensions, background styling, and creates the
+       foundation flexbox layout that organizes all functional sections.
+    */
     .plugin-container {
       width: 560px;
       height: 420px;
@@ -75,12 +150,19 @@
       border: 1px solid var(--gray-200);
     }
 
-    .header-section {
+    .header-section, .controls-section {
       display: flex;
       justify-content: space-between;
       align-items: stretch;
       gap: 16px;
+    }
+
+    .header-section {
       height: 200px;
+    }
+
+    .controls-section {
+      height: 140px;
     }
 
     .section-title {
@@ -93,38 +175,15 @@
       text-align: center;
     }
 
+    /* ========================================================================
+       INITIAL & FINAL HEXCODE SECTIONS
+       ========================================================================
+       These sections handle the input and display of the starting and ending
+       hexcode values. They include RGB input fields with validation, real-time
+       color previews, and styled containers that provide visual feedback.
+    */
     .hexcode-section {
       width: 140px;
-      display: flex;
-      flex-direction: column;
-      background: var(--gray-50);
-      border-radius: var(--radius-lg);
-      padding: 16px;
-      border: 1px solid var(--gray-200);
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-      overflow: hidden;
-    }
-
-    .hexcode-section:hover {
-      border-color: var(--primary-200);
-      box-shadow: var(--shadow-md);
-    }
-
-    .gradient-section {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      background: var(--gray-50);
-      border-radius: var(--radius-lg);
-      padding: 16px;
-      border: 1px solid var(--gray-200);
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-      overflow: hidden;
-    }
-
-    .gradient-section:hover {
-      border-color: var(--primary-200);
-      box-shadow: var(--shadow-md);
     }
 
     .rgb-inputs {
@@ -151,45 +210,17 @@
     .rgb-input {
       width: 100%;
       height: 32px;
-      border: 1.5px solid var(--gray-300);
-      border-radius: var(--radius-md);
       text-align: center;
-      font-family: 'JetBrains Mono', monospace;
       font-size: 12px;
       font-weight: 600;
-      background: var(--surface);
       color: var(--gray-900);
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: var(--shadow-sm);
-    }
-
-    .rgb-input:hover {
-      border-color: var(--primary-400);
-      box-shadow: var(--shadow-md);
-    }
-
-    .rgb-input:focus {
-      outline: none;
-      border-color: var(--primary-500);
-      box-shadow: 0 0 0 3px var(--primary-100);
-      background: var(--surface);
     }
 
     .color-preview {
       flex: 1;
-      border: 2px solid var(--gray-200);
-      border-radius: var(--radius-lg);
       position: relative;
       height: 80px;
-      box-shadow: var(--shadow-sm);
-      overflow: hidden;
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
       margin-top: 8px;
-    }
-
-    .color-preview:hover {
-      border-color: var(--primary-300);
-      box-shadow: var(--shadow-md);
     }
 
     .color-hex-display {
@@ -201,52 +232,40 @@
       color: var(--surface);
       padding: 10px 8px;
       text-align: center;
-      font-family: 'JetBrains Mono', monospace;
       font-size: 12px;
       font-weight: 600;
       backdrop-filter: blur(4px);
       border-radius: 0 0 var(--radius-lg) var(--radius-lg);
     }
 
+    /* ========================================================================
+       GRADIENT PREVIEW SECTION
+       ========================================================================
+       This section displays a live preview of the color gradient between the
+       initial and final hexcodes. It automatically updates when input values
+       change and provides visual feedback to help users understand the transition.
+    */
+    .gradient-section {
+      flex: 1;
+    }
+
     .gradient-preview {
       flex: 1;
-      border: 2px solid var(--gray-200);
-      border-radius: var(--radius-lg);
-      background: linear-gradient(180deg, #000, #fff);
       height: 100px;
       position: relative;
-      box-shadow: var(--shadow-sm);
-      overflow: hidden;
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
       margin-top: 8px;
+      background: linear-gradient(180deg, #000, #fff);
     }
 
-    .gradient-preview:hover {
-      border-color: var(--primary-300);
-      box-shadow: var(--shadow-md);
-    }
-
-    .controls-section {
-      display: flex;
-      gap: 16px;
-      align-items: stretch;
-      height: 140px;
-    }
-
+    /* ========================================================================
+       LINK VALUES SECTION
+       ========================================================================
+       This section provides RGB component linking functionality that allows users
+       to synchronize corresponding color channels between initial and final values.
+       When linked, changing one value automatically updates its counterpart.
+    */
     .link-values-section {
       width: 140px;
-      display: flex;
-      flex-direction: column;
-      background: var(--gray-50);
-      border-radius: var(--radius-lg);
-      padding: 16px;
-      border: 1px solid var(--gray-200);
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .link-values-section:hover {
-      border-color: var(--primary-200);
-      box-shadow: var(--shadow-md);
     }
 
     .link-buttons {
@@ -258,8 +277,6 @@
     .link-btn {
       width: 36px;
       height: 70px;
-      border: 1.5px solid var(--gray-300);
-      border-radius: var(--radius-lg);
       background: var(--surface);
       cursor: pointer;
       display: flex;
@@ -267,8 +284,6 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: var(--shadow-sm);
       position: relative;
       overflow: hidden;
     }
@@ -286,8 +301,6 @@
     }
 
     .link-btn:hover {
-      border-color: var(--primary-400);
-      box-shadow: var(--shadow-md);
       transform: translateY(-1px);
     }
 
@@ -299,7 +312,6 @@
       background: linear-gradient(135deg, var(--primary-50) 0%, var(--primary-100) 100%);
       border-color: var(--primary-500);
       color: var(--primary-700);
-      box-shadow: var(--shadow-md);
     }
 
     .link-btn.linked::before {
@@ -315,50 +327,35 @@
     .link-label {
       font-size: 11px;
       font-weight: 700;
-      font-family: 'Inter', sans-serif;
       position: relative;
       z-index: 1;
       letter-spacing: 0.5px;
+      font-family: 'Inter Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     }
 
+    /* ========================================================================
+       HEXCODE COUNT SECTION
+       ========================================================================
+       This section calculates and displays the total number of hexcodes that will
+       be generated between the initial and final colors. It includes validation
+       warnings and provides feedback about spectrum completeness and limitations.
+    */
     .count-section {
       flex: 1;
-      display: flex;
-      flex-direction: column;
       align-items: center;
-      background: var(--gray-50);
-      border-radius: var(--radius-lg);
-      padding: 16px;
-      border: 1px solid var(--gray-200);
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .count-section:hover {
-      border-color: var(--primary-200);
-      box-shadow: var(--shadow-md);
     }
 
     .count-display {
       width: 100%;
       height: 60px;
-      border: 1.5px solid var(--gray-300);
-      border-radius: var(--radius-lg);
-      background: linear-gradient(135deg, var(--surface) 0%, var(--gray-50) 100%);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: 'JetBrains Mono', monospace;
+      background: linear-gradient(135deg, var(--surface) 0%, var(--gray-50) 100%);
       font-size: 14px;
       font-weight: 700;
       margin-bottom: 8px;
-      box-shadow: var(--shadow-sm);
       color: var(--gray-900);
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .count-display:hover {
-      border-color: var(--primary-400);
-      box-shadow: var(--shadow-md);
     }
 
     .count-warning {
@@ -366,28 +363,22 @@
       color: var(--error-500);
       font-weight: 600;
       text-align: center;
-      font-style: normal;
       padding: 4px 6px;
       border-radius: var(--radius-sm);
       background: var(--error-50);
       border: 1px solid var(--error-200);
     }
 
+    /* ========================================================================
+       GENERATE SECTION & AUTO-EXPORT
+       ========================================================================
+       This section contains the main generation controls including the generate
+       button, progress tracking, and auto-export format selection (PNG/SVG).
+       It manages the generation process and provides user feedback during execution.
+    */
     .generate-section {
       width: 140px;
-      display: flex;
-      flex-direction: column;
       align-items: center;
-      background: var(--gray-50);
-      border-radius: var(--radius-lg);
-      padding: 16px;
-      border: 1px solid var(--gray-200);
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .generate-section:hover {
-      border-color: var(--primary-200);
-      box-shadow: var(--shadow-md);
     }
 
     .generate-btn {
@@ -397,7 +388,6 @@
       border-radius: var(--radius-lg);
       background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-700) 100%);
       color: var(--surface);
-      font-family: 'Inter', sans-serif;
       font-size: 12px;
       font-weight: 700;
       text-transform: uppercase;
@@ -408,6 +398,7 @@
       box-shadow: var(--shadow-lg);
       position: relative;
       overflow: hidden;
+      font-family: 'Inter Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     }
 
     .generate-btn::before {
@@ -433,17 +424,11 @@
 
     .generate-btn:active {
       transform: translateY(-1px);
-      box-shadow: var(--shadow-lg);
     }
 
     .generate-btn:disabled {
       opacity: 0.6;
       cursor: not-allowed;
-      transform: none;
-      box-shadow: var(--shadow-sm);
-    }
-
-    .generate-btn:disabled:hover {
       transform: none;
       box-shadow: var(--shadow-sm);
     }
@@ -504,17 +489,6 @@
       font-weight: 600;
       color: var(--gray-600);
       text-align: center;
-      font-family: 'JetBrains Mono', monospace;
-    }
-
-    .export-options {
-      display: flex;
-      gap: 12px;
-      align-items: center;
-      background: var(--gray-100);
-      padding: 8px;
-      border-radius: var(--radius-md);
-      border: 1px solid var(--gray-200);
     }
 
     .export-label {
@@ -527,6 +501,16 @@
       text-align: center;
     }
 
+    .export-options {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      background: var(--gray-100);
+      padding: 8px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--gray-200);
+    }
+
     .export-option {
       display: flex;
       align-items: center;
@@ -534,8 +518,9 @@
       font-size: 10px;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: var(--transition);
       color: var(--gray-700);
+      font-family: 'Inter Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     }
 
     .export-option:hover {
@@ -546,17 +531,10 @@
       width: 14px;
       height: 14px;
       border-radius: 50%;
-      border: 1.5px solid var(--gray-400);
       background: var(--surface);
       position: relative;
       cursor: pointer;
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: var(--shadow-sm);
-    }
-
-    .export-radio:hover {
-      border-color: var(--primary-500);
-      box-shadow: var(--shadow-md);
+      transition: var(--transition);
     }
 
     .export-radio.selected {
@@ -573,9 +551,16 @@
       height: 5px;
       border-radius: 50%;
       background: var(--primary-600);
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: var(--transition);
     }
 
+    /* ========================================================================
+       TOAST NOTIFICATIONS & UTILITY CLASSES
+       ========================================================================
+       This section contains toast notification styling for user feedback and
+       utility classes like loading states and animations. These provide visual
+       feedback during operations and enhance the overall user experience.
+    */
     .toast {
       position: fixed;
       bottom: 20px;
@@ -632,106 +617,112 @@
 </head>
 <body>
   <div class="plugin-container">
-    <!-- Header Section -->
+    <!-- ========================================================================
+         HEADER SECTION - COLOR INPUT & PREVIEW
+         ========================================================================
+         This section contains the initial hexcode, final hexcode, and gradient
+         preview components. It provides the main interface for color input and
+         real-time visualization of the color transition between start and end.
+    -->
     <div class="header-section">
-      <!-- Initial Hexcode -->
-      <div class="hexcode-section">
+      <div class="hexcode-section section-base">
         <div class="section-title">Initial Hexcode</div>
         <div class="rgb-inputs">
           <div class="rgb-input-group">
             <div class="rgb-label">RR</div>
-            <input type="text" class="rgb-input" id="initial-r" maxlength="2" value="00">
+            <input type="text" class="rgb-input interactive-input mono-font" id="initial-r" maxlength="2" value="00">
           </div>
           <div class="rgb-input-group">
             <div class="rgb-label">GG</div>
-            <input type="text" class="rgb-input" id="initial-g" maxlength="2" value="00">
+            <input type="text" class="rgb-input interactive-input mono-font" id="initial-g" maxlength="2" value="00">
           </div>
           <div class="rgb-input-group">
             <div class="rgb-label">BB</div>
-            <input type="text" class="rgb-input" id="initial-b" maxlength="2" value="0F">
+            <input type="text" class="rgb-input interactive-input mono-font" id="initial-b" maxlength="2" value="00">
           </div>
         </div>
-        <div class="color-preview" id="initial-preview">
-          <div class="color-hex-display" id="initial-hex">#00000F</div>
+        <div class="color-preview preview-box" id="initial-preview">
+          <div class="color-hex-display mono-font" id="initial-hex">#000000</div>
         </div>
       </div>
 
-      <!-- Gradient Preview -->
-      <div class="gradient-section">
+      <div class="gradient-section section-base">
         <div class="section-title">Gradient Preview</div>
-        <div class="gradient-preview" id="gradient-preview"></div>
+        <div class="gradient-preview preview-box" id="gradient-preview"></div>
       </div>
 
-      <!-- Final Hexcode -->
-      <div class="hexcode-section">
+      <div class="hexcode-section section-base">
         <div class="section-title">Final Hexcode</div>
         <div class="rgb-inputs">
           <div class="rgb-input-group">
             <div class="rgb-label">RR</div>
-            <input type="text" class="rgb-input" id="final-r" maxlength="2" value="00">
+            <input type="text" class="rgb-input interactive-input mono-font" id="final-r" maxlength="2" value="FF">
           </div>
           <div class="rgb-input-group">
             <div class="rgb-label">GG</div>
-            <input type="text" class="rgb-input" id="final-g" maxlength="2" value="00">
+            <input type="text" class="rgb-input interactive-input mono-font" id="final-g" maxlength="2" value="FF">
           </div>
           <div class="rgb-input-group">
             <div class="rgb-label">BB</div>
-            <input type="text" class="rgb-input" id="final-b" maxlength="2" value="0F">
+            <input type="text" class="rgb-input interactive-input mono-font" id="final-b" maxlength="2" value="FF">
           </div>
         </div>
-        <div class="color-preview" id="final-preview">
-          <div class="color-hex-display" id="final-hex">#00000F</div>
+        <div class="color-preview preview-box" id="final-preview">
+          <div class="color-hex-display mono-font" id="final-hex">#FFFFFF</div>
         </div>
       </div>
     </div>
 
-    <!-- Controls Section -->
+    <!-- ========================================================================
+         CONTROLS SECTION - GENERATION & CONFIGURATION
+         ========================================================================
+         This section contains all the control elements including link values,
+         hexcode count display, and generation controls with export options.
+         It manages the user's generation preferences and execution commands.
+    -->
     <div class="controls-section">
-      <!-- Link Values -->
-      <div class="link-values-section">
-          <div class="section-title">Link Values</div>
+      <div class="link-values-section section-base">
+        <div class="section-title">Link Values</div>
         <div class="link-buttons">
-          <button class="link-btn" id="link-r" data-component="r">
+          <button class="link-btn interactive-input" id="link-r" data-component="r">
             <div class="link-icon">🔗</div>
             <div class="link-label">R</div>
-            </button>
-          <button class="link-btn" id="link-g" data-component="g">
+          </button>
+          <button class="link-btn interactive-input" id="link-g" data-component="g">
             <div class="link-icon">🔗</div>
             <div class="link-label">G</div>
-            </button>
-          <button class="link-btn" id="link-b" data-component="b">
+          </button>
+          <button class="link-btn interactive-input" id="link-b" data-component="b">
             <div class="link-icon">🔗</div>
             <div class="link-label">B</div>
-            </button>
-          </div>
+          </button>
         </div>
+      </div>
 
-      <!-- Hexcode Count -->
-        <div class="count-section">
-          <div class="section-title">Hexcode Count</div>
-        <div class="count-display" id="hex-count">1</div>
+      <div class="count-section section-base">
+        <div class="section-title">Hexcode Count</div>
+        <div class="count-display interactive-input mono-font" id="hex-count">1</div>
         <div class="count-warning" id="count-warning">Let's R-G-Begin!</div>
-        </div>
+      </div>
 
-      <!-- Generate -->
-      <div class="generate-section">
+      <div class="generate-section section-base">
         <button class="generate-btn" id="generate-btn">Generate</button>
         <div class="progress-container" id="progress-container">
           <div class="progress-bar">
             <div class="progress-fill" id="progress-fill"></div>
           </div>
-          <div class="progress-text" id="progress-text">Generating colors...</div>
+          <div class="progress-text mono-font" id="progress-text">Generating colors...</div>
         </div>
         <div class="export-label">Auto-export as</div>
         <div class="export-options">
           <label class="export-option">
-            <div class="export-radio selected" data-format="png"></div>
+            <div class="export-radio interactive-input selected" data-format="png"></div>
             <span>PNG</span>
-              </label>
+          </label>
           <label class="export-option">
-            <div class="export-radio" data-format="svg"></div>
+            <div class="export-radio interactive-input" data-format="svg"></div>
             <span>SVG</span>
-              </label>
+          </label>
         </div>
       </div>
     </div>
@@ -740,341 +731,255 @@
   <div class="toast" id="toast"></div>
 
   <script>
-    // State management
-    let state = {
-      initial: { r: 0, g: 0, b: 15 },  // #00000F
-      final: { r: 0, g: 0, b: 15 },    // #00000F (same as initial to show count of 1)
-      linked: { r: false, g: false, b: false },
-      exportFormat: 'png',
-      hexCount: 1
+    // ========================================================================
+    // STATE MANAGEMENT & DOM REFERENCES
+    // ========================================================================
+    // This section manages the global application state and DOM element references.
+    // It centralizes all data and UI connections for efficient state management
+    // and provides easy access to interface components throughout the application.
+    const state = {
+      initial: { r: 0, g: 0, b: 0 }, final: { r: 255, g: 255, b: 255 },
+      linked: { r: false, g: false, b: false }, exportFormat: 'png', hexCount: 16777216
     };
 
-    // DOM elements
     const elements = {
-      initialR: document.getElementById('initial-r'),
-      initialG: document.getElementById('initial-g'),
-      initialB: document.getElementById('initial-b'),
-      finalR: document.getElementById('final-r'),
-      finalG: document.getElementById('final-g'),
-      finalB: document.getElementById('final-b'),
-      initialPreview: document.getElementById('initial-preview'),
-      finalPreview: document.getElementById('final-preview'),
-      initialHex: document.getElementById('initial-hex'),
-      finalHex: document.getElementById('final-hex'),
+      ...['initial', 'final'].reduce((acc, type) => {
+        ['r', 'g', 'b'].forEach(comp => acc[`${type}${comp.toUpperCase()}`] = document.getElementById(`${type}-${comp}`));
+        acc[`${type}Preview`] = document.getElementById(`${type}-preview`);
+        acc[`${type}Hex`] = document.getElementById(`${type}-hex`);
+        return acc;
+      }, {}),
       gradientPreview: document.getElementById('gradient-preview'),
-      linkR: document.getElementById('link-r'),
-      linkG: document.getElementById('link-g'),
-      linkB: document.getElementById('link-b'),
-      hexCount: document.getElementById('hex-count'),
-      countWarning: document.getElementById('count-warning'),
-      generateBtn: document.getElementById('generate-btn'),
-      progressContainer: document.getElementById('progress-container'),
-      progressFill: document.getElementById('progress-fill'),
-      progressText: document.getElementById('progress-text'),
+      ...['r', 'g', 'b'].reduce((acc, comp) => (acc[`link${comp.toUpperCase()}`] = document.getElementById(`link-${comp}`), acc), {}),
+      hexCount: document.getElementById('hex-count'), countWarning: document.getElementById('count-warning'),
+      generateBtn: document.getElementById('generate-btn'), progressContainer: document.getElementById('progress-container'),
+      progressFill: document.getElementById('progress-fill'), progressText: document.getElementById('progress-text'),
       toast: document.getElementById('toast')
     };
 
-    // Utility functions
-    function hexToRgb(hex) {
-      const num = parseInt(hex.replace('#', ''), 16);
-      return {
-        r: (num >> 16) & 255,
-        g: (num >> 8) & 255,
-        b: num & 255
-      };
-    }
-
-    function rgbToHex(r, g, b) {
-      return '#' + [r, g, b].map(x => {
-        const hex = x.toString(16);
-        return hex.length === 1 ? '0' + hex : hex;
-      }).join('').toUpperCase();
-    }
-
-    function validateHex(value) {
-      // Remove any non-hex characters and convert to uppercase
-      let hex = value.replace(/[^0-9A-Fa-f]/g, '').toUpperCase();
-      
-      // Limit to 2 characters
-      if (hex.length > 2) {
-        hex = hex.slice(0, 2);
+    // ========================================================================
+    // UTILITY FUNCTIONS & COLOR CALCULATIONS
+    // ========================================================================
+    // This section contains optimized utility functions for color manipulation
+    // and validation. It handles all color processing, hex validation, and
+    // mathematical calculations needed throughout the application efficiently.
+    const utils = {
+      hexToRgb: hex => {
+        const num = parseInt(hex.replace('#', ''), 16);
+        return { r: (num >> 16) & 255, g: (num >> 8) & 255, b: num & 255 };
+      },
+      rgbToHex: (r, g, b) => '#' + [r, g, b].map(x => x.toString(16).padStart(2, '0')).join('').toUpperCase(),
+      validateHex: value => value.replace(/[^0-9A-Fa-f]/g, '').toUpperCase().slice(0, 2),
+      normalizeHex: value => utils.validateHex(value).padStart(2, '0'),
+      calculateHexCount: () => {
+        const initial = parseInt(utils.rgbToHex(state.initial.r, state.initial.g, state.initial.b).replace('#', ''), 16);
+        const final = parseInt(utils.rgbToHex(state.final.r, state.final.g, state.final.b).replace('#', ''), 16);
+        return initial === final ? 1 : Math.abs(final - initial) + 1;
       }
-      
-      // Don't pad with zeros if user is still typing
-      return hex;
-    }
-    
-    function normalizeHex(value) {
-      // This function is used when we need the final 2-character hex value
-      const hex = validateHex(value);
-      return hex.length === 0 ? '00' : hex.padStart(2, '0');
-    }
+    };
 
-    function calculateHexCount() {
-      const initialHex = rgbToHex(state.initial.r, state.initial.g, state.initial.b).replace('#', '');
-      const finalHex = rgbToHex(state.final.r, state.final.g, state.final.b).replace('#', '');
-      
-      // If colors are the same, count is 1
-      if (initialHex === finalHex) {
-        return 1;
-      }
-      
-      const initial = parseInt(initialHex, 16);
-      const final = parseInt(finalHex, 16);
-      return Math.abs(final - initial) + 1;
-    }
-
-    function updateColorPreview(type) {
-      const color = state[type];
-      const hex = rgbToHex(color.r, color.g, color.b);
-      const preview = elements[`${type}Preview`];
-      const hexDisplay = elements[`${type}Hex`];
-      
-      preview.style.backgroundColor = hex;
-      hexDisplay.textContent = hex;
-    }
-
-    function updateGradientPreview() {
-      const initialHex = rgbToHex(state.initial.r, state.initial.g, state.initial.b);
-      const finalHex = rgbToHex(state.final.r, state.final.g, state.final.b);
-      elements.gradientPreview.style.background = `linear-gradient(180deg, ${initialHex}, ${finalHex})`;
-    }
-
-    function updateHexCount() {
-      const count = calculateHexCount();
-      state.hexCount = count;
-      
-      elements.hexCount.textContent = count.toLocaleString();
-      
-      if (count > 65536) {
-        elements.countWarning.textContent = 'Oops! Exceeds 65,536.';
-        elements.countWarning.style.color = 'var(--error-500)';
-        elements.countWarning.style.backgroundColor = 'var(--error-50)';
-        elements.countWarning.style.borderColor = 'var(--error-200)';
-        elements.generateBtn.disabled = true;
-        elements.generateBtn.style.opacity = '0.5';
-      } else if (count === 16777216) {
-        elements.countWarning.textContent = "That's an allRGB spectrum!";
-        elements.countWarning.style.color = 'var(--success-500)';
-        elements.countWarning.style.backgroundColor = 'var(--primary-50)';
-        elements.countWarning.style.borderColor = 'var(--primary-200)';
-        elements.generateBtn.disabled = false;
-        elements.generateBtn.style.opacity = '1';
-      } else {
-        elements.countWarning.textContent = "Let's R-G-Begin!";
-        elements.countWarning.style.color = 'var(--success-500)';
-        elements.countWarning.style.backgroundColor = 'var(--primary-50)';
-        elements.countWarning.style.borderColor = 'var(--primary-200)';
-        elements.generateBtn.disabled = false;
-        elements.generateBtn.style.opacity = '1';
-      }
-    }
-
-    function showToast(message) {
-      elements.toast.textContent = message;
-      elements.toast.classList.add('show');
-      setTimeout(() => {
-        elements.toast.classList.remove('show');
-      }, 3000);
-    }
-
-    function updateLinkedValues(component, value, isInitial) {
-      if (!state.linked[component]) return;
-      
-      const otherType = isInitial ? 'final' : 'initial';
-      const input = elements[`${otherType}${component.toUpperCase()}`];
-      
-      input.value = value;
-      state[otherType][component] = parseInt(value, 16);
-      updateColorPreview(otherType);
-    }
-
-    // Event listeners
-    function setupInputListeners() {
-      ['r', 'g', 'b'].forEach(component => {
-        ['initial', 'final'].forEach(type => {
-          const input = elements[`${type}${component.toUpperCase()}`];
-          
-          input.addEventListener('input', (e) => {
-            const value = validateHex(e.target.value);
-            e.target.value = value;
-            
-            const normalizedValue = normalizeHex(value);
-            state[type][component] = parseInt(normalizedValue, 16);
-            updateColorPreview(type);
-            updateGradientPreview();
-            updateHexCount();
-            
-            // Update linked values if linked
-            updateLinkedValues(component, normalizedValue, type === 'initial');
-          });
-          
-          // On blur, ensure the value is properly formatted
-          input.addEventListener('blur', (e) => {
-            const normalizedValue = normalizeHex(e.target.value);
-            e.target.value = normalizedValue;
-            state[type][component] = parseInt(normalizedValue, 16);
-            updateColorPreview(type);
-            updateGradientPreview();
-            updateHexCount();
-          });
-        });
-      });
-    }
-
-    function setupLinkListeners() {
-      ['r', 'g', 'b'].forEach(component => {
-        const btn = elements[`link${component.toUpperCase()}`];
+    // ========================================================================
+    // UI UPDATE FUNCTIONS
+    // ========================================================================
+    // This section handles all user interface updates with optimized functions
+    // that maintain synchronization between application state and visual elements.
+    // These functions provide real-time feedback and visual updates efficiently.
+    const ui = {
+      updateColorPreview: type => {
+        const color = state[type];
+        const hex = utils.rgbToHex(color.r, color.g, color.b);
+        elements[`${type}Preview`].style.backgroundColor = hex;
+        elements[`${type}Hex`].textContent = hex;
+      },
+      updateGradientPreview: () => {
+        const initialHex = utils.rgbToHex(state.initial.r, state.initial.g, state.initial.b);
+        const finalHex = utils.rgbToHex(state.final.r, state.final.g, state.final.b);
+        elements.gradientPreview.style.background = `linear-gradient(180deg, ${initialHex}, ${finalHex})`;
+      },
+      updateHexCount: () => {
+        const count = utils.calculateHexCount();
+        state.hexCount = count;
+        elements.hexCount.textContent = count.toLocaleString();
         
-        btn.addEventListener('click', () => {
-          state.linked[component] = !state.linked[component];
-          btn.classList.toggle('linked', state.linked[component]);
-          
-          if (state.linked[component]) {
-            // Sync final to initial when linking
-            const value = elements[`initial${component.toUpperCase()}`].value;
-            elements[`final${component.toUpperCase()}`].value = value;
-            state.final[component] = state.initial[component];
-            updateColorPreview('final');
-      updateGradientPreview();
-            updateHexCount();
+        const isOverLimit = count > 65536;
+        const isAllRGB = count === 16777216;
+        
+        elements.countWarning.textContent = isOverLimit ? 'Oops! Exceeds 65,536.' : 
+                                           isAllRGB ? "That's an allRGB spectrum!" : "Let's R-G-Begin!";
+        elements.countWarning.style.color = isOverLimit ? 'var(--error-500)' : 'var(--success-500)';
+        elements.countWarning.style.backgroundColor = isOverLimit ? 'var(--error-50)' : 'var(--primary-50)';
+        elements.countWarning.style.borderColor = isOverLimit ? 'var(--error-200)' : 'var(--primary-200)';
+        
+        elements.generateBtn.disabled = isOverLimit;
+        elements.generateBtn.style.opacity = isOverLimit ? '0.5' : '1';
+      },
+      showToast: message => {
+        elements.toast.textContent = message;
+        elements.toast.classList.add('show');
+        setTimeout(() => elements.toast.classList.remove('show'), 3000);
+      },
+      updateLinkedValues: (component, value, isInitial) => {
+        if (!state.linked[component]) return;
+        const otherType = isInitial ? 'final' : 'initial';
+        const input = elements[`${otherType}${component.toUpperCase()}`];
+        input.value = value;
+        state[otherType][component] = parseInt(value, 16);
+        ui.updateColorPreview(otherType);
+      }
+    };
+
+    // ========================================================================
+    // EVENT LISTENERS & GENERATION CONTROL
+    // ========================================================================
+    // This section manages all user interactions with optimized event handlers
+    // that process input validation, linking functionality, and generation workflow.
+    // It coordinates all user actions and maintains application state efficiently.
+    const events = {
+      setupInputs: () => {
+        ['r', 'g', 'b'].forEach(component => {
+          ['initial', 'final'].forEach(type => {
+            const input = elements[`${type}${component.toUpperCase()}`];
+            
+            const updateValue = () => {
+              const value = utils.validateHex(input.value);
+              input.value = value;
+              const normalizedValue = utils.normalizeHex(value);
+              state[type][component] = parseInt(normalizedValue, 16);
+              ui.updateColorPreview(type);
+              ui.updateGradientPreview();
+              ui.updateHexCount();
+              ui.updateLinkedValues(component, normalizedValue, type === 'initial');
+            };
+            
+            input.addEventListener('input', updateValue);
+            input.addEventListener('blur', () => {
+              input.value = utils.normalizeHex(input.value);
+              updateValue();
+            });
+          });
+        });
+      },
+      
+      setupLinks: () => {
+        ['r', 'g', 'b'].forEach(component => {
+          const btn = elements[`link${component.toUpperCase()}`];
+          btn.addEventListener('click', () => {
+            state.linked[component] = !state.linked[component];
+            btn.classList.toggle('linked', state.linked[component]);
+            
+            if (state.linked[component]) {
+              const value = elements[`initial${component.toUpperCase()}`].value;
+              elements[`final${component.toUpperCase()}`].value = value;
+              state.final[component] = state.initial[component];
+              ui.updateColorPreview('final');
+              ui.updateGradientPreview();
+              ui.updateHexCount();
+            }
+          });
+        });
+      },
+      
+      setupExport: () => {
+        document.querySelectorAll('.export-radio').forEach(radio => {
+          radio.addEventListener('click', () => {
+            document.querySelectorAll('.export-radio').forEach(r => r.classList.remove('selected'));
+            radio.classList.add('selected');
+            state.exportFormat = radio.dataset.format;
+          });
+        });
+      },
+      
+      setupGenerate: () => {
+        elements.generateBtn.addEventListener('click', () => {
+          if (state.hexCount > 65536) {
+            ui.showToast('Cannot generate more than 65,536 hexcodes!');
+            return;
           }
+          
+          elements.generateBtn.disabled = true;
+          elements.generateBtn.textContent = 'Generating...';
+          elements.progressContainer.classList.add('show');
+          elements.progressFill.style.width = '0%';
+          
+          parent.postMessage({
+            pluginMessage: {
+              type: 'generate-colors',
+              initialColor: utils.rgbToHex(state.initial.r, state.initial.g, state.initial.b),
+              finalColor: utils.rgbToHex(state.final.r, state.final.g, state.final.b),
+              count: state.hexCount,
+              exportFormat: state.exportFormat
+            }
+          }, '*');
         });
-      });
-    }
+      }
+    };
 
-    function setupExportListeners() {
-      document.querySelectorAll('.export-radio').forEach(radio => {
-        radio.addEventListener('click', () => {
-          document.querySelectorAll('.export-radio').forEach(r => r.classList.remove('selected'));
-          radio.classList.add('selected');
-          state.exportFormat = radio.dataset.format;
-        });
-      });
-    }
-
-    function setupGenerateListener() {
-      elements.generateBtn.addEventListener('click', () => {
-        if (state.hexCount > 65536) {
-          showToast('Cannot generate more than 65,536 hexcodes!');
-          return;
+    // ========================================================================
+    // PLUGIN COMMUNICATION & FILE HANDLING
+    // ========================================================================
+    // This section manages communication with the Figma plugin environment and
+    // handles file operations including auto-export functionality. It processes
+    // progress updates and coordinates data exchange between UI and plugin efficiently.
+    const plugin = {
+      handleMessage: event => {
+        const message = event.data.pluginMessage;
+        if (!message) return;
+        
+        switch (message.type) {
+          case 'generation-progress':
+            elements.progressFill.style.width = `${message.percentage}%`;
+            elements.progressText.textContent = message.message;
+            break;
+          case 'generation-complete':
+            elements.generateBtn.disabled = false;
+            elements.generateBtn.textContent = 'Generate';
+            elements.progressContainer.classList.remove('show');
+            elements.progressFill.style.width = '100%';
+            ui.showToast(`Generated ${message.count} colors successfully! (${message.gridSize} grid)`);
+            break;
+          case 'generation-error':
+            elements.generateBtn.disabled = false;
+            elements.generateBtn.textContent = 'Generate';
+            elements.progressContainer.classList.remove('show');
+            ui.showToast(`Error: ${message.error}`);
+            break;
+          case 'auto-export':
+            const blob = new Blob([new Uint8Array(message.exportData)], 
+                                 { type: message.format === 'png' ? 'image/png' : 'image/svg+xml' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = message.filename;
+            link.click();
+            URL.revokeObjectURL(url);
+            ui.showToast(`🎉 ${message.format.toUpperCase()} file exported successfully!`);
+            break;
         }
+      },
+      
+      init: () => {
+        events.setupInputs();
+        events.setupLinks();
+        events.setupExport();
+        events.setupGenerate();
         
-        // Start generation
-        startGeneration();
+        ui.updateColorPreview('initial');
+        ui.updateColorPreview('final');
+        ui.updateGradientPreview();
+        ui.updateHexCount();
         
-        // Send message to plugin
-        parent.postMessage({
-          pluginMessage: {
-            type: 'generate-colors',
-            initialColor: rgbToHex(state.initial.r, state.initial.g, state.initial.b),
-            finalColor: rgbToHex(state.final.r, state.final.g, state.final.b),
-            count: state.hexCount,
-            exportFormat: state.exportFormat
-          }
-        }, '*');
-      });
-    }
-
-    function startGeneration() {
-      elements.generateBtn.disabled = true;
-      elements.generateBtn.textContent = 'Generating...';
-      elements.progressContainer.classList.add('show');
-      elements.progressFill.style.width = '0%';
-      elements.progressText.textContent = 'Starting generation...';
-    }
-
-    function updateProgress(percentage, current, total, message) {
-      elements.progressFill.style.width = `${percentage}%`;
-      elements.progressText.textContent = message || `${current.toLocaleString()} / ${total.toLocaleString()} colors (${percentage}%)`;
-    }
-
-    function finishGeneration(success, message) {
-      elements.generateBtn.disabled = false;
-      elements.generateBtn.textContent = 'Generate';
-      elements.progressContainer.classList.remove('show');
-      
-      if (success) {
-        elements.progressFill.style.width = '100%';
-        elements.progressText.textContent = 'Complete!';
-        showToast(message || 'Generation completed successfully!');
-            } else {
-        elements.progressFill.style.width = '0%';
-        elements.progressText.textContent = 'Failed';
-        showToast(message || 'Generation failed');
+        window.addEventListener('message', plugin.handleMessage);
+        parent.postMessage({ pluginMessage: { type: 'ui-ready' } }, '*');
       }
-    }
+    };
 
-    // Initialize
-    function init() {
-      setupInputListeners();
-      setupLinkListeners();
-      setupExportListeners();
-      setupGenerateListener();
-      
-      // Initial updates
-      updateColorPreview('initial');
-      updateColorPreview('final');
-      updateGradientPreview();
-      updateHexCount();
-      
-      // Send ready message to plugin
-        parent.postMessage({
-          pluginMessage: {
-          type: 'ui-ready'
-          }
-        }, '*');
-    }
-
-    // Auto-export function
-    function triggerDownload(data, filename, mimeType) {
-      const blob = new Blob([new Uint8Array(data)], { type: mimeType });
-      const url = URL.createObjectURL(blob);
-      
-      // Create download link and trigger it
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = filename;
-      link.style.display = 'none';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      
-      // Clean up the URL
-      setTimeout(() => URL.revokeObjectURL(url), 100);
-    }
-
-    // Listen for messages from plugin
-    window.addEventListener('message', (event) => {
-      const message = event.data.pluginMessage;
-      if (!message) return;
-      
-      switch (message.type) {
-        case 'generation-progress':
-          updateProgress(
-            message.percentage,
-            message.current,
-            message.total,
-            message.message
-          );
-          break;
-        case 'generation-complete':
-          finishGeneration(true, `Generated ${message.count} colors successfully! (${message.gridSize} grid)`);
-          break;
-        case 'generation-error':
-          finishGeneration(false, `Error: ${message.error}`);
-          break;
-        case 'auto-export':
-          // Trigger the file download
-          const mimeType = message.format === 'png' ? 'image/png' : 'image/svg+xml';
-          triggerDownload(message.exportData, message.filename, mimeType);
-          showToast(`🎉 ${message.format.toUpperCase()} file exported successfully!`);
-          break;
-      }
-    });
-
-    // Start the plugin
-    init();
+    // ========================================================================
+    // APPLICATION STARTUP
+    // ========================================================================
+    // This section initiates the plugin application with optimized startup sequence.
+    // It ensures all components are properly initialized and ready for user
+    // interaction when the plugin interface loads completely.
+    plugin.init();
   </script>
 </body>
 </html> 
