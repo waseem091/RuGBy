@@ -7,7 +7,7 @@
 let lastFramePosition = null;
 
 // Show the UI
-figma.showUI(__html__, { width: 480, height: 360 });
+figma.showUI(__html__, { width: 560, height: 420 });
 
 // Listen for messages from the UI
 figma.ui.onmessage = async (message) => {
@@ -60,29 +60,23 @@ async function generateColors(initialColor, finalColor, count, exportFormat) {
     const totalSteps = count - 1;
     const colorStep = totalSteps > 0 ? (endColor - startColor) / totalSteps : 0;
 
-    // Determine frame dimensions
+    // Determine frame dimensions with 1px maximum constraint
     let frameWidth, frameHeight, pixelSize;
     
-    if (count === 65536) {
-      // Special case: 256x256 grid with 1px boxes
-      frameWidth = 256;
-      frameHeight = 256;
-      pixelSize = 1;
-    } else {
-      // Calculate optimal grid dimensions
-      const sqrt = Math.sqrt(count);
-      const cols = Math.ceil(sqrt);
-      const rows = Math.ceil(count / cols);
-      
-      // Use larger pixels for smaller counts
-      pixelSize = count <= 1024 ? 10 : count <= 4096 ? 5 : 2;
-      frameWidth = cols * pixelSize;
-      frameHeight = rows * pixelSize;
-    }
+    // Always use 1px for individual color boxes
+    pixelSize = 1;
+    
+    // Calculate optimal grid dimensions
+    const sqrt = Math.sqrt(count);
+    const cols = Math.ceil(sqrt);
+    const rows = Math.ceil(count / cols);
+    
+    frameWidth = cols * pixelSize;
+    frameHeight = rows * pixelSize;
 
-    // Create main frame
+    // Create main frame with proper naming format
     const frame = figma.createFrame();
-    frame.name = `RuGBy-${count}-colors`;
+    frame.name = `${initialColor} - ${finalColor}`;
     frame.resize(frameWidth, frameHeight);
     frame.fills = [];
     frame.clipsContent = true;
@@ -101,9 +95,8 @@ async function generateColors(initialColor, finalColor, count, exportFormat) {
     lastFramePosition = { x: frame.x, y: frame.y, width: frameWidth, height: frameHeight };
 
     // Generate colors in batches to avoid UI freezing
-    const batchSize = Math.min(1000, count);
+    const batchSize = Math.min(2000, count);
     const totalBatches = Math.ceil(count / batchSize);
-    const gridCols = Math.ceil(Math.sqrt(count));
     
     for (let batch = 0; batch < totalBatches; batch++) {
       const startIdx = batch * batchSize;
@@ -123,8 +116,8 @@ async function generateColors(initialColor, finalColor, count, exportFormat) {
         const b = colorValue & 0xFF;
         
         // Calculate position
-        const col = colorIndex % gridCols;
-        const row = Math.floor(colorIndex / gridCols);
+        const col = colorIndex % cols;
+        const row = Math.floor(colorIndex / cols);
         
         // Create rectangle
         const rect = figma.createRectangle();
@@ -159,13 +152,13 @@ async function generateColors(initialColor, finalColor, count, exportFormat) {
       });
       
       // Also show in Figma notifications (less frequent)
-      if (batch % 5 === 0 || batch === totalBatches - 1) {
+      if (batch % 10 === 0 || batch === totalBatches - 1) {
         figma.notify(`Progress: ${progress}% (${endIdx.toLocaleString()}/${count.toLocaleString()} colors)`);
       }
       
       // Yield control to prevent UI freezing
-      if (batchCount > 100) {
-        await new Promise(resolve => setTimeout(resolve, 0));
+      if (batchCount > 500) {
+        await new Promise(resolve => setTimeout(resolve, 10));
       }
     }
 
@@ -174,15 +167,48 @@ async function generateColors(initialColor, finalColor, count, exportFormat) {
     figma.viewport.scrollAndZoomIntoView([frame]);
 
     // Show completion message
-    const pixelInfo = pixelSize === 1 ? ' (1px per color)' : '';
-    figma.notify(`✅ Generated ${count} colors successfully!${pixelInfo}`);
+    const dimensionInfo = `${cols}×${rows} grid (${frameWidth}×${frameHeight}px)`;
+    figma.notify(`✅ Generated ${count} colors successfully! ${dimensionInfo}`);
+
+    // Auto-export functionality
+    if (exportFormat === 'png' || exportFormat === 'svg') {
+      try {
+        // Export settings based on format
+        const exportSettings = exportFormat === 'png' 
+          ? { format: 'PNG', constraint: { type: 'SCALE', value: 1 } }
+          : { format: 'SVG' };
+        
+        console.log(`Starting ${exportFormat.toUpperCase()} export process...`);
+        const exportData = await frame.exportAsync(exportSettings);
+        console.log('Export data generated, size:', exportData.length);
+        
+        // Use frame name for filename
+        const cleanFrameName = frame.name.replace(/[#]/g, '').replace(/[\s-]+/g, '-');
+        const fileExtension = exportFormat === 'png' ? 'png' : 'svg';
+        const filename = `${cleanFrameName}.${fileExtension}`;
+        
+        // Send export data to UI for download
+        figma.ui.postMessage({
+          type: 'auto-export',
+          exportData: Array.from(exportData),
+          filename: filename,
+          format: exportFormat
+        });
+        
+        figma.notify(`🎉 ${exportFormat.toUpperCase()} export ready! Download starting...`);
+      } catch (exportError) {
+        console.error('Export error:', exportError);
+        figma.notify(`⚠️ Auto-export failed: ${exportError.message}`);
+      }
+    }
 
     // Send success message to UI
     figma.ui.postMessage({
       type: 'generation-complete',
       count: count,
-      dimensions: `${frameWidth}×${frameHeight}`,
-      pixelSize: pixelSize
+      dimensions: dimensionInfo,
+      pixelSize: pixelSize,
+      gridSize: `${cols}×${rows}`
     });
 
   } catch (error) {

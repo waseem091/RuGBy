@@ -61,16 +61,16 @@
     }
 
     .plugin-container {
-      width: 480px;
-      height: 360px;
+      width: 560px;
+      height: 420px;
       position: relative;
       background: var(--surface);
       border-radius: var(--radius-xl);
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      padding: 16px;
-      gap: 16px;
+      padding: 24px;
+      gap: 20px;
       box-shadow: var(--shadow-xl);
       border: 1px solid var(--gray-200);
     }
@@ -79,29 +79,30 @@
       display: flex;
       justify-content: space-between;
       align-items: stretch;
-      gap: 12px;
-      height: 140px;
+      gap: 16px;
+      height: 200px;
     }
 
     .section-title {
-      font-size: 9px;
+      font-size: 10px;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.8px;
       color: var(--gray-500);
-      margin-bottom: 8px;
+      margin-bottom: 12px;
       text-align: center;
     }
 
     .hexcode-section {
-      width: 120px;
+      width: 140px;
       display: flex;
       flex-direction: column;
       background: var(--gray-50);
       border-radius: var(--radius-lg);
-      padding: 12px;
+      padding: 16px;
       border: 1px solid var(--gray-200);
       transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow: hidden;
     }
 
     .hexcode-section:hover {
@@ -115,9 +116,10 @@
       flex-direction: column;
       background: var(--gray-50);
       border-radius: var(--radius-lg);
-      padding: 12px;
+      padding: 16px;
       border: 1px solid var(--gray-200);
       transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow: hidden;
     }
 
     .gradient-section:hover {
@@ -127,8 +129,8 @@
 
     .rgb-inputs {
       display: flex;
-      gap: 4px;
-      margin-bottom: 8px;
+      gap: 8px;
+      margin-bottom: 12px;
     }
 
     .rgb-input-group {
@@ -139,21 +141,21 @@
     }
 
     .rgb-label {
-      font-size: 8px;
+      font-size: 9px;
       font-weight: 600;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
       color: var(--gray-600);
       letter-spacing: 0.5px;
     }
 
     .rgb-input {
       width: 100%;
-      height: 28px;
+      height: 32px;
       border: 1.5px solid var(--gray-300);
-      border-radius: var(--radius-sm);
+      border-radius: var(--radius-md);
       text-align: center;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 600;
       background: var(--surface);
       color: var(--gray-900);
@@ -176,12 +178,13 @@
     .color-preview {
       flex: 1;
       border: 2px solid var(--gray-200);
-      border-radius: var(--radius-md);
+      border-radius: var(--radius-lg);
       position: relative;
-      min-height: 60px;
+      height: 80px;
       box-shadow: var(--shadow-sm);
       overflow: hidden;
       transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      margin-top: 8px;
     }
 
     .color-preview:hover {
@@ -196,25 +199,26 @@
       right: 0;
       background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.4));
       color: var(--surface);
-      padding: 4px;
+      padding: 10px 8px;
       text-align: center;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
+      font-size: 12px;
       font-weight: 600;
       backdrop-filter: blur(4px);
-      border-radius: 0 0 var(--radius-md) var(--radius-md);
+      border-radius: 0 0 var(--radius-lg) var(--radius-lg);
     }
 
     .gradient-preview {
       flex: 1;
       border: 2px solid var(--gray-200);
-      border-radius: var(--radius-md);
+      border-radius: var(--radius-lg);
       background: linear-gradient(180deg, #000, #fff);
-      min-height: 80px;
+      height: 100px;
       position: relative;
       box-shadow: var(--shadow-sm);
       overflow: hidden;
       transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      margin-top: 8px;
     }
 
     .gradient-preview:hover {
@@ -224,18 +228,18 @@
 
     .controls-section {
       display: flex;
-      gap: 12px;
+      gap: 16px;
       align-items: stretch;
-      height: 160px;
+      height: 140px;
     }
 
     .link-values-section {
-      width: 120px;
+      width: 140px;
       display: flex;
       flex-direction: column;
       background: var(--gray-50);
       border-radius: var(--radius-lg);
-      padding: 12px;
+      padding: 16px;
       border: 1px solid var(--gray-200);
       transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
@@ -247,15 +251,15 @@
 
     .link-buttons {
       display: flex;
-      gap: 4px;
+      gap: 8px;
       justify-content: center;
     }
 
     .link-btn {
-      width: 32px;
-      height: 80px;
+      width: 36px;
+      height: 70px;
       border: 1.5px solid var(--gray-300);
-      border-radius: var(--radius-md);
+      border-radius: var(--radius-lg);
       background: var(--surface);
       cursor: pointer;
       display: flex;
@@ -303,14 +307,15 @@
     }
 
     .link-icon {
-      font-size: 14px;
+      font-size: 16px;
       position: relative;
       z-index: 1;
     }
 
     .link-label {
-      font-size: 10px;
+      font-size: 11px;
       font-weight: 700;
+      font-family: 'Inter', sans-serif;
       position: relative;
       z-index: 1;
       letter-spacing: 0.5px;
@@ -323,7 +328,7 @@
       align-items: center;
       background: var(--gray-50);
       border-radius: var(--radius-lg);
-      padding: 12px;
+      padding: 16px;
       border: 1px solid var(--gray-200);
       transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
@@ -337,13 +342,13 @@
       width: 100%;
       height: 60px;
       border: 1.5px solid var(--gray-300);
-      border-radius: var(--radius-md);
+      border-radius: var(--radius-lg);
       background: linear-gradient(135deg, var(--surface) 0%, var(--gray-50) 100%);
       display: flex;
       align-items: center;
       justify-content: center;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
+      font-size: 14px;
       font-weight: 700;
       margin-bottom: 8px;
       box-shadow: var(--shadow-sm);
@@ -357,25 +362,25 @@
     }
 
     .count-warning {
-      font-size: 8px;
+      font-size: 9px;
       color: var(--error-500);
       font-weight: 600;
       text-align: center;
       font-style: normal;
-      padding: 2px 4px;
+      padding: 4px 6px;
       border-radius: var(--radius-sm);
       background: var(--error-50);
       border: 1px solid var(--error-200);
     }
 
     .generate-section {
-      width: 120px;
+      width: 140px;
       display: flex;
       flex-direction: column;
       align-items: center;
       background: var(--gray-50);
       border-radius: var(--radius-lg);
-      padding: 12px;
+      padding: 16px;
       border: 1px solid var(--gray-200);
       transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
@@ -387,19 +392,19 @@
 
     .generate-btn {
       width: 100%;
-      height: 40px;
+      height: 48px;
       border: none;
-      border-radius: var(--radius-md);
+      border-radius: var(--radius-lg);
       background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-700) 100%);
       color: var(--surface);
       font-family: 'Inter', sans-serif;
-      font-size: 10px;
+      font-size: 12px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 1px;
       cursor: pointer;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       box-shadow: var(--shadow-lg);
       position: relative;
       overflow: hidden;
@@ -445,7 +450,7 @@
 
     .progress-container {
       width: 100%;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       display: none;
       opacity: 0;
       transform: translateY(-10px);
@@ -460,11 +465,11 @@
 
     .progress-bar {
       width: 100%;
-      height: 6px;
+      height: 8px;
       background: var(--gray-200);
       border-radius: var(--radius-sm);
       overflow: hidden;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
       box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
     }
 
@@ -495,7 +500,7 @@
     }
 
     .progress-text {
-      font-size: 8px;
+      font-size: 9px;
       font-weight: 600;
       color: var(--gray-600);
       text-align: center;
@@ -504,18 +509,18 @@
 
     .export-options {
       display: flex;
-      gap: 8px;
+      gap: 12px;
       align-items: center;
       background: var(--gray-100);
-      padding: 6px;
-      border-radius: var(--radius-sm);
+      padding: 8px;
+      border-radius: var(--radius-md);
       border: 1px solid var(--gray-200);
     }
 
     .export-label {
-      font-size: 8px;
+      font-size: 9px;
       font-weight: 600;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
       color: var(--gray-600);
       text-transform: uppercase;
       letter-spacing: 0.5px;
@@ -525,8 +530,8 @@
     .export-option {
       display: flex;
       align-items: center;
-      gap: 4px;
-      font-size: 9px;
+      gap: 6px;
+      font-size: 10px;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -538,8 +543,8 @@
     }
 
     .export-radio {
-      width: 12px;
-      height: 12px;
+      width: 14px;
+      height: 14px;
       border-radius: 50%;
       border: 1.5px solid var(--gray-400);
       background: var(--surface);
@@ -562,10 +567,10 @@
     .export-radio.selected::after {
       content: '';
       position: absolute;
-      top: 2px;
-      left: 2px;
-      width: 4px;
-      height: 4px;
+      top: 2.5px;
+      left: 2.5px;
+      width: 5px;
+      height: 5px;
       border-radius: 50%;
       background: var(--primary-600);
       transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -643,11 +648,11 @@
           </div>
           <div class="rgb-input-group">
             <div class="rgb-label">BB</div>
-            <input type="text" class="rgb-input" id="initial-b" maxlength="2" value="00">
+            <input type="text" class="rgb-input" id="initial-b" maxlength="2" value="0F">
           </div>
         </div>
         <div class="color-preview" id="initial-preview">
-          <div class="color-hex-display" id="initial-hex">#000000</div>
+          <div class="color-hex-display" id="initial-hex">#00000F</div>
         </div>
       </div>
 
@@ -663,19 +668,19 @@
         <div class="rgb-inputs">
           <div class="rgb-input-group">
             <div class="rgb-label">RR</div>
-            <input type="text" class="rgb-input" id="final-r" maxlength="2" value="FF">
+            <input type="text" class="rgb-input" id="final-r" maxlength="2" value="00">
           </div>
           <div class="rgb-input-group">
             <div class="rgb-label">GG</div>
-            <input type="text" class="rgb-input" id="final-g" maxlength="2" value="FF">
+            <input type="text" class="rgb-input" id="final-g" maxlength="2" value="00">
           </div>
           <div class="rgb-input-group">
             <div class="rgb-label">BB</div>
-            <input type="text" class="rgb-input" id="final-b" maxlength="2" value="FF">
+            <input type="text" class="rgb-input" id="final-b" maxlength="2" value="0F">
           </div>
         </div>
         <div class="color-preview" id="final-preview">
-          <div class="color-hex-display" id="final-hex">#FFFFFF</div>
+          <div class="color-hex-display" id="final-hex">#00000F</div>
         </div>
       </div>
     </div>
@@ -704,8 +709,8 @@
       <!-- Hexcode Count -->
         <div class="count-section">
           <div class="section-title">Hexcode Count</div>
-        <div class="count-display" id="hex-count">16,777,216</div>
-        <div class="count-warning" id="count-warning">That's an allRGB spectrum!</div>
+        <div class="count-display" id="hex-count">1</div>
+        <div class="count-warning" id="count-warning">Let's R-G-Begin!</div>
         </div>
 
       <!-- Generate -->
@@ -737,11 +742,11 @@
   <script>
     // State management
     let state = {
-      initial: { r: 0, g: 0, b: 0 },
-      final: { r: 255, g: 255, b: 255 },
+      initial: { r: 0, g: 0, b: 15 },  // #00000F
+      final: { r: 0, g: 0, b: 15 },    // #00000F (same as initial to show count of 1)
       linked: { r: false, g: false, b: false },
       exportFormat: 'png',
-      hexCount: 0
+      hexCount: 1
     };
 
     // DOM elements
@@ -787,13 +792,35 @@
     }
 
     function validateHex(value) {
-      const hex = value.replace(/[^0-9A-Fa-f]/g, '').toUpperCase();
-      return hex.length > 2 ? hex.slice(0, 2) : hex.padStart(2, '0');
+      // Remove any non-hex characters and convert to uppercase
+      let hex = value.replace(/[^0-9A-Fa-f]/g, '').toUpperCase();
+      
+      // Limit to 2 characters
+      if (hex.length > 2) {
+        hex = hex.slice(0, 2);
+      }
+      
+      // Don't pad with zeros if user is still typing
+      return hex;
+    }
+    
+    function normalizeHex(value) {
+      // This function is used when we need the final 2-character hex value
+      const hex = validateHex(value);
+      return hex.length === 0 ? '00' : hex.padStart(2, '0');
     }
 
     function calculateHexCount() {
-      const initial = parseInt(rgbToHex(state.initial.r, state.initial.g, state.initial.b).replace('#', ''), 16);
-      const final = parseInt(rgbToHex(state.final.r, state.final.g, state.final.b).replace('#', ''), 16);
+      const initialHex = rgbToHex(state.initial.r, state.initial.g, state.initial.b).replace('#', '');
+      const finalHex = rgbToHex(state.final.r, state.final.g, state.final.b).replace('#', '');
+      
+      // If colors are the same, count is 1
+      if (initialHex === finalHex) {
+        return 1;
+      }
+      
+      const initial = parseInt(initialHex, 16);
+      const final = parseInt(finalHex, 16);
       return Math.abs(final - initial) + 1;
     }
 
@@ -820,17 +847,24 @@
       elements.hexCount.textContent = count.toLocaleString();
       
       if (count > 65536) {
-        elements.countWarning.textContent = 'Exceeds 65,536 limit!';
-        elements.countWarning.style.color = '#ff0000';
+        elements.countWarning.textContent = 'Oops! Exceeds 65,536.';
+        elements.countWarning.style.color = 'var(--error-500)';
+        elements.countWarning.style.backgroundColor = 'var(--error-50)';
+        elements.countWarning.style.borderColor = 'var(--error-200)';
         elements.generateBtn.disabled = true;
         elements.generateBtn.style.opacity = '0.5';
       } else if (count === 16777216) {
         elements.countWarning.textContent = "That's an allRGB spectrum!";
-        elements.countWarning.style.color = '#ff0000';
+        elements.countWarning.style.color = 'var(--success-500)';
+        elements.countWarning.style.backgroundColor = 'var(--primary-50)';
+        elements.countWarning.style.borderColor = 'var(--primary-200)';
         elements.generateBtn.disabled = false;
         elements.generateBtn.style.opacity = '1';
       } else {
-        elements.countWarning.textContent = '';
+        elements.countWarning.textContent = "Let's R-G-Begin!";
+        elements.countWarning.style.color = 'var(--success-500)';
+        elements.countWarning.style.backgroundColor = 'var(--primary-50)';
+        elements.countWarning.style.borderColor = 'var(--primary-200)';
         elements.generateBtn.disabled = false;
         elements.generateBtn.style.opacity = '1';
       }
@@ -865,13 +899,24 @@
             const value = validateHex(e.target.value);
             e.target.value = value;
             
-            state[type][component] = parseInt(value, 16);
+            const normalizedValue = normalizeHex(value);
+            state[type][component] = parseInt(normalizedValue, 16);
             updateColorPreview(type);
             updateGradientPreview();
             updateHexCount();
             
             // Update linked values if linked
-            updateLinkedValues(component, value, type === 'initial');
+            updateLinkedValues(component, normalizedValue, type === 'initial');
+          });
+          
+          // On blur, ensure the value is properly formatted
+          input.addEventListener('blur', (e) => {
+            const normalizedValue = normalizeHex(e.target.value);
+            e.target.value = normalizedValue;
+            state[type][component] = parseInt(normalizedValue, 16);
+            updateColorPreview(type);
+            updateGradientPreview();
+            updateHexCount();
           });
         });
       });
@@ -981,6 +1026,24 @@
         }, '*');
     }
 
+    // Auto-export function
+    function triggerDownload(data, filename, mimeType) {
+      const blob = new Blob([new Uint8Array(data)], { type: mimeType });
+      const url = URL.createObjectURL(blob);
+      
+      // Create download link and trigger it
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = filename;
+      link.style.display = 'none';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      // Clean up the URL
+      setTimeout(() => URL.revokeObjectURL(url), 100);
+    }
+
     // Listen for messages from plugin
     window.addEventListener('message', (event) => {
       const message = event.data.pluginMessage;
@@ -996,10 +1059,16 @@
           );
           break;
         case 'generation-complete':
-          finishGeneration(true, `Generated ${message.count} colors successfully!`);
+          finishGeneration(true, `Generated ${message.count} colors successfully! (${message.gridSize} grid)`);
           break;
         case 'generation-error':
           finishGeneration(false, `Error: ${message.error}`);
+          break;
+        case 'auto-export':
+          // Trigger the file download
+          const mimeType = message.format === 'png' ? 'image/png' : 'image/svg+xml';
+          triggerDownload(message.exportData, message.filename, mimeType);
+          showToast(`🎉 ${message.format.toUpperCase()} file exported successfully!`);
           break;
       }
     });
