@@ -14,16 +14,16 @@ RuGBy is now a working rendered-color auditor: `rugby audit` renders pages in Ch
 | 6. Fix suggestions | Done | Token suggestions re-measured over the real pixels; a test applies each one to the page, re-renders and confirms it passes. |
 | 7. Reports | Done | JSON (+ JSON Schema, validated in a test), offline HTML report (tested in Chromium for console errors, both themes, phone width), grouped terminal output (snapshot). |
 | 8. Action, MCP, agent docs | Done | `action.yml` runs green in this repo's CI, both report-only and as a failing `fail-on: drift` gate; `rugby-mcp` smoke test passes; AGENTS.md and skills/rugby/SKILL.md written. |
-| 9. Real-world validation | CASE_STUDY_STATUS |
+| 9. Real-world validation | Done | 10 public sites (home page + one content page, 375/1440 px, light/dark: 80 page states) audited read-only from a GitHub runner. [docs/case-studies.md](docs/case-studies.md) is generated from the committed digest; precision on the final run's 20-finding sample is 20/20. |
 | 10. Polish and release prep | Done | README, CONTRIBUTING, CHANGELOG (0.1.0), MIT LICENSE unchanged, publish-ready package.json; `npm pack --dry-run` is ~100 kB. Not published. |
 
 ## 2. Headline numbers
 
-- **Tests:** TEST_COUNT passing (`pnpm test`), plus the exhaustive color test over all 16,777,216 colors in CI.
+- **Tests:** 394 passing (`pnpm test`), plus the exhaustive color test over all 16,777,216 colors in CI.
 - **Coverage** (V8, lines): `src/color` 99.7%, `src/tokens` 97.0%, `src/drift` 93.5%. `src/audit` reports 56% because its in-page script runs inside Chromium, where V8 coverage can't see it; it is exercised end to end by 19 fixture pages.
 - **Fixtures:** 19 contrast fixture pages, 38 expected measurements × 4 viewport/scheme combinations, all within ±0.05 of first-principles ratios. Of the 32 text elements in the README comparison, axe-core agreed on 24, left 7 incomplete, and got 1 wrong (it fails `mix-blend-mode` text that actually reads at 14:1).
-- **Case studies:** CASE_STUDY_HEADLINE
-- **Precision:** PRECISION_LINE
+- **Case studies:** across 10 sites (14,543 text elements in 80 page states), axe-core left 3,636 contrast checks incomplete. RuGBy resolved all 3,636 from real pixels, and 605 were real failures. 887 of RuGBy's 1,115 contrast failures were on elements axe passed, left incomplete, or didn't check. Most come from Stripe and Linear, and many are in decorative illustrations and product mock-ups.
+- **Precision:** first run 16/20 (80%). The 4 false positives were covered text and a JS-animated background, and led to the covered/animated checks. I stopped reviewing the second run at a misaligned crop, which exposed the first-capture re-layout bug; after the warm-up-capture fix, the third run was 20/20. I'm the only reviewer, so this is a self-assessment. Crops and labels are in `docs/case-studies/` so you can check them. Several true positives are decorative text (code line numbers), which WCAG may exempt.
 
 ## 3. Decisions to review
 
