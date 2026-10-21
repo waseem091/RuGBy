@@ -29,7 +29,7 @@ Node ≥ 20. RuGBy drives Chromium through Playwright. If you don't have a Chrom
 
 axe-core powers Lighthouse and most CI accessibility checks. It can't evaluate text over gradients, background images, translucent layers, `mix-blend-mode` or `backdrop-filter`, so it reports those as **incomplete**, and most CI setups treat incomplete as a pass ([dequelabs/axe-core#4628](https://github.com/dequelabs/axe-core/issues/4628), [#975](https://github.com/dequelabs/axe-core/issues/975)). RuGBy hides the text, screenshots what is really behind it, and measures every pixel.
 
-On the 31 text elements in this repo's [fixture pages](fixtures/pages), whose correct ratios are [computed from first principles](scripts/compute-expected.mjs), axe-core agreed on 23, left 7 incomplete, and got 1 wrong. RuGBy matched all 31 within ±0.05:
+On the 32 text elements in this repo's [fixture pages](fixtures/pages), whose correct ratios are [computed from first principles](scripts/compute-expected.mjs), axe-core agreed on 24, left 7 incomplete, and got 1 wrong. RuGBy matched all 32 within ±0.05:
 
 | Fixture | Element | True ratio | Correct | axe-core | RuGBy |
 |---|---|---:|---|---|---|
@@ -42,7 +42,7 @@ On the 31 text elements in this repo's [fixture pages](fixtures/pages), whose co
 | glass | muted blue text on the same card | 2.46:1 | fail | **incomplete** | fail ✔ |
 | blend-difference | `mix-blend-mode: difference` text that turns near-black | 14.32:1 | pass | **fail** | pass ✔ |
 
-The other 23 (solid backgrounds, opacity stacks, fixed headers, iframes, scroll containers, both dark-mode mechanisms, Display-P3) agree, and the end-to-end test checks every row on every run. Real-world results from public sites are in [docs/case-studies.md](docs/case-studies.md).
+The other 24 (solid backgrounds, opacity stacks, fixed headers, iframes, scroll containers, both dark-mode mechanisms, Display-P3, a long page that re-lays-out during capture) agree, and the end-to-end test checks every row on every run. Real-world results from public sites are in [docs/case-studies.md](docs/case-studies.md).
 
 ## What it checks
 
@@ -169,7 +169,7 @@ The color math is also exported on its own: `import { parseColor, contrastRatio,
 ## Accuracy
 
 - The color core (CSS color parsing, sRGB ↔ linear ↔ OKLab/OKLCH, Display-P3 and other wide gamuts with CSS Color 4 gamut mapping, compositing, blend modes, filters, WCAG 2.x, APCA 0.0.98G-4g, ΔE) is checked against [culori](https://culorijs.org) over **all 16,777,216 sRGB colors** (`RUGBY_EXHAUSTIVE=1`), read from a lossless all-RGB PNG that `rugby fixture` regenerates.
-- 16 fixture pages cover gradients, photos, scrims, blend modes, glass, text shadows, scroll containers, fixed headers, iframes, both dark-mode mechanisms, Display-P3 and opacity, each with expected results derived from first principles.
+- 17 fixture pages cover gradients, photos, scrims, blend modes, glass, text shadows, scroll containers, fixed headers, iframes, both dark-mode mechanisms, Display-P3, opacity and a long page that re-lays-out during capture, each with expected results derived from first principles.
 - A drift fixture app plants five off-token colors (hard-coded hex, Tailwind arbitrary value, opacity stack, filter, dark-mode override). RuGBy reports exactly those five, traced to the right rules, with no false positives.
 - Every suggestion in the fixture suite is applied to the page, re-rendered and re-measured, and must pass.
 

@@ -2,12 +2,11 @@ name: Case studies
 
 # Audits a handful of well-known public sites, read-only, at most one page every
 # 2 seconds per host (RuGBy's built-in rate limit), and commits a compact digest
-# (docs/case-studies/) back to the branch. Runs when the site list changes.
+# (docs/case-studies/) back to the branch. Runs when the site list changes, or by hand.
 on:
   push:
     paths:
       - case-studies/sites.json
-      - .github/workflows/case-studies.yml
   workflow_dispatch:
 
 permissions:
@@ -64,4 +63,8 @@ jobs:
           git add docs/case-studies
           if git diff --cached --quiet; then echo "no changes"; exit 0; fi
           git commit -m "case studies: real-world audit digest from CI"
-          git push origin "HEAD:${GITHUB_REF_NAME}"
+          for attempt in 1 2 3; do
+            git pull --rebase origin "${GITHUB_REF_NAME}" && git push origin "HEAD:${GITHUB_REF_NAME}" && exit 0
+            sleep $((attempt * 5))
+          done
+          exit 1
