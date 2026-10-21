@@ -246,12 +246,93 @@
     ],
     "truePositives": 16
   },
-  "labels": {},
+  "labels": {
+    "S01": {
+      "label": "TP",
+      "reason": "Gray-500 category label on a light gray card: 4.46:1, just under 4.5."
+    },
+    "S02": {
+      "label": "TP",
+      "reason": "Syntax-highlighted keyword (#d73a49) on the code block background: 4.27:1."
+    },
+    "S03": {
+      "label": "TP",
+      "reason": "Same keyword at 1440px: 4.31:1."
+    },
+    "S04": {
+      "label": "TP",
+      "reason": "Code line number in light gray on white: 2.38:1 (decorative, but real text)."
+    },
+    "S05": {
+      "label": "TP",
+      "reason": "Class name in a dark code illustration, dim gray on near-black: 2.10:1 (axe agrees; decorative)."
+    },
+    "S06": {
+      "label": "TP",
+      "reason": "Fuchsia eyebrow heading on light gray at 12px/600: 3.16:1."
+    },
+    "S07": {
+      "label": "TP",
+      "reason": "Green string literal in a code sample on near-white: 2.66:1. The string rotates by animation; the colors and element are right."
+    },
+    "S08": {
+      "label": "TP",
+      "reason": "Slate gray stat description at 16px/300 on a pale lavender panel: 3.21:1."
+    },
+    "S09": {
+      "label": "TP",
+      "reason": "9px gray caption in a payment-terminal graphic on white: 4.04:1 (axe agrees)."
+    },
+    "S10": {
+      "label": "TP",
+      "reason": "Purple heading text at 18px/500 (not large text): 3.49:1."
+    },
+    "S11": {
+      "label": "TP",
+      "reason": "Faded 9px text in an illustrated address form on white: 2.26:1. axe did not check it."
+    },
+    "S12": {
+      "label": "TP",
+      "reason": "Code line number in muted blue on navy: 2.73:1 (decorative). axe passed it."
+    },
+    "S13": {
+      "label": "TP",
+      "reason": "Purple inline link at 18px/425 (not large text) on white: 3.68:1. axe passed it."
+    },
+    "S14": {
+      "label": "TP",
+      "reason": "White on a purple button: 3.68:1 (axe agrees)."
+    },
+    "S15": {
+      "label": "TP",
+      "reason": "Dim gray integration name on near-black: 3.09:1."
+    },
+    "S16": {
+      "label": "TP",
+      "reason": "Dim timestamp on dark gray: 2.92:1."
+    },
+    "S17": {
+      "label": "TP",
+      "reason": "Dim day number in a timeline on near-black: 3.37:1."
+    },
+    "S18": {
+      "label": "TP",
+      "reason": "Footer link, dim gray on near-black: 3.45:1 (axe agrees)."
+    },
+    "S19": {
+      "label": "TP",
+      "reason": "Tag text at 80% opacity on near-black: 4.11:1."
+    },
+    "S20": {
+      "label": "TP",
+      "reason": "Dim gray activity text on near-black: 3.28:1."
+    }
+  },
   "fixes": [
     "Text that isn't visible (covered by another element or animated out) was measured: 3 of the 4 false positives in the first sample. RuGBy now compares the normal and the hidden-text capture inside each text box. If the text's color clearly differs from its background but hiding it changed no pixel, the text is skipped and noted. Fixture: fixtures/pages/covered.html.",
     "Text over JavaScript- or canvas-animated backgrounds was compared against a different frame: 1 of 4. If most of a text box changed between the two captures, the element is skipped and noted. Fixture: fixtures/pages/animated.html.",
     "The first full-page capture of a page that re-lays-out still shows the old layout, so the screenshot used for crops (and for the covered/animated check) did not line up with the measured text boxes on those pages. RuGBy now takes a throwaway capture first, and retakes both captures if text boxes move. Test: test/audit/alignment.test.ts.",
-    "Found while preparing the runs: Chromium's first full-page capture re-lays-out pages that load a monospace fallback font for inline <code>, shifting text ~1px per row, so text far down long docs pages was compared against the wrong pixels. RuGBy now measures after the first capture and re-measures if boxes move. Fixture: fixtures/pages/code-grid.html.",
+    "Found while preparing the runs: Chromium's first full-page capture re-lays-out pages that load a monospace fallback font for inline `<code>`, shifting text ~1px per row, so text far down long docs pages was compared against the wrong pixels. RuGBy now measures after the first capture and re-measures if boxes move. Fixture: fixtures/pages/code-grid.html.",
     "Also found while preparing: tight line-heights made neighbors' glyphs count as background (overlap batching), and Tailwind alpha modifiers flooded drift. Both fixed (see DECISIONS.md)."
   ],
   "next": [
@@ -261,7 +342,7 @@
   ],
   "siteNotes": {},
   "secondRun": {
-    "note": "Second run, with the visibility and stability checks. Its review was stopped at S11: S11's crop was empty although the text had been measured. That exposed that the first full-page capture of a page that re-lays-out still shows the old layout, so crops and the covered/animated comparison were misaligned on such pages (Stripe and Tailwind noted layout shifts). After the warm-up-capture fix, the third run below replaces it.",
+    "note": "With the visibility and stability checks. Its review was stopped at S11: S11's crop was empty although the text had been measured. That exposed that the first full-page capture of a page that re-lays-out still shows the old layout, so crops and the covered/animated comparison were misaligned on such pages (Stripe and Tailwind noted layout shifts). After the warm-up-capture fix, the third run (reviewed above) replaces it.",
     "reviewedBeforeStopping": {
       "S01": "TP",
       "S02": "TP",
@@ -275,5 +356,8 @@
       "S10": "TP",
       "S11": "FP (misaligned capture)"
     }
+  },
+  "thirdRun": {
+    "note": "Third run, with the visibility and stability checks and the warm-up capture. All 20 sampled crops line up with their text boxes. Several true positives are decorative (code line numbers, a code illustration); they are real text below the threshold, which WCAG exempts only if it is pure decoration. The sample is spaced evenly over all findings, so it leans toward Stripe and Linear (14 of 20), which have the most. The reviewer is the agent that built RuGBy, so this is a self-assessment; the crops are in docs/case-studies/ for anyone to check."
   }
 }

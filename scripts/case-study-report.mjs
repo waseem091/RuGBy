@@ -117,6 +117,7 @@ lines.push("## Precision review", "");
 lines.push(
   `A deterministic, evenly spaced sample of ${sample.length} contrast findings across all sites was reviewed by hand against its screenshot crop: is the text really below the required contrast against what is really behind it? ${labeled.length} reviewed, ${tp} true positives: **precision ${pct(tp, labeled.length)}**.`,
   "",
+  ...(review.thirdRun?.note ? [review.thirdRun.note, ""] : []),
   "| # | Site | Element | Ratio | Colors | axe | Label | Why |",
   "|---|---|---|---:|---|---|---|---|",
 );

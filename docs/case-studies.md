@@ -1,8 +1,8 @@
 # Case studies: RuGBy on public sites
 
-RuGBy audited the home page and one content page of nine well-known public sites. These numbers are what it measured; they say nothing about how much the teams behind these sites care about accessibility, and many findings are in decorative illustrations.
+RuGBy audited the home page and one content page of well-known public sites. These numbers are what it measured; they say nothing about how much the teams behind these sites care about accessibility, and many findings are in decorative illustrations and product mock-ups.
 
-**Across 10 sites, axe-core left 3625 contrast checks incomplete; RuGBy resolved 3625 of them, and 614 were real failures.** RuGBy also found 867 contrast failures that axe passed, left incomplete, or did not check.
+**Across 10 sites, axe-core left 3636 contrast checks incomplete; RuGBy resolved 3636 of them from real pixels, and 605 were real failures.** In all, 887 of RuGBy's contrast failures were elements that axe passed, left incomplete, or did not check. (Counts are page states: the same element at two viewports and two schemes counts up to four times.)
 
 ## How these numbers were produced
 
@@ -17,16 +17,16 @@ RuGBy audited the home page and one content page of nine well-known public sites
 | Site | Text measured | Contrast findings | axe incomplete | …resolved by RuGBy | …real failures | axe missed | Off-token colors |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | shadcn/ui docs | 1464 | 129 | 534 | 534 | 123 | 125 | 22 |
-| Vercel templates | 728 | 46 | 36 | 36 | 9 | 12 | 14 |
-| Tailwind CSS and Tailwind Plus marketing | 1816 | 131 | 985 | 985 | 62 | 89 | 4 |
+| Vercel templates | 728 | 46 | 37 | 37 | 10 | 10 | 15 |
+| Tailwind CSS and Tailwind Plus marketing | 1891 | 131 | 989 | 989 | 65 | 99 | 4 |
 | Radix docs | 768 | 13 | 228 | 228 | 9 | 9 | 5 |
 | Next.js docs | 930 | 2 | 116 | 116 | 0 | 2 | 25 |
-| MDN Web Docs | 2541 | 5 | 18 | 18 | 1 | 5 | 30 |
-| GitHub marketing | 1232 | 0 | 201 | 201 | 0 | 0 | 17 |
-| Stripe | 2897 | 402 | 597 | 597 | 121 | 292 | 120 |
+| MDN Web Docs | 2541 | 4 | 18 | 18 | 0 | 4 | 32 |
+| GitHub marketing | 1246 | 0 | 198 | 198 | 0 | 0 | 17 |
+| Stripe | 2929 | 415 | 606 | 606 | 109 | 305 | 120 |
 | Linear | 1634 | 356 | 814 | 814 | 278 | 320 | 61 |
 | Svelte | 412 | 19 | 96 | 96 | 11 | 13 | 28 |
-| **Total** | **14422** | **1103** | **3625** | **3625** | **614** | **867** | **326** |
+| **Total** | **14543** | **1115** | **3636** | **3636** | **605** | **887** | **329** |
 
 ## shadcn/ui docs
 
@@ -57,7 +57,7 @@ Most interesting findings that axe left incomplete or missed:
 
 Pages: <https://vercel.com/templates>, <https://vercel.com/templates/next.js/nextjs-commerce>
 
-728 text elements measured across 8 page states. 46 contrast findings (axe: 9 incomplete, 0 pass, 3 not checked, 34 fail). Backgrounds: 46 solid, 0 gradient, 0 image, 0 mixed. 14 off-token colors (14 likely typos).
+728 text elements measured across 8 page states. 46 contrast findings (axe: 10 incomplete, 0 pass, 0 not checked, 36 fail). Backgrounds: 46 solid, 0 gradient, 0 image, 0 mixed. 15 off-token colors (15 likely typos).
 
 Most interesting findings that axe left incomplete or missed:
 
@@ -80,7 +80,7 @@ Most interesting findings that axe left incomplete or missed:
 
 Pages: <https://tailwindcss.com/>, <https://tailwindcss.com/plus>
 
-1816 text elements measured across 8 page states. 131 contrast findings (axe: 62 incomplete, 10 pass, 17 not checked, 42 fail). Backgrounds: 95 solid, 8 gradient, 4 image, 24 mixed. 4 off-token colors (0 likely typos).
+1891 text elements measured across 8 page states. 131 contrast findings (axe: 65 incomplete, 13 pass, 21 not checked, 32 fail). Backgrounds: 95 solid, 8 gradient, 4 image, 24 mixed. 4 off-token colors (0 likely typos).
 
 Most interesting findings that axe left incomplete or missed:
 
@@ -141,17 +141,13 @@ Most interesting findings that axe left incomplete or missed:
 
 Pages: <https://developer.mozilla.org/en-US/>, <https://developer.mozilla.org/en-US/docs/Web/CSS/color>
 
-2541 text elements measured across 8 page states. 5 contrast findings (axe: 1 incomplete, 4 pass, 0 not checked, 0 fail). Backgrounds: 5 solid, 0 gradient, 0 image, 0 mixed. 30 off-token colors (0 likely typos).
+2541 text elements measured across 8 page states. 4 contrast findings (axe: 0 incomplete, 4 pass, 0 not checked, 0 fail). Backgrounds: 4 solid, 0 gradient, 0 image, 0 mixed. 32 off-token colors (0 likely typos).
 
 Most interesting findings that axe left incomplete or missed:
 
-1. **4.50:1** (needs 4.5) · `#content > aside.layout__right-sidebar.reference-layout__toc > mdn-placement-si…` · “Ad” · #444445 on #AFB0B6 (solid) · 375px light · axe: **incomplete** · suggested `color.gray.20` (4.58:1)
+1. **1.26:1** (needs 4.5) · `a > span.token.property` · “<color>” · #FF97A0 on #A4CEFE (solid) · 375px dark · axe: **pass** · suggested `color.csstools.light.dark.toggle.5e0f49fc.2` (6.43:1)
 
-   ![Ad](case-studies/mdn-top-1.png)
-
-2. **1.26:1** (needs 4.5) · `a > span.token.property` · “<color>” · #FF97A0 on #A4CEFE (solid) · 375px dark · axe: **pass** · suggested `color.csstools.light.dark.toggle.5e0f49fc.2` (6.43:1)
-
-   ![<color>](case-studies/mdn-top-2.png)
+   ![<color>](case-studies/mdn-top-1.png)
 
 
 ## GitHub marketing
@@ -160,7 +156,7 @@ Most interesting findings that axe left incomplete or missed:
 
 Pages: <https://github.com/>, <https://github.com/features/copilot>
 
-1232 text elements measured across 8 page states. 0 contrast findings (axe: 0 incomplete, 0 pass, 0 not checked, 0 fail). Backgrounds: 0 solid, 0 gradient, 0 image, 0 mixed. 17 off-token colors (2 likely typos).
+1246 text elements measured across 8 page states. 0 contrast findings (axe: 0 incomplete, 0 pass, 0 not checked, 0 fail). Backgrounds: 0 solid, 0 gradient, 0 image, 0 mixed. 17 off-token colors (2 likely typos).
 
 No contrast failures that axe missed.
 
@@ -170,21 +166,21 @@ No contrast failures that axe missed.
 
 Pages: <https://stripe.com/>, <https://stripe.com/payments>
 
-2897 text elements measured across 8 page states. 402 contrast findings (axe: 121 incomplete, 133 pass, 38 not checked, 110 fail). Backgrounds: 395 solid, 0 gradient, 0 image, 7 mixed. 120 off-token colors (8 likely typos).
+2929 text elements measured across 8 page states. 415 contrast findings (axe: 109 incomplete, 148 pass, 48 not checked, 110 fail). Backgrounds: 408 solid, 0 gradient, 1 image, 6 mixed. 120 off-token colors (8 likely typos).
 
 Most interesting findings that axe left incomplete or missed:
 
-1. **1.07:1** (needs 3) · `h1.hds-heading.hero-section__title:nth-of-type(1) > span.hero-section__title-co…` · “Accept payments, handle business banking, and implement cus…” · #81B81A on #C49BFB (mixed) · 1440px light · axe: **incomplete** · suggested `color.hds.color.core.neutral.700` (3.72:1)
+1. **2.27:1** (needs 3) · `a.CustomersCaseStudyCard.theme--Dark:nth-of-type(4) > div.CustomersCaseStudyCar…` · “atVenu streamlines merchandise sales at live events with St…” · #FFFFFF on #35BADF (image) · 1440px dark · axe: **incomplete** · suggested `color.hds.color.core.neutralDark.700` (3.07:1)
 
-   ![Accept payments, handle business bankin…](case-studies/stripe-top-1.png)
+   ![atVenu streamlines merchandise sales at…](case-studies/stripe-top-1.png)
 
-2. **1.08:1** (needs 3) · `h1.hds-heading.hero-section__title:nth-of-type(1) > span.hero-section__title-co…` · “1” · #81B81A on #FC84E1 (mixed) · 1440px light · axe: **incomplete** · suggested `color.hds.color.core.neutral.700` (3.79:1)
+2. **1.07:1** (needs 3) · `h1.hds-heading.hero-section__title:nth-of-type(1) > span.hero-section__title-co…` · “Accept payments, handle business banking, and implement cus…” · #81B81A on #C49BFB (mixed) · 1440px light · axe: **incomplete** · suggested `color.hds.color.core.neutral.700` (3.72:1)
 
-   ![1](case-studies/stripe-top-2.png)
+   ![Accept payments, handle business bankin…](case-studies/stripe-top-2.png)
 
-3. **2.25:1** (needs 3) · `h1.hds-heading.hero-section__title:nth-of-type(2) > span.hero-section__title-co…` · “Accept payments, handle business banking, and implement cus…” · #724EF6 on #E48CEC (mixed) · 1440px light · axe: **incomplete** · suggested `color.hds.color.action.icon.solidAlternateHover` (3.09:1)
+3. **1.08:1** (needs 3) · `h1.hds-heading.hero-section__title:nth-of-type(1) > span.hero-section__title-co…` · “1” · #81B81A on #FC84E1 (mixed) · 1440px light · axe: **incomplete** · suggested `color.hds.color.core.neutral.700` (3.79:1)
 
-   ![Accept payments, handle business bankin…](case-studies/stripe-top-3.png)
+   ![1](case-studies/stripe-top-3.png)
 
 
 ## Linear
@@ -235,42 +231,44 @@ Most interesting findings that axe left incomplete or missed:
 
 ## Precision review
 
-A deterministic, evenly spaced sample of 20 contrast findings across all sites was reviewed by hand against its screenshot crop: is the text really below the required contrast against what is really behind it? 0 reviewed, 0 true positives: **precision n/a**.
+A deterministic, evenly spaced sample of 20 contrast findings across all sites was reviewed by hand against its screenshot crop: is the text really below the required contrast against what is really behind it? 20 reviewed, 20 true positives: **precision 100%**.
+
+Third run, with the visibility and stability checks and the warm-up capture. All 20 sampled crops line up with their text boxes. Several true positives are decorative (code line numbers, a code illustration); they are real text below the threshold, which WCAG exempts only if it is pure decoration. The sample is spaced evenly over all findings, so it leans toward Stripe and Linear (14 of 20), which have the most. The reviewer is the agent that built RuGBy, so this is a self-assessment; the crops are in docs/case-studies/ for anyone to check.
 
 | # | Site | Element | Ratio | Colors | axe | Label | Why |
 |---|---|---|---:|---|---|---|---|
-| S01 | shadcn | `div.flex.flex-col:nth-of-type(1) > div.group\/c…` “Real Estate” | 4.46 | #737373 on #F8F8F8 (solid) | incomplete | — | not reviewed |
-| S02 | shadcn | `span.line:nth-of-type(2) > span:nth-of-type(1)` “import” | 4.27 | #D73A49 on #F7F7F7 (solid) | incomplete | — | not reviewed |
-| S03 | shadcn | `div.group.relative:nth-of-type(13) > div.relati…` “from” | 4.31 | #D73A49 on #F8F8F8 (solid) | incomplete | — | not reviewed |
-| S04 | vercel-templates | `#C7d72a332-L1 > button.vF3MAa_lineNumber` “1” | 2.38 | #A8A8A8 on #FFFFFF (solid) | incomplete | — | not reviewed |
-| S05 | tailwind | `div.relative.max-w-full:nth-of-type(5) > div.fl…` “text-gray-950” | 1.61 | #CCCCCC on #FFFFFF (solid) | fail | — | not reviewed |
-| S06 | tailwind | `div.\*\:flex.\*\:\*\:max-w-none:nth-of-type(2) …` “" "” | 1.31 | #74D4FF on #00BCFF (mixed) | not-checked | — | not reviewed |
-| S07 | stripe | `div:nth-of-type(3) > div:nth-of-type(2) > div:n…` “Card” | 4.35 | #667691 on #F8F8FF (solid) | fail | — | not reviewed |
-| S08 | stripe | `div:nth-of-type(2) > div:nth-of-type(1) > span:…` “25%” | 4.04 | #6B59FE on #ECEDFE (solid) | fail | — | not reviewed |
-| S09 | stripe | `div.RowLayout:nth-of-type(2) > div.ColumnLayout…` “In-person payments” | 3.68 | #9966FF on #FFFFFF (solid) | fail | — | not reviewed |
-| S10 | stripe | `div.DomGraphic__scaleContainer > div.GraphicFor…` “United States” | 1.95 | #B3BBC2 on #FFFFFF (solid) | not-checked | — | not reviewed |
-| S11 | stripe | `div.GraphicFormField__content > div.GraphicForm…` “Card” | 4.15 | #6D7E94 on #FFFFFF (solid) | not-checked | — | not reviewed |
-| S12 | stripe | `span.CodeEditorLineNumbers__number:nth-of-type(…` “5” | 2.73 | #55718D on #0C2E4E (solid) | pass | — | not reviewed |
-| S13 | stripe | `div.DomGraphic__scaleContainer > div.PaymentsHe…` “Email” | 2.89 | #989898 on #FFFFFF (solid) | pass | — | not reviewed |
-| S14 | stripe | `div.PricingGridRow__ctaContainer:nth-of-type(2)…` “Payment method pricing” | 2.05 | #00C4C4 on #F6F9FC (solid) | pass | — | not reviewed |
-| S15 | linear | `div.KFZpfa_activityListRow:nth-of-type(2) > div…` “added the labels and” | 3.09 | #62666D on #161819 (gradient) | incomplete | — | not reviewed |
-| S16 | linear | `div.KFZpfa_activityList:nth-of-type(10) > div.K…` “Todo” | 3.08 | #62666D on #17181A (solid) | incomplete | — | not reviewed |
-| S17 | linear | `div._rhIjq_day:nth-of-type(6) > span.sc-KOGVz.j…` “13” | 3.33 | #62666D on #0D0F0F (solid) | incomplete | — | not reviewed |
-| S18 | linear | `a.Jmh1Wq_legalLink.I_mUeq_root:nth-of-type(4)` “AUP” | 3.45 | #62666D on #08090A (solid) | fail | — | not reviewed |
-| S19 | linear | `div:nth-of-type(4) > div._5k-xcq_card.qM9FAa_is…` “ENG-1882” | 2.54 | #51555A on #0E1010 (solid) | incomplete | — | not reviewed |
-| S20 | linear | `div.aFfDra_frame.aFfDra_highlightTopRight:nth-o…` “added to context” | 3.28 | #62666D on #101112 (solid) | incomplete | — | not reviewed |
+| S01 | shadcn | `div.flex.flex-col:nth-of-type(1) > div.group\/c…` “Real Estate” | 4.46 | #737373 on #F8F8F8 (solid) | incomplete | TP | Gray-500 category label on a light gray card: 4.46:1, just under 4.5. |
+| S02 | shadcn | `span.line:nth-of-type(2) > span:nth-of-type(1)` “import” | 4.27 | #D73A49 on #F7F7F7 (solid) | incomplete | TP | Syntax-highlighted keyword (#d73a49) on the code block background: 4.27:1. |
+| S03 | shadcn | `div.group.relative:nth-of-type(13) > div.relati…` “import” | 4.31 | #D73A49 on #F8F8F8 (solid) | incomplete | TP | Same keyword at 1440px: 4.31:1. |
+| S04 | vercel-templates | `#C77e4551b-L2 > button.vF3MAa_lineNumber` “2” | 2.38 | #A8A8A8 on #FFFFFF (solid) | incomplete | TP | Code line number in light gray on white: 2.38:1 (decorative, but real text). |
+| S05 | tailwind | `span.hidden.dark\:inline:nth-of-type(6)` “text-white” | 2.10 | #42454D on #030712 (solid) | fail | TP | Class name in a dark code illustration, dim gray on near-black: 2.10:1 (axe agrees; decorative). |
+| S06 | tailwind | `p.text-fuchsia-500.dark\:text-fuchsia-400` “Tailwind in the wild” | 3.16 | #E12AFB on #F2F2F3 (mixed) | incomplete | TP | Fuchsia eyebrow heading on light gray at 12px/600: 3.16:1. |
+| S07 | stripe | `div.platform-graphic__features--stacked:nth-of-…` “' capital-financing-promotion '” | 2.66 | #00B261 on #F8FAFD (solid) | incomplete | TP | Green string literal in a code sample on near-white: 2.66:1. The string rotates by animation; the colors and element are right. |
+| S08 | stripe | `#stat-historical-uptime-description` “for Stripe services” | 3.21 | #7D8BA4 on #F8F6FE (solid) | incomplete | TP | Slate gray stat description at 16px/300 on a pale lavender panel: 3.21:1. |
+| S09 | stripe | `div:nth-of-type(2) > div:nth-of-type(1) > span:…` “Tap, insert, or swipe to pay” | 4.04 | #727F96 on #FFFFFF (solid) | fail | TP | 9px gray caption in a payment-terminal graphic on white: 4.04:1 (axe agrees). |
+| S10 | stripe | `#global-payments > div.Section__masked > div.Se…` “Global payments” | 3.49 | #9966FF on #F6F9FC (solid) | pass | TP | Purple heading text at 18px/500 (not large text): 3.49:1. |
+| S11 | stripe | `div.PaymentsHeroAnimationCheckout__payment:nth-…` “Show all address fields” | 2.26 | #ADADAD on #FFFFFF (solid) | not-checked | TP | Faded 9px text in an illustrated address form on white: 2.26:1. axe did not check it. |
+| S12 | stripe | `span.CodeEditorLineNumbers__number:nth-of-type(…` “4” | 2.73 | #55718D on #0C2E4E (solid) | pass | TP | Code line number in muted blue on navy: 2.73:1 (decorative). axe passed it. |
+| S13 | stripe | `p > a.Link:nth-of-type(2)` “custom rules” | 3.68 | #9966FF on #FFFFFF (solid) | pass | TP | Purple inline link at 18px/425 (not large text) on white: 3.68:1. axe passed it. |
+| S14 | stripe | `section.Copy.variant--Section > footer.Copy__fo…` “See all features” | 3.68 | #FFFFFF on #9966FF (solid) | fail | TP | White on a purple button: 3.68:1 (axe agrees). |
+| S15 | linear | `div.KFZpfa_activityList:nth-of-type(4) > div.KF…` “Slack” | 3.09 | #62666D on #161819 (solid) | incomplete | TP | Dim gray integration name on near-black: 3.09:1. |
+| S16 | linear | `div.KFZpfa_connectedRow:nth-of-type(3) > div.Im…` “2 min ago” | 2.92 | #62666D on #1D1D1F (solid) | incomplete | TP | Dim timestamp on dark gray: 2.92:1. |
+| S17 | linear | `div._rhIjq_day:nth-of-type(4) > span.sc-KOGVz.j…` “23” | 3.37 | #62666D on #0C0D0D (solid) | incomplete | TP | Dim day number in a timeline on near-black: 3.37:1. |
+| S18 | linear | `a.Jmh1Wq_legalLink.I_mUeq_root:nth-of-type(2)` “Terms” | 3.45 | #62666D on #08090A (solid) | fail | TP | Footer link, dim gray on near-black: 3.45:1 (axe agrees). |
+| S19 | linear | `div.qM9FAa_col:nth-of-type(2) > div.ImRUSq_root…` “AI” | 4.11 | #72767D on #111213 (solid) | incomplete | TP | Tag text at 80% opacity on near-black: 4.11:1. |
+| S20 | linear | `div.aFfDra_frame.aFfDra_highlightTopRight:nth-o…` “added to context” | 3.28 | #62666D on #101112 (solid) | incomplete | TP | Dim gray activity text on near-black: 3.28:1. |
 
 ### Earlier runs
 
 - **First run:** 16 of 20 sampled findings were true positives (80%). The false positives: S07 (stripe): Measured on a pink background, but the screenshot shows white: the background was animated by JavaScript between captures. S08 (stripe): The text is not visible in the screenshot (covered or animated out), yet it was measured. S17 (linear): The text is not visible in the screenshot (covered), yet it was measured. S19 (linear): The text is not visible in the screenshot (covered), yet it was measured.
-- **Second run:** Second run, with the visibility and stability checks. Its review was stopped at S11: S11's crop was empty although the text had been measured. That exposed that the first full-page capture of a page that re-lays-out still shows the old layout, so crops and the covered/animated comparison were misaligned on such pages (Stripe and Tailwind noted layout shifts). After the warm-up-capture fix, the third run below replaces it.
+- **Second run:** With the visibility and stability checks. Its review was stopped at S11: S11's crop was empty although the text had been measured. That exposed that the first full-page capture of a page that re-lays-out still shows the old layout, so crops and the covered/animated comparison were misaligned on such pages (Stripe and Tailwind noted layout shifts). After the warm-up-capture fix, the third run (reviewed above) replaces it.
 
 ## False positives found and fixed
 
 - Text that isn't visible (covered by another element or animated out) was measured: 3 of the 4 false positives in the first sample. RuGBy now compares the normal and the hidden-text capture inside each text box. If the text's color clearly differs from its background but hiding it changed no pixel, the text is skipped and noted. Fixture: fixtures/pages/covered.html.
 - Text over JavaScript- or canvas-animated backgrounds was compared against a different frame: 1 of 4. If most of a text box changed between the two captures, the element is skipped and noted. Fixture: fixtures/pages/animated.html.
 - The first full-page capture of a page that re-lays-out still shows the old layout, so the screenshot used for crops (and for the covered/animated check) did not line up with the measured text boxes on those pages. RuGBy now takes a throwaway capture first, and retakes both captures if text boxes move. Test: test/audit/alignment.test.ts.
-- Found while preparing the runs: Chromium's first full-page capture re-lays-out pages that load a monospace fallback font for inline <code>, shifting text ~1px per row, so text far down long docs pages was compared against the wrong pixels. RuGBy now measures after the first capture and re-measures if boxes move. Fixture: fixtures/pages/code-grid.html.
+- Found while preparing the runs: Chromium's first full-page capture re-lays-out pages that load a monospace fallback font for inline `<code>`, shifting text ~1px per row, so text far down long docs pages was compared against the wrong pixels. RuGBy now measures after the first capture and re-measures if boxes move. Fixture: fixtures/pages/code-grid.html.
 - Also found while preparing: tight line-heights made neighbors' glyphs count as background (overlap batching), and Tailwind alpha modifiers flooded drift. Both fixed (see DECISIONS.md).
 
 ## What's next
