@@ -26,3 +26,7 @@ jobs:
       - run: pnpm run typecheck
       - run: pnpm run build
       - run: pnpm run test
+      - name: Exhaustive color test over all 16,777,216 colors
+        run: pnpm exec vitest run test/color/exhaustive.test.ts
+        env:
+          RUGBY_EXHAUSTIVE: "1"
