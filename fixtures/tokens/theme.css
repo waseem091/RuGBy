@@ -1,0 +1,37 @@
+/* Fixture: a Tailwind v4 CSS-first config plus a shadcn/ui-style theme. */
+@import "tailwindcss";
+
+@theme {
+  --color-*: initial;
+  --color-gray-500: oklch(55.1% 0.027 264.364);
+  --color-gray-900: oklch(21% 0.034 264.665);
+  --color-brand: #2563eb;
+  --font-display: "Satoshi", sans-serif;
+}
+
+:root {
+  --background: 0 0% 100%;
+  --foreground: 222.2 84% 4.9%;
+  --primary: var(--color-brand);
+  --ring: var(--missing, #93c5fd);
+}
+
+.dark {
+  --background: 222.2 84% 4.9%;
+  --foreground: 210 40% 98%;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-brand: #60a5fa;
+  }
+}
+
+@theme inline {
+  --color-background: hsl(var(--background));
+  --color-surface: var(--background);
+}
+
+.button {
+  --button-bg: red;
+}

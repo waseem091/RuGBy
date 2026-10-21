@@ -95,7 +95,7 @@ describe("wide-gamut RGB spaces", () => {
   it.each(cases)("%s matches culori and round-trips", (_name, toLin, fromLin, mode) => {
     for (const s of samples) {
       const ours = toLin(s);
-      const theirs = toLrgb({ mode, r: s[0], g: s[1], b: s[2] } as Parameters<typeof toLrgb>[0]);
+      const theirs = toLrgb({ mode, r: s[0], g: s[1], b: s[2] } as Parameters<typeof toLrgb>[0])!;
       close(ours, [theirs.r, theirs.g, theirs.b], 6);
       close(fromLin(ours), s, 6);
     }

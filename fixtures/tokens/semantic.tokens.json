@@ -1,0 +1,30 @@
+{
+  "color": {
+    "$type": "color",
+    "gray": {
+      "500": { "$value": "#6b7280" },
+      "700": { "$value": "#374151" },
+      "900": { "$value": { "colorSpace": "srgb", "components": [0.0667, 0.0941, 0.1529], "hex": "#111827" } }
+    },
+    "brand": {
+      "primary": { "$value": "oklch(0.546 0.245 262.881)" },
+      "display": { "$value": "color(display-p3 0.2 0.45 1)" }
+    },
+    "text": {
+      "default": { "$value": "{color.gray.900}" },
+      "muted": {
+        "$value": "{color.gray.500}",
+        "$extensions": { "mode": { "dark": "{color.gray.700}" } }
+      },
+      "link": { "$value": "{color.text.accent}" },
+      "accent": { "$value": "{color.brand.primary}" }
+    }
+  },
+  "spacing": {
+    "$type": "dimension",
+    "sm": { "$value": "4px" }
+  },
+  "font": {
+    "body": { "$value": "Inter", "$type": "fontFamily" }
+  }
+}

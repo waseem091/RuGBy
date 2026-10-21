@@ -27,3 +27,11 @@ One line per decision: what was chosen, why, and the alternative.
 - **culori as oracle only:** its `hard-light`/`overlay` blend formulas are wrong (`2s(1-b)-1` instead of Screen), so those two modes are tested against the spec formula instead; its Lab D50 adaptation differs from CSS Color 4 by ~1e-5 on a 0–100 scale.
 - **Compositing space:** all compositing, blend modes and CSS filter functions use gamma-encoded sRGB, matching how Chromium paints CSS (not linear light). Alternative: linearRGB (the SVG default).
 - **Bare HSL triplets** (`222.2 84% 4.9%`, the shadcn/ui custom-property convention) parse as colors only when `bareHsl` is set, which the CSS-variable token loader does. Alternative: never accept them.
+
+## Tokens
+
+- **Canonical names:** every format normalizes to a dotted `color.<path>` name plus the CSS variable that would carry it (`--color-gray-500`); Tailwind `DEFAULT` keys name their parent. Alternative: keep each format's native naming.
+- **Modes from several DTCG files:** with more than one file, each file's last dotted name segment is its mode (`colors.dark.tokens.json` → `dark`), except files named `tokens`, `base`, `core`, `global`, `primitive(s)` or `default`, which are mode-less shared primitives. `$extensions.mode` / `$extensions.modes` objects add per-mode values. Alternative: require an explicit mode flag.
+- **CSS theme scopes:** only `:root`, `html`, `:host`, `@theme`, `.dark`/`.light`/`.theme-*`/`*-theme`/`*-mode` classes, `[data-theme|mode|color-scheme|appearance=…]` and `@media (prefers-color-scheme)` blocks define tokens; component-scoped custom properties (`.card { --x }`) are ignored. Alternative: treat every custom property as a token.
+- **Tailwind without tailwindcss installed:** read `theme.colors` + `theme.extend.colors` straight from the config module and warn that the default palette is missing. Alternative: fail.
+- **Matching uses exact floats, display uses hex:** each token keeps its gamut-mapped float sRGB for matching; `value` is the 8-bit hex for humans.
