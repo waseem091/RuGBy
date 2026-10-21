@@ -2,21 +2,25 @@
   {
     "id": "shadcn",
     "name": "shadcn/ui docs",
+    "kind": "docs",
     "urls": ["https://ui.shadcn.com/", "https://ui.shadcn.com/docs/components/button"]
   },
   {
     "id": "vercel-templates",
     "name": "Vercel templates",
+    "kind": "marketing",
     "urls": ["https://vercel.com/templates", "https://vercel.com/templates/next.js/nextjs-commerce"]
   },
   {
     "id": "tailwind",
     "name": "Tailwind CSS and Tailwind Plus marketing",
+    "kind": "marketing",
     "urls": ["https://tailwindcss.com/", "https://tailwindcss.com/plus"]
   },
   {
     "id": "radix",
     "name": "Radix docs",
+    "kind": "docs",
     "urls": [
       "https://www.radix-ui.com/",
       "https://www.radix-ui.com/primitives/docs/overview/introduction"
@@ -25,11 +29,13 @@
   {
     "id": "nextjs",
     "name": "Next.js docs",
+    "kind": "docs",
     "urls": ["https://nextjs.org/", "https://nextjs.org/docs"]
   },
   {
     "id": "mdn",
     "name": "MDN Web Docs",
+    "kind": "docs",
     "urls": [
       "https://developer.mozilla.org/en-US/",
       "https://developer.mozilla.org/en-US/docs/Web/CSS/color"
@@ -38,21 +44,25 @@
   {
     "id": "github",
     "name": "GitHub marketing",
+    "kind": "marketing",
     "urls": ["https://github.com/", "https://github.com/features/copilot"]
   },
   {
     "id": "stripe",
     "name": "Stripe",
+    "kind": "marketing",
     "urls": ["https://stripe.com/", "https://stripe.com/payments"]
   },
   {
     "id": "linear",
     "name": "Linear",
+    "kind": "marketing",
     "urls": ["https://linear.app/", "https://linear.app/features"]
   },
   {
     "id": "svelte",
     "name": "Svelte",
+    "kind": "docs",
     "urls": ["https://svelte.dev/", "https://svelte.dev/docs/svelte/overview"]
   }
 ]
