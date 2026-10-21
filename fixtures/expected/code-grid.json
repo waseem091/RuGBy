@@ -17,6 +17,15 @@
       "kind": "solid",
       "axe": "pass",
       "why": "white on zinc 900, at the bottom of a page that shifts during capture"
+    },
+    {
+      "selector": "#muted-last",
+      "ratio": 2.54,
+      "pass": false,
+      "kind": "solid",
+      "axe": "fail",
+      "why": "gray 400 on white, in the last card only"
     }
-  ]
+  ],
+  "noSkips": true
 }

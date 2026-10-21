@@ -149,7 +149,9 @@ describe("crops", () => {
 
   it("crops the text box with padding and an outline", () => {
     const img = canvas(100, 100, () => [255, 255, 255]);
-    const png = decodePng(cropFinding(img, [{ x: 40, y: 40, w: 20, h: 10 }]));
+    expect(cropFinding(img, [{ x: 500, y: 500, w: 20, h: 10 }])).toBeUndefined();
+    expect(cropFinding(img, [])).toBeUndefined();
+    const png = decodePng(cropFinding(img, [{ x: 40, y: 40, w: 20, h: 10 }])!);
     expect([png.width, png.height]).toEqual([52, 42]);
     expect(Array.from(png.data.subarray((14 * 52 + 14) * 4, (14 * 52 + 14) * 4 + 3))).toEqual([
       255, 0, 170,

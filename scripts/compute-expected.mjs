@@ -264,7 +264,18 @@ const pages = {
         "pass",
         "white on zinc 900, at the bottom of a page that shifts during capture",
       ),
+      e(
+        "#muted-last",
+        rgb("#9ca3af"),
+        W,
+        "solid",
+        "fail",
+        "gray 400 on white, in the last card only",
+      ),
     ],
+    // Every text box must line up in both captures: nothing may be skipped as covered or animated.
+    // (test/audit/alignment.test.ts also checks that #muted-last's screenshot crop shows its text.)
+    noSkips: true,
   },
   "covered.html": {
     description:
@@ -312,6 +323,7 @@ for (const [page, spec] of Object.entries(pages)) {
     description: spec.description,
     expect: spec.expect.map(strip),
     ...(spec.absent ? { absent: spec.absent } : {}),
+    ...(spec.noSkips ? { noSkips: true } : {}),
   };
   writeFileSync(
     `fixtures/expected/${page.replace(/\.html$/, ".json")}`,

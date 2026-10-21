@@ -25,6 +25,7 @@ interface ExpectedFile {
   description: string;
   expect: Expectation[];
   absent?: string[];
+  noSkips?: boolean;
 }
 
 const expected: ExpectedFile[] = readdirSync("fixtures/expected")
@@ -93,6 +94,16 @@ describe("fixture pages", () => {
             });
           }
         }
+      }
+      if (file.noSkips) {
+        it("skips no text as covered or animated (both captures line up with the text boxes)", () => {
+          const pages = report.pages.filter((p) => p.url === `local:/${file.page}`);
+          expect(pages).toHaveLength(4);
+          for (const p of pages) {
+            expect(p.notes.join(" ")).not.toMatch(/not visible|background changed/);
+            expect(p.stats.textSkipped).toBe(0);
+          }
+        });
       }
       for (const selector of file.absent ?? []) {
         it(`${selector} is not measured`, () => {

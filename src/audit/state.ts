@@ -238,12 +238,14 @@ function unionRect(rects: Rect[]): Rect {
   return { x, y, w: r - x, h: b - y };
 }
 
-/** Text box plus 16px padding, outlined in magenta. */
-export function cropFinding(image: RgbaImage, rects: Rect[]): Uint8Array {
+/** Text box plus 16px padding, outlined in magenta; undefined when it falls outside the image. */
+export function cropFinding(image: RgbaImage, rects: Rect[]): Uint8Array | undefined {
+  if (!rects.length) return undefined;
   let box = unionRect(rects);
   if (box.w > 1400 || box.h > 700) box = rects[0]!;
   const pad = 16;
   const crop = cropImage(image, box.x - pad, box.y - pad, box.w + pad * 2, box.h + pad * 2);
+  if (!crop.width || !crop.height) return undefined;
   const ox = Math.max(0, Math.floor(box.x - pad));
   const oy = Math.max(0, Math.floor(box.y - pad));
   strokeRect(crop, box.x - ox - 2, box.y - oy - 2, box.w + 4, box.h + 4, [255, 0, 170], 2);
@@ -328,18 +330,34 @@ export async function measureState(
     await settle(page);
 
     await page.evaluate(installPageApi);
-    // The first full-page capture can re-lay-out the page (Chromium resizes the
-    // view for captureBeyondViewport; on long pages positions shifted by ~1px per
-    // grid row). Capture once first, then measure, so rects match later captures.
+    // The first full-page capture can re-lay-out the page: inline <code> pulls in a
+    // monospace fallback font only when everything is rasterized, and positions
+    // below shift (~1px per row). That capture still shows the old layout, so take
+    // a throwaway one first; the next capture and the measurements then agree.
     const dims = await page.evaluate(() => ({
       w: Math.max(document.documentElement.scrollWidth, window.innerWidth),
       h: Math.max(document.documentElement.scrollHeight, window.innerHeight),
     }));
-    const normal = await screenshot(
-      page,
-      Math.min(dims.h, o.maxPageHeight),
-      Math.min(dims.w, viewport * 3),
-    );
+    await page.screenshot({
+      fullPage: true,
+      type: "jpeg",
+      quality: 10,
+      animations: "disabled",
+      clip: {
+        x: 0,
+        y: 0,
+        width: Math.min(dims.w, viewport * 3),
+        height: Math.min(dims.h, o.maxPageHeight),
+      },
+    });
+    const capture = async () => {
+      const d = await page.evaluate(() => ({
+        w: Math.max(document.documentElement.scrollWidth, window.innerWidth),
+        h: Math.max(document.documentElement.scrollHeight, window.innerHeight),
+      }));
+      return screenshot(page, Math.min(d.h, o.maxPageHeight), Math.min(d.w, viewport * 3));
+    };
+    let normal = await capture();
     lap(`screenshot ${normal.width}x${normal.height}`);
     const collect = (): Promise<CollectResult> =>
       page.evaluate((opts) => (window as unknown as WithApi).__rugby.collectText(opts), {
@@ -377,15 +395,16 @@ export async function measureState(
       await settle(page);
       let shot = await screenshot(page, height, width);
       await page.evaluate(() => (window as unknown as WithApi).__rugby.restore());
-      // If the layout still moved (late fonts, lazy content), measure and capture once more.
-      const again = await collect();
-      if (moved(collected, again)) {
+      // If the layout still moved (late fonts, lazy content), capture both images
+      // and measure once more, so the pair and the text boxes agree.
+      if (moved(collected, await collect())) {
         notes.push("layout shifted during capture; measured a second time");
-        collected = again;
-        batch.splice(0, batch.length, ...again.items);
+        normal = await capture();
+        collected = await collect();
+        batch.splice(0, batch.length, ...collected.items);
         await page.evaluate(
           (ids) => (window as unknown as WithApi).__rugby.hide(ids),
-          again.items.map((i) => i.index),
+          collected.items.map((i) => i.index),
         );
         await settle(page);
         shot = await screenshot(page, height, width);

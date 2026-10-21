@@ -17,8 +17,10 @@ import { join } from "node:path";
 
 const sites = JSON.parse(readFileSync("case-studies/sites.json", "utf8"));
 const outDir = "docs/case-studies";
-rmSync(outDir, { recursive: true, force: true });
+// Replace the previous digest (data.json and crops) but keep hand-written files such as review.json.
 mkdirSync(outDir, { recursive: true });
+for (const f of readdirSync(outDir))
+  if (f === "data.json" || f.endsWith(".png")) rmSync(join(outDir, f));
 
 const KIND_RANK = { gradient: 0, image: 1, mixed: 2, solid: 3 };
 const AXE_RANK = { incomplete: 0, pass: 1, "not-checked": 2, fail: 3 };
