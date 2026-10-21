@@ -21,7 +21,7 @@ import {
   type RawTextItem,
   type Rect,
 } from "./page-script.js";
-import { classifyBackground, sampleContrast } from "./sample.js";
+import { classifyBackground, type Histogram, sampleContrast } from "./sample.js";
 import type { RateLimiter } from "./targets.js";
 import type { AxeVerdict, ContrastCheck, PageResult, Scheme, Severity } from "./types.js";
 
@@ -37,8 +37,11 @@ export interface MeasuredText extends ContrastCheck {
   opacity: number;
   blendMode: BlendMode | "normal";
   worstBg: Rgba;
+  medianBg: Rgba;
   rects: Rect[];
   crop?: Uint8Array;
+  /** Background pixels behind a failing text, for evaluating suggestions. */
+  histogram?: Histogram;
 }
 
 export interface StateOutput {
@@ -438,7 +441,9 @@ export async function measureState(
           opacity: item.opacity,
           blendMode: blend,
           worstBg,
+          medianBg: fromBytes(...s.medianBg),
           rects: item.rects,
+          ...(pass ? {} : { histogram: s.histogram }),
         });
       }
     }

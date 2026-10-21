@@ -62,7 +62,11 @@ describe("fixture pages", () => {
   it("audits all fixture pages at two viewports and two schemes in under 60 seconds", () => {
     expect(report.pages.every((p) => p.status === "ok")).toBe(true);
     expect(report.summary.states).toBe(expected.length * 4);
-    expect(elapsed).toBeLessThan(60_000);
+    // V8 coverage instrumentation slows the pixel loops ~4x; CI times the uninstrumented CLI instead.
+    const worker = (globalThis as Record<string, unknown>).__vitest_worker__ as
+      | { config?: { coverage?: { enabled?: boolean } } }
+      | undefined;
+    if (!worker?.config?.coverage?.enabled) expect(elapsed).toBeLessThan(60_000);
   });
 
   for (const file of expected) {

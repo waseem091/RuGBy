@@ -52,3 +52,20 @@ One line per decision: what was chosen, why, and the alternative.
 - **Cross-page dedupe:** identical failures (same selector, text, colors, viewport, scheme) on several pages are reported once with `alsoOn`.
 - **Disabled controls** (and `aria-disabled`) are skipped, as WCAG exempts inactive components; so are transparent-fill text (`background-clip: text`), SVG text and form-control internals.
 - **Expected results** in `fixtures/expected/` are computed from first principles by `scripts/compute-expected.mjs`: each fixture places a flat plateau of the worst color where the text starts (≥5% of its pixels at any viewport), so the 5th-percentile verdict is known exactly regardless of font metrics. culori supplies luminance and CSS Color 4 gamut mapping as an independent oracle.
+
+## Drift
+
+- **Rendered color model:** each element is a layer (its content over its own background), filtered by its own `filter`, faded by its own `opacity`, then composited over its parent's background, up to the canvas. This is exact for solid colors, so a 60%-opacity badge composites over what is *behind* it, and white text inside it stays white. Background images make the backdrop approximate (noted as a cause). Alternative: sample pixels for every painted color.
+- **What counts as a typo:** `likely-typo` only for authored opaque values within ΔE 0.5 of a token. Compositing noise near a token is on-token. Alternative: any rendered color under ΔE 0.5.
+- **Exact vs near:** below ΔE 0.1 is the token; between 0.5 and `--drift-threshold` is on-token ("near", counted as usage); 0.1–0.5 authored values are reported as typos. An unmodified translucent value equal to a translucent token (a scrim) is on-token.
+- **Box shadows:** compared by their authored color, ignoring alpha, and reported as `info` (which `--fail-on drift` ignores), because shadows are translucent black by design. Alternative: skip them.
+- **Browser defaults:** a painted color with no author declaration anywhere in the cascade (initial values, user-agent styles such as link underlines) is not drift. This needs CDP tracing; when CDP fails, colors are reported with selectors only.
+- **Modes:** colors match against tokens of every mode, so a dark value of a token is never drift in light mode. Alternative: match per scheme.
+- **Grouping:** by rendered color + property + source rule (or selector when untraced), across viewports, schemes and pages; `occurrences` counts distinct page+selector pairs, not states.
+- **Page-token fallback:** without a token file, each page's computed `:root` custom properties (per scheme) are the tokens; the report's token source says so.
+
+## Suggestions
+
+- **Re-evaluation over the real pixels:** each failing text keeps its background-pixel histogram, and every candidate token is re-scored with the same 5th-percentile math (a darker text color moves the worst pixel on a gradient, so testing against the old worst pixel is not enough). An acceptance test applies every suggestion to a copy of the page, re-renders and re-measures.
+- **Ranking:** OKLab ΔE to the current color, +10 for a different hue family (neutral, or one of twelve 30° hue sectors), +2 for a different token group. Then background tokens (closest to the median background). Then `null` with a plain note, which also says when opacity is the real problem.
+- **No tokens at all:** suggest the nearest passing OKLCH lightness at the same chroma and hue, snapped to 8 bits before verifying, since the hex is what gets applied.

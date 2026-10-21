@@ -1,0 +1,54 @@
+{
+  "description": "Exactly five planted off-token colors; every other painted color is a token (including a translucent scrim token, an SVG fill and a box-shadow).",
+  "tokens": "tokens.json",
+  "drift": [
+    {
+      "kind": "hardcoded hex (likely typo)",
+      "color": "#6B7281",
+      "property": "color",
+      "rule": ".muted { color: #6b7281 }",
+      "likelyTypo": true,
+      "nearestToken": "color.gray.500",
+      "occurrences": 3,
+      "replacement": "#6b7281 → var(--color-gray-500)"
+    },
+    {
+      "kind": "Tailwind arbitrary value",
+      "color": "#5B6472",
+      "property": "color",
+      "rule": ".text-\\[\\#5b6472\\] { color: #5b6472 }",
+      "likelyTypo": false,
+      "nearestToken": "color.gray.500",
+      "occurrences": 1,
+      "replacement": "text-[#5b6472] → text-gray-500"
+    },
+    {
+      "kind": "opacity stack",
+      "color": "#85B0F6",
+      "property": "background-color",
+      "rule": ".badge { background: var(--color-blue-500) }",
+      "likelyTypo": false,
+      "cause": "opacity 0.6",
+      "occurrences": 1
+    },
+    {
+      "kind": "filter",
+      "color": "#D5A21F",
+      "property": "background-color",
+      "rule": ".promo { background: var(--color-amber-400) }",
+      "likelyTypo": false,
+      "cause": "filter: brightness(0.85)",
+      "occurrences": 1
+    },
+    {
+      "kind": "dark-mode override",
+      "color": "#20304A",
+      "property": "background-color",
+      "rule": ".card { background: #20304a }",
+      "likelyTypo": false,
+      "schemes": ["dark"],
+      "occurrences": 2,
+      "replacement": "#20304a → var(--color-gray-800)"
+    }
+  ]
+}

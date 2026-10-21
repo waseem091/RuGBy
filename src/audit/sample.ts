@@ -36,6 +36,8 @@ export interface PixelStats {
   renderedFg: Rgba;
   /** 95th-percentile ΔE of the background pixels from the median background. */
   spread: number;
+  /** The background pixels measured (after the glyph-edge filter), for re-running the math. */
+  histogram: Histogram;
 }
 
 const oklab8 = (r: number, g: number, b: number): Oklab => srgbToOklab([r / 255, g / 255, b / 255]);
@@ -59,22 +61,15 @@ export function renderText(fg: Rgba, backdrop: Rgba, blend: BlendMode | "normal"
   return blend === "normal" ? compositeOver(fg, backdrop) : blendOver(blend, fg, backdrop);
 }
 
-/**
- * Measure `fg` (alpha already multiplied by effective opacity) against the
- * background pixels under `rects`. Returns null when no pixels are covered.
- */
-export function sampleContrast(
-  image: RgbaImage,
-  rects: Rect[],
-  fg: Rgba,
-  blend: BlendMode | "normal",
-  options: SampleOptions = {},
-): PixelStats | null {
-  const glyphDeltaE = options.glyphDeltaE ?? 1;
-  const maxPixels = options.maxPixels ?? 40_000;
-  const percentile = options.percentile ?? 0.05;
+/** Background colors (24-bit ints) with their pixel counts. */
+export interface Histogram {
+  colors: number[];
+  counts: number[];
+}
+
+/** Count the colors under `rects`, subsampling large areas with a deterministic stride. */
+export function histogramInRects(image: RgbaImage, rects: Rect[], maxPixels = 40_000): Histogram {
   let offsets = pixelsInRects(image, rects);
-  if (offsets.length === 0) return null;
   if (offsets.length > maxPixels) {
     const stride = offsets.length / maxPixels;
     const sub = new Uint32Array(maxPixels);
@@ -82,18 +77,37 @@ export function sampleContrast(
     offsets = sub;
   }
   const d = image.data;
-  const fgLab = srgbToOklab([fg.r, fg.g, fg.b]);
-  // Group by color: most backgrounds have few distinct colors.
   const counts = new Map<number, number>();
   for (const o of offsets) {
     const c = (d[o * 4]! << 16) | (d[o * 4 + 1]! << 8) | d[o * 4 + 2]!;
     counts.set(c, (counts.get(c) ?? 0) + 1);
   }
-  let colors = [...counts.keys()];
-  const nearFg = (c: number) => dE(oklab8(c >> 16, (c >> 8) & 255, c & 255), fgLab) < glyphDeltaE;
-  const filtered = colors.filter((c) => !nearFg(c));
-  // If everything looks like the foreground, the text really is invisible: keep it all.
-  if (filtered.length > 0) colors = filtered;
+  const colors = [...counts.keys()].sort((a, b) => a - b);
+  return { colors, counts: colors.map((c) => counts.get(c)!) };
+}
+
+/**
+ * Contrast statistics of `fg` (alpha already multiplied by effective opacity)
+ * over a background histogram. Returns null for an empty histogram.
+ */
+export function statsFromHistogram(
+  histogram: Histogram,
+  fg: Rgba,
+  blend: BlendMode | "normal",
+  options: SampleOptions = {},
+): PixelStats | null {
+  const glyphDeltaE = options.glyphDeltaE ?? 1;
+  const percentile = options.percentile ?? 0.05;
+  if (histogram.colors.length === 0) return null;
+  const fgLab = srgbToOklab([fg.r, fg.g, fg.b]);
+  const countOf = new Map(histogram.colors.map((c, i) => [c, histogram.counts[i]!]));
+  let colors = histogram.colors;
+  if (glyphDeltaE > 0) {
+    const nearFg = (c: number) => dE(oklab8(c >> 16, (c >> 8) & 255, c & 255), fgLab) < glyphDeltaE;
+    const filtered = colors.filter((c) => !nearFg(c));
+    // If everything looks like the foreground, the text really is invisible: keep it all.
+    if (filtered.length > 0) colors = filtered;
+  }
   interface Entry {
     c: number;
     n: number;
@@ -109,7 +123,7 @@ export function sampleContrast(
     const lt = relativeLuminance(text);
     const ratio = contrastFromLuminance(lt, luminance8(r, g, b));
     const lc = apcaContrastFromY(apcaY(text), apcaY8(r, g, b));
-    return { c, n: counts.get(c)!, ratio, lc };
+    return { c, n: countOf.get(c)!, ratio, lc };
   });
   const total = entries.reduce((s, e) => s + e.n, 0);
   const at = (sorted: Entry[], q: number): Entry => {
@@ -149,7 +163,22 @@ export function sampleContrast(
     medianBg: rgb(median.c),
     renderedFg: renderText(fg, worstBg, blend),
     spread,
+    histogram: { colors, counts: colors.map((c) => countOf.get(c)!) },
   };
+}
+
+/**
+ * Measure `fg` (alpha already multiplied by effective opacity) against the
+ * background pixels under `rects`. Returns null when no pixels are covered.
+ */
+export function sampleContrast(
+  image: RgbaImage,
+  rects: Rect[],
+  fg: Rgba,
+  blend: BlendMode | "normal",
+  options: SampleOptions = {},
+): PixelStats | null {
+  return statsFromHistogram(histogramInRects(image, rects, options.maxPixels), fg, blend, options);
 }
 
 /** Solid when 95% of pixels are within ΔE 2.5 of the median; otherwise use the page's hints. */

@@ -26,8 +26,13 @@ jobs:
       - run: pnpm run typecheck
       - run: pnpm run build
       - run: pnpm run test
-      - name: End-to-end audit of the fixture pages
-        run: node dist/cli.js audit fixtures/pages --max-pages 50 --tokens none --dark-class dark --fail-on none --json > rugby-fixtures.json
+      - name: End-to-end audit of the fixture pages (must finish in under 60 s)
+        run: |
+          start=$(date +%s)
+          node dist/cli.js audit fixtures/pages --max-pages 50 --tokens none --dark-class dark --fail-on none --json > rugby-fixtures.json
+          elapsed=$(( $(date +%s) - start ))
+          echo "fixture audit took ${elapsed}s"
+          test "$elapsed" -lt 60
       - name: Exhaustive color test over all 16,777,216 colors
         run: pnpm exec vitest run test/color/exhaustive.test.ts
         env:

@@ -5,6 +5,14 @@
 import { mkdir, rm, writeFile } from "node:fs/promises";
 import { join, relative, resolve } from "node:path";
 import type { Browser } from "playwright-core";
+import {
+  type DriftStateData,
+  groupDrift,
+  measureDrift,
+  pageTokenSet,
+  tokenUsage,
+} from "../drift/stage.js";
+import { suggestContrastFix } from "../suggest/contrast.js";
 import { loadTokens } from "../tokens/detect.js";
 import type { TokenSet } from "../tokens/types.js";
 import { VERSION } from "../version.js";
@@ -13,23 +21,6 @@ import { type AuditOptions, type ResolvedOptions, resolveOptions } from "./optio
 import { type MeasuredText, measureState, type StateHooks, type StateOutput } from "./state.js";
 import { RateLimiter, resolveTargets } from "./targets.js";
 import type { ContrastCheck, ContrastFinding, Finding, Report, Scheme } from "./types.js";
-
-/** Hooks other stages (drift, suggestions) plug into. */
-export interface Pipeline {
-  hooks?: (tokens: () => TokenSet | null) => StateHooks;
-  /** Build extra findings and token usage once every state is measured. */
-  finish?: (input: {
-    outputs: StateOutput[];
-    tokens: TokenSet | null;
-    options: ResolvedOptions;
-    contrast: ContrastFinding[];
-    texts: MeasuredText[];
-  }) => Promise<{
-    findings: Finding[];
-    tokenUsage?: Report["tokenUsage"];
-    tokens?: TokenSet | null;
-  }>;
-}
 
 async function pool<T, R>(
   items: T[],
@@ -71,7 +62,7 @@ function toFinding(t: MeasuredText): ContrastFinding {
   return { type: "contrast", severity: t.severity, ...toCheck(t) };
 }
 
-export async function runAudit(input: AuditOptions, pipeline: Pipeline = {}): Promise<Report> {
+export async function runAudit(input: AuditOptions): Promise<Report> {
   const o = resolveOptions(input);
   let tokens: TokenSet | null =
     o.tokens === null
@@ -93,7 +84,16 @@ export async function runAudit(input: AuditOptions, pipeline: Pipeline = {}): Pr
   let outputs: StateOutput[];
   try {
     browser = await launchBrowser(o.executablePath ? { executablePath: o.executablePath } : {});
-    const hooks = pipeline.hooks?.(() => tokens) ?? {};
+    const fileTokens = tokens;
+    const hooks: StateHooks = o.drift
+      ? {
+          afterMeasure: (page, scheme) =>
+            measureDrift(page, scheme, fileTokens, {
+              selector: o.selector,
+              threshold: o.driftThreshold,
+            }),
+        }
+      : {};
     let done = 0;
     outputs = await pool(states, o.concurrency, async (s) => {
       const out = await measureState(browser!, s.url, s.viewport, s.scheme, o, limiter, hooks);
@@ -124,6 +124,15 @@ export async function runAudit(input: AuditOptions, pipeline: Pipeline = {}): Pr
     for (const t of out.texts) t.page = show(t.page);
   }
 
+  // Without a token file, fall back to the pages' :root custom properties.
+  if (!tokens) {
+    const fromPage = outputs.flatMap(
+      (out) => (out.extra as DriftStateData | undefined)?.pageTokens ?? [],
+    );
+    const firstPage = outputs[0]?.page.url ?? "";
+    tokens = pageTokenSet(`${firstPage} (:root custom properties)`, fromPage);
+  }
+
   // Contrast findings, deduplicated across pages (sticky headers, shared footers).
   const texts = outputs.flatMap((out) => out.texts);
   const failing = texts.filter((t) => !t.pass);
@@ -142,15 +151,62 @@ export async function runAudit(input: AuditOptions, pipeline: Pipeline = {}): Pr
       continue;
     }
     const f = toFinding(t);
+    if (o.suggestions && t.histogram) {
+      f.suggestion = suggestContrastFix(
+        {
+          authored: t.authored,
+          opacity: t.opacity,
+          blendMode: t.blendMode,
+          histogram: t.histogram,
+          medianBg: t.medianBg,
+          fontSizePx: t.fontSizePx,
+          fontWeight: t.fontWeight,
+          level: o.level,
+          standard: o.standard,
+          scheme: t.scheme,
+        },
+        tokens?.tokens ?? [],
+      );
+      if (f.suggestion === null) {
+        const why =
+          t.opacity < 0.999
+            ? ` The text is at ${Math.round(t.opacity * 100)}% effective opacity; raising it is the fix.`
+            : "";
+        f.notes = [
+          ...(f.notes ?? []),
+          `No token passes against this background (tried every text and background token).${why}`,
+        ];
+      }
+    }
     seen.set(key, f);
     contrast.push(f);
     if (t.crop) crops.set(f, t.crop);
   }
 
-  const finished = pipeline.finish
-    ? await pipeline.finish({ outputs, tokens, options: o, contrast, texts })
-    : { findings: [] };
-  if (finished.tokens !== undefined) tokens = finished.tokens;
+  // Drift: group every off-token color across states.
+  const located = outputs.flatMap((out) => {
+    const data = out.extra as DriftStateData | undefined;
+    if (data?.notes.length) out.page.notes.push(...data.notes);
+    return (data?.entries ?? []).map((e) => ({
+      ...e,
+      source: e.source
+        ? { ...e.source, stylesheet: e.source.stylesheet && show(e.source.stylesheet) }
+        : null,
+      page: out.page.url,
+      viewport: out.page.viewport,
+      scheme: out.page.scheme,
+    }));
+  });
+  const drift = o.drift ? groupDrift(located) : [];
+  const used = new Map<string, number>();
+  for (const out of outputs) {
+    for (const [name, n] of (out.extra as DriftStateData | undefined)?.used ?? [])
+      used.set(name, (used.get(name) ?? 0) + n);
+  }
+  const finished = {
+    findings: drift,
+    tokenUsage: o.drift ? tokenUsage(tokens, used, drift) : undefined,
+  };
 
   // Screenshots, numbered in report order.
   if (o.reportDir && crops.size) {
@@ -216,7 +272,7 @@ export async function runAudit(input: AuditOptions, pipeline: Pipeline = {}): Pr
     },
     pages,
     findings,
-    ...(finished.tokenUsage ? { tokenUsage: finished.tokenUsage } : {}),
+    ...(finished.tokenUsage?.length ? { tokenUsage: finished.tokenUsage } : {}),
     ...(o.includeChecks ? { checks: texts.map(toCheck) } : {}),
   };
   return report;

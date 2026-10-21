@@ -44,13 +44,45 @@ export interface CollectOptions {
   maxItems: number;
 }
 
+/** One element in the ancestor table used to composite painted colors. */
+export interface ColorNode {
+  /** Computed background-color. */
+  bg: string;
+  opacity: number;
+  /** Computed `filter`, or "none". */
+  filter: string;
+  /** True when the element paints a background image (url or gradient) or is media. */
+  bgImage: boolean;
+  /** Parent node index (across shadow roots and frames), -1 at the root. */
+  parent: number;
+}
+
+/** A visible element and the colors it paints. */
+export interface RawColorElement {
+  /** Index into `PageApi.colorEls`. */
+  index: number;
+  node: number;
+  /** [property, computed value] pairs for colors that are actually painted. */
+  props: [string, string][];
+}
+
+export interface ColorCollectResult {
+  nodes: ColorNode[];
+  elements: RawColorElement[];
+  /** Canvas color behind the root element. */
+  canvas: string;
+  truncated: boolean;
+}
+
 /** The API `installPageApi` puts on `window.__rugby`. */
 export interface PageApi {
   els: Element[];
+  colorEls: Element[];
   collectText(options: CollectOptions): CollectResult;
+  collectColors(options: CollectOptions): ColorCollectResult;
   hide(indices: number[]): void;
   restore(): void;
-  selectorFor(index: number): string;
+  selectorFor(index: number, kind?: "text" | "color"): string;
   resolveTargets(targets: unknown[]): number[];
 }
 
@@ -60,6 +92,7 @@ export function installPageApi(): void {
   if (w.__rugby) return;
 
   const els: Element[] = [];
+  const colorEls: Element[] = [];
   const saved: [HTMLElement, string | null][] = [];
   const SKIP_TAGS = new Set([
     "script",
@@ -239,8 +272,174 @@ export function installPageApi(): void {
     }
   };
 
+  const SHAPES = new Set([
+    "path",
+    "rect",
+    "circle",
+    "ellipse",
+    "line",
+    "polyline",
+    "polygon",
+    "text",
+    "tspan",
+  ]);
+  const transparent = (c: string) =>
+    !c || c === "transparent" || /^rgba\(0, 0, 0, 0\)$/.test(c) || /\/ 0\)$/.test(c);
+
   const api: PageApi = {
     els,
+    colorEls,
+
+    collectColors(options) {
+      colorEls.length = 0;
+      const nodes: ColorNode[] = [];
+      const ids = new Map<Element, number>();
+      const elements: RawColorElement[] = [];
+      const frames = { sameOrigin: 0, crossOrigin: 0 };
+      let truncated = false;
+      const de = document.documentElement;
+      const docBox: Rect = {
+        x: 0,
+        y: 0,
+        w: Math.max(de.scrollWidth, window.innerWidth),
+        h: Math.max(de.scrollHeight, window.innerHeight),
+      };
+      const nodeFor = (el: Element): number => {
+        const known = ids.get(el);
+        if (known !== undefined) return known;
+        const parentEl = parentAcross(el);
+        const parent = parentEl ? nodeFor(parentEl) : -1;
+        const cs = styleOf(el);
+        const tag = el.localName;
+        const id = nodes.length;
+        nodes.push({
+          bg: cs.backgroundColor,
+          opacity: Number.parseFloat(cs.opacity),
+          filter: cs.filter || "none",
+          bgImage: (cs.backgroundImage !== "none" && !!cs.backgroundImage) || MEDIA_TAGS.has(tag),
+          parent,
+        });
+        ids.set(el, id);
+        return id;
+      };
+      const roots = Array.from(document.querySelectorAll(options.rootSelector));
+      const visit = (el: Element) => {
+        if (truncated) return;
+        const tag = el.localName;
+        if (
+          tag === "script" ||
+          tag === "style" ||
+          tag === "head" ||
+          tag === "template" ||
+          tag === "noscript"
+        )
+          return;
+        const cs = styleOf(el);
+        if (cs.visibility !== "visible" || cs.display === "contents") return;
+        const rectList = Array.from(el.getClientRects()).filter((r) => r.width > 0 && r.height > 0);
+        if (!rectList.length) return;
+        const off = frameOffset(el.ownerDocument);
+        const r0 = rectList[0]!;
+        if (
+          !intersect(
+            {
+              x: r0.left + off.x + window.scrollX,
+              y: r0.top + off.y + window.scrollY,
+              w: r0.width,
+              h: r0.height,
+            },
+            docBox,
+          )
+        )
+          return;
+        if (effectiveOpacity(el) <= 0.001) return;
+        const props: [string, string][] = [];
+        const isSvg = el.namespaceURI === "http://www.w3.org/2000/svg";
+        if (isSvg) {
+          if (SHAPES.has(tag)) {
+            if (
+              cs.fill &&
+              cs.fill !== "none" &&
+              !cs.fill.startsWith("url(") &&
+              Number.parseFloat(cs.fillOpacity || "1") > 0
+            ) {
+              props.push(["fill", cs.fill]);
+            }
+            if (
+              cs.stroke &&
+              cs.stroke !== "none" &&
+              !cs.stroke.startsWith("url(") &&
+              Number.parseFloat(cs.strokeWidth || "0") > 0
+            ) {
+              props.push(["stroke", cs.stroke]);
+            }
+          }
+        } else {
+          const hasText = directText(el).length > 0;
+          if (hasText && !SKIP_TAGS.has(tag)) {
+            props.push(["color", cs.webkitTextFillColor || cs.color]);
+            if (cs.textDecorationLine && cs.textDecorationLine !== "none") {
+              props.push(["text-decoration-color", cs.textDecorationColor]);
+            }
+          }
+          if (!transparent(cs.backgroundColor))
+            props.push(["background-color", cs.backgroundColor]);
+          const sides = ["top", "right", "bottom", "left"] as const;
+          const borders = sides
+            .filter((side) => {
+              const style = cs.getPropertyValue(`border-${side}-style`);
+              return (
+                style !== "none" &&
+                style !== "hidden" &&
+                Number.parseFloat(cs.getPropertyValue(`border-${side}-width`)) > 0
+              );
+            })
+            .map((side) => [side, cs.getPropertyValue(`border-${side}-color`)] as const)
+            .filter(([, c]) => !transparent(c));
+          if (borders.length && borders.every(([, c]) => c === borders[0]![1])) {
+            props.push([
+              borders.length === 4 ? "border-color" : `border-${borders[0]![0]}-color`,
+              borders[0]![1],
+            ]);
+          } else for (const [side, c] of borders) props.push([`border-${side}-color`, c]);
+          if (
+            cs.outlineStyle !== "none" &&
+            Number.parseFloat(cs.outlineWidth) > 0 &&
+            !transparent(cs.outlineColor)
+          ) {
+            props.push(["outline-color", cs.outlineColor]);
+          }
+          if (cs.boxShadow && cs.boxShadow !== "none") {
+            const colors =
+              cs.boxShadow.match(
+                /(?:rgba?|color|oklch|oklab|lab|lch|hsla?)\([^)]*\)|#[0-9a-f]{3,8}/gi,
+              ) ?? [];
+            for (const c of new Set(colors)) if (!transparent(c)) props.push(["box-shadow", c]);
+          }
+        }
+        if (!props.length) return;
+        if (colorEls.length >= options.maxItems) {
+          truncated = true;
+          return;
+        }
+        colorEls.push(el);
+        elements.push({ index: colorEls.length - 1, node: nodeFor(el), props });
+      };
+      for (const root of roots) walk(root, visit, frames);
+      const rootStyle = styleOf(de);
+      const bodyStyle = document.body ? styleOf(document.body) : rootStyle;
+      const darkCanvas =
+        window.matchMedia("(prefers-color-scheme: dark)").matches &&
+        /dark/.test(rootStyle.colorScheme || "");
+      const canvas = !transparent(rootStyle.backgroundColor)
+        ? rootStyle.backgroundColor
+        : !transparent(bodyStyle.backgroundColor)
+          ? bodyStyle.backgroundColor
+          : darkCanvas
+            ? "rgb(18, 18, 18)"
+            : "rgb(255, 255, 255)";
+      return { nodes, elements, canvas, truncated };
+    },
 
     collectText(options) {
       els.length = 0;
@@ -403,8 +602,8 @@ export function installPageApi(): void {
       }
     },
 
-    selectorFor(index) {
-      const el = els[index];
+    selectorFor(index, kind = "text") {
+      const el = (kind === "color" ? colorEls : els)[index];
       if (!el) return "";
       const esc = (s: string) => (window.CSS?.escape ? window.CSS.escape(s) : s);
       const partsFor = (start: Element): string[] => {
