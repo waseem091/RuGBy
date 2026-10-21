@@ -2,8 +2,31 @@
   "name": "rugby",
   "version": "0.1.0",
   "description": "Rendered-color auditor for the web: pixel-sampled contrast checks (WCAG 2 + APCA) and design-token drift detection on real pages.",
-  "type": "module",
+  "keywords": [
+    "accessibility",
+    "a11y",
+    "contrast",
+    "wcag",
+    "apca",
+    "design-tokens",
+    "design-system",
+    "color",
+    "playwright",
+    "axe",
+    "audit",
+    "mcp"
+  ],
+  "homepage": "https://github.com/waseem091/RuGBy#readme",
+  "bugs": {
+    "url": "https://github.com/waseem091/RuGBy/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/waseem091/RuGBy.git"
+  },
   "license": "MIT",
+  "author": "Muhammad Waseem",
+  "type": "module",
   "engines": {
     "node": ">=20"
   },
@@ -28,37 +51,22 @@
     "dist",
     "schema",
     "docs/report-schema.md",
+    "skills",
+    "AGENTS.md",
     "README.md",
     "LICENSE",
     "CHANGELOG.md"
   ],
   "scripts": {
-    "build": "tsc -p tsconfig.build.json",
+    "build": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\" && tsc -p tsconfig.build.json && node -e \"for (const f of ['dist/cli.js', 'dist/mcp/bin.js']) require('fs').chmodSync(f, 0o755)\"",
     "prepare": "npm run build",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "lint": "biome check .",
     "format": "biome format --write .",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
-    "fixture": "node dist/cli.js fixture"
-  },
-  "keywords": [
-    "accessibility",
-    "a11y",
-    "contrast",
-    "wcag",
-    "apca",
-    "design-tokens",
-    "design-system",
-    "color",
-    "playwright",
-    "axe",
-    "audit",
-    "mcp"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/waseem091/RuGBy.git"
+    "fixture": "node dist/cli.js fixture",
+    "test:exhaustive": "RUGBY_EXHAUSTIVE=1 vitest run test/color/exhaustive.test.ts"
   },
   "dependencies": {
     "@axe-core/playwright": "4.14.0",
@@ -84,5 +92,8 @@
       "esbuild",
       "@biomejs/biome"
     ]
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
