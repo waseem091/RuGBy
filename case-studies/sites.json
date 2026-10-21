@@ -5,9 +5,9 @@
     "urls": ["https://ui.shadcn.com/", "https://ui.shadcn.com/docs/components/button"]
   },
   {
-    "id": "vercel-commerce",
-    "name": "Next.js Commerce (Vercel template demo)",
-    "urls": ["https://demo.vercel.store/", "https://demo.vercel.store/search"]
+    "id": "vercel-templates",
+    "name": "Vercel templates",
+    "urls": ["https://vercel.com/templates", "https://vercel.com/templates/next.js/nextjs-commerce"]
   },
   {
     "id": "tailwind",
