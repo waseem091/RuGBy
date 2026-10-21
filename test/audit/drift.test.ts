@@ -87,6 +87,23 @@ describe("drift detection on the fixture app", () => {
     expect(usage.get("color.gray.500")!.drifted).toBe(4);
   });
 
+  it("falls back to the page's :root custom properties when no token file is found", async () => {
+    const fallback = await runAudit({
+      targets: ["fixtures/drift-app/index.html"],
+      viewports: [1440],
+      schemes: ["light"],
+      reportDir: null,
+      cwd: "fixtures/pages", // no token files here
+    });
+    expect(fallback.tokens?.format).toBe("page");
+    expect(fallback.tokens?.source).toBe("local:/index.html (:root custom properties)");
+    const colors = fallback.findings
+      .filter((f) => f.type === "drift")
+      .map((f) => (f as DriftFinding).color);
+    expect(colors).toContain("#5B6472");
+    expect(colors).toContain("#6B7281");
+  });
+
   it("is deterministic", async () => {
     const again = await runAudit({
       targets: ["fixtures/drift-app/index.html"],

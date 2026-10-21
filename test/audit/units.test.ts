@@ -201,6 +201,28 @@ describe("options, targets and politeness", () => {
     await expect(resolveTargets([], { maxPages: 1 })).rejects.toThrow(/Nothing to audit/);
   });
 
+  it("expands sitemaps (and nested sitemap indexes) into page URLs", async () => {
+    const dir = await mkdtemp(join(tmpdir(), "rugby-sitemap-"));
+    const s = await serveStatic(dir);
+    try {
+      await writeFile(
+        join(dir, "sitemap.xml"),
+        `<sitemapindex><sitemap><loc>${s.url}/pages.xml</loc></sitemap></sitemapindex>`,
+      );
+      await writeFile(
+        join(dir, "pages.xml"),
+        `<urlset><url><loc>${s.url}/a.html</loc></url><url><loc>${s.url}/b.html</loc></url><url><loc>${s.url}/c.html</loc></url></urlset>`,
+      );
+      const { urls } = await resolveTargets([], { sitemap: `${s.url}/sitemap.xml`, maxPages: 2 });
+      expect(urls).toEqual([`${s.url}/a.html`, `${s.url}/b.html`]);
+      await expect(
+        resolveTargets([], { sitemap: `${s.url}/missing.xml`, maxPages: 2 }),
+      ).rejects.toThrow(/HTTP 404/);
+    } finally {
+      await s.close();
+    }
+  });
+
   it("serves a single file", async () => {
     const s = await serveStatic("fixtures/pages");
     try {
