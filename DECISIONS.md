@@ -84,3 +84,9 @@ One line per decision: what was chosen, why, and the alternative.
 - **The MCP SDK is loaded only by `rugby-mcp`**, so `rugby audit` never imports it. Alternative: a hand-rolled JSON-RPC server (fewer transitive dependencies, but the prompt names the SDK).
 - **GitHub Action is a composite action** that installs RuGBy from the action's own checkout (`pnpm install --frozen-lockfile`, which builds via `prepare`) and Chromium (`playwright-core install --with-deps`). It passes inputs through `env`, never by interpolating into scripts, uploads `rugby-report/` even on failure, writes the terminal output to the job summary, and exits with RuGBy's code. Alternative: a Docker action (slower to start, heavier to maintain).
 - **This repo's CI uses the action twice:** on the fixture pages with `fail-on: none` (they fail by design), and on the drift fixture with `fail-on: drift`, asserting that the job fails with exit code 1 and exactly 5 findings.
+
+## Case studies
+
+- **Run from GitHub Actions instead of this sandbox:** the sandbox cannot reach public sites (see Blockers), so `.github/workflows/case-studies.yml` audits them from a GitHub-hosted runner (read-only, RuGBy's 2 s per-host rate limit, 2 pages × 2 viewports × 2 schemes per site) and commits a compact digest (`docs/case-studies/data.json` plus crops under 200 KB) back to the branch. The full reports are uploaded as an artifact. Alternative: skip Phase 9.
+- **Sites:** shadcn/ui, a Vercel template demo (Next.js Commerce), Tailwind CSS/Plus, Radix, Next.js, MDN, GitHub, Stripe, Linear, Svelte. Ten instead of eight, so that a site blocking headless browsers doesn't drop the count below eight.
+- **Tokens for real sites:** none are published, so drift uses each page's own `:root` custom properties (`format: "page"`). Drift numbers are therefore "colors not in the page's own custom properties", a weaker signal than a real token file.

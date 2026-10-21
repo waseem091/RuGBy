@@ -1,0 +1,58 @@
+name: Case studies
+
+# Audits a handful of well-known public sites, read-only, at most one page every
+# 2 seconds per host (RuGBy's built-in rate limit), and commits a compact digest
+# (docs/case-studies/) back to the branch. Runs when the site list changes.
+on:
+  push:
+    paths:
+      - case-studies/sites.json
+      - .github/workflows/case-studies.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: case-studies-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright-core install --with-deps chromium
+      - name: Audit each site (home page + one content page, 375/1440, light/dark)
+        run: |
+          mkdir -p case-studies/out
+          for id in $(node -e 'for (const s of require("./case-studies/sites.json")) console.log(s.id)'); do
+            urls=$(node -e 'const s=require("./case-studies/sites.json").find((x)=>x.id===process.argv[1]); console.log(s.urls.join(" "))' "$id")
+            echo "::group::$id"
+            mkdir -p "case-studies/out/$id"
+            ( cd "case-studies/out/$id" && timeout 900 node ../../../dist/cli.js audit $urls --fail-on none --html index.html --concurrency 2 > terminal.txt 2> stderr.txt; echo "exit $?" >> terminal.txt )
+            tail -n 40 "case-studies/out/$id/terminal.txt"
+            echo "::endgroup::"
+          done
+      - name: Digest
+        run: node scripts/case-study-digest.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: case-studies-full
+          path: case-studies/out/
+      - name: Commit the digest to the branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/case-studies
+          if git diff --cached --quiet; then echo "no changes"; exit 0; fi
+          git commit -m "case studies: real-world audit digest from CI"
+          git push origin "HEAD:${GITHUB_REF_NAME}"

@@ -38,3 +38,4 @@ coverage/
 rugby-report/
 fixtures/allrgb.png
 *.tsbuildinfo
+case-studies/out/
