@@ -1,0 +1,31 @@
+{
+  "page": "p3.html",
+  "viewports": [
+    375,
+    1440
+  ],
+  "schemes": [
+    "light",
+    "dark"
+  ],
+  "description": "Display-P3 text colors, gamut-mapped to sRGB in OKLCH (culori toGamut as the oracle).",
+  "expect": [
+    {
+      "selector": "#p3-blue",
+      "ratio": 4.16,
+      "pass": false,
+      "kind": "solid",
+      "axe": "fail",
+      "why": "color(display-p3 0.25 0.45 1) maps to #2b74ff",
+      "note": "display-p3"
+    },
+    {
+      "selector": "#p3-in-gamut",
+      "ratio": 12.44,
+      "pass": true,
+      "kind": "solid",
+      "axe": "pass",
+      "why": "in gamut: no mapping"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "page": "photo.html",
+  "viewports": [
+    375,
+    1440
+  ],
+  "schemes": [
+    "light",
+    "dark"
+  ],
+  "description": "A caption set directly on a photo (synthetic, with a pale #e2e8f0 sky plateau at x < 260).",
+  "expect": [
+    {
+      "selector": "#caption",
+      "ratio": 1.23,
+      "pass": false,
+      "kind": "image",
+      "axe": "incomplete",
+      "why": "white text over the pale sky plateau"
+    }
+  ]
+}

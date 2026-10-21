@@ -1,0 +1,43 @@
+{
+  "page": "scroll-container.html",
+  "viewports": [
+    375,
+    1440
+  ],
+  "schemes": [
+    "light",
+    "dark"
+  ],
+  "description": "Text inside a 120px scroll container: visible rows are measured, scrolled-out rows are not.",
+  "expect": [
+    {
+      "selector": "#row-1",
+      "ratio": 7.23,
+      "pass": true,
+      "kind": "solid",
+      "axe": "pass",
+      "why": "gray 600 on gray 50"
+    },
+    {
+      "selector": "#row-2",
+      "ratio": 2.43,
+      "pass": false,
+      "kind": "solid",
+      "axe": "fail",
+      "why": "gray 400 on gray 50"
+    },
+    {
+      "selector": "#row-3",
+      "ratio": 16.98,
+      "pass": true,
+      "kind": "solid",
+      "axe": "pass",
+      "why": "partly visible row; its visible part is measured"
+    }
+  ],
+  "absent": [
+    "#row-4",
+    "#row-5",
+    "#row-6"
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "page": "solid.html",
+  "viewports": [
+    375,
+    1440
+  ],
+  "schemes": [
+    "light",
+    "dark"
+  ],
+  "description": "Baseline: solid backgrounds, where axe and RuGBy should agree.",
+  "expect": [
+    {
+      "selector": "#pass",
+      "ratio": 17.74,
+      "pass": true,
+      "kind": "solid",
+      "axe": "pass",
+      "why": "gray 900 on white"
+    },
+    {
+      "selector": "#fail",
+      "ratio": 2.54,
+      "pass": false,
+      "kind": "solid",
+      "axe": "fail",
+      "why": "gray 400 on white"
+    },
+    {
+      "selector": "#large-pass",
+      "ratio": 4.83,
+      "pass": true,
+      "kind": "solid",
+      "axe": "pass",
+      "why": "24px is large text: needs 3:1"
+    },
+    {
+      "selector": "#bold-large",
+      "ratio": 2.54,
+      "pass": false,
+      "kind": "solid",
+      "axe": "fail",
+      "why": "19px bold is large text (≥18.66px bold) but 2.54 < 3"
+    },
+    {
+      "selector": "#on-dark",
+      "ratio": 11.86,
+      "pass": true,
+      "kind": "solid",
+      "axe": "pass",
+      "why": "gray 200 on gray 800"
+    }
+  ]
+}

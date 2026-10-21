@@ -1,0 +1,30 @@
+{
+  "page": "fixed-header.html",
+  "viewports": [
+    375,
+    1440
+  ],
+  "schemes": [
+    "light",
+    "dark"
+  ],
+  "description": "A position: fixed header measured once at the top of the page.",
+  "expect": [
+    {
+      "selector": "#nav",
+      "ratio": 2.35,
+      "pass": false,
+      "kind": "solid",
+      "axe": "fail",
+      "why": "gray 600 on gray 900"
+    },
+    {
+      "selector": "#body-1",
+      "ratio": 17.74,
+      "pass": true,
+      "kind": "solid",
+      "axe": "pass",
+      "why": "body text"
+    }
+  ]
+}

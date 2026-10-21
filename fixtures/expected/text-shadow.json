@@ -1,0 +1,23 @@
+{
+  "page": "text-shadow.html",
+  "viewports": [
+    375,
+    1440
+  ],
+  "schemes": [
+    "light",
+    "dark"
+  ],
+  "description": "A text-shadow is ignored for the measurement (and noted).",
+  "expect": [
+    {
+      "selector": "#shadowed",
+      "ratio": 1.24,
+      "pass": false,
+      "kind": "solid",
+      "axe": "fail",
+      "why": "white on #e5e7eb without the shadow",
+      "note": "text-shadow"
+    }
+  ]
+}

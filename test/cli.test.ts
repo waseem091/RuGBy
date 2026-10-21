@@ -46,7 +46,7 @@ describe("rugby CLI", () => {
     const r = rugby("--help");
     expect(r.code).toBe(0);
     expect(r.stdout).toContain("Usage: rugby");
-    for (const cmd of ["tokens", "contrast", "fixture"]) expect(r.stdout).toContain(cmd);
+    for (const cmd of ["audit", "tokens", "contrast", "fixture"]) expect(r.stdout).toContain(cmd);
   });
 
   it("contrast: text and JSON output", () => {

@@ -1,0 +1,31 @@
+{
+  "page": "opacity.html",
+  "viewports": [
+    375,
+    1440
+  ],
+  "schemes": [
+    "light",
+    "dark"
+  ],
+  "description": "Opacity multiplies up the tree (0.6 × 0.5 = 0.3) and composites the text color.",
+  "expect": [
+    {
+      "selector": "#faded",
+      "ratio": 1.95,
+      "pass": false,
+      "kind": "solid",
+      "axe": "fail",
+      "why": "gray 900 at 30% over white",
+      "note": "opacity"
+    },
+    {
+      "selector": "#translucent",
+      "ratio": 9.44,
+      "pass": true,
+      "kind": "solid",
+      "axe": "pass",
+      "why": "rgba(17,24,39,.8) over white"
+    }
+  ]
+}

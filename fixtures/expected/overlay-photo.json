@@ -1,0 +1,22 @@
+{
+  "page": "overlay-photo.html",
+  "viewports": [
+    375,
+    1440
+  ],
+  "schemes": [
+    "light",
+    "dark"
+  ],
+  "description": "White text on a 40% black scrim over a photo whose left 260px are pure white.",
+  "expect": [
+    {
+      "selector": "#overlay-text",
+      "ratio": 2.85,
+      "pass": false,
+      "kind": "image",
+      "axe": "incomplete",
+      "why": "rgba(0,0,0,.4) over #fff = #999999"
+    }
+  ]
+}

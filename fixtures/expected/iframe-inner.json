@@ -1,0 +1,30 @@
+{
+  "page": "iframe-inner.html",
+  "viewports": [
+    375,
+    1440
+  ],
+  "schemes": [
+    "light",
+    "dark"
+  ],
+  "description": "The iframe document on its own.",
+  "expect": [
+    {
+      "selector": "#inner-fail",
+      "ratio": 2.54,
+      "pass": false,
+      "kind": "solid",
+      "axe": "fail",
+      "why": "gray 400 on white"
+    },
+    {
+      "selector": "#inner-pass",
+      "ratio": 17.74,
+      "pass": true,
+      "kind": "solid",
+      "axe": "pass",
+      "why": "gray 900 on white"
+    }
+  ]
+}

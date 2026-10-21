@@ -1,0 +1,22 @@
+{
+  "page": "radial-gradient.html",
+  "viewports": [
+    375,
+    1440
+  ],
+  "schemes": [
+    "light",
+    "dark"
+  ],
+  "description": "Text on a radial gradient whose bright 150px core sits behind the first words.",
+  "expect": [
+    {
+      "selector": "#burst",
+      "ratio": 1.25,
+      "pass": false,
+      "kind": "gradient",
+      "axe": "incomplete",
+      "why": "white text over the #fde68a core"
+    }
+  ]
+}

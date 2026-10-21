@@ -1,0 +1,36 @@
+{
+  "page": "dark-media.html",
+  "viewports": [
+    375,
+    1440
+  ],
+  "schemes": [
+    "light",
+    "dark"
+  ],
+  "description": "Dark mode through @media (prefers-color-scheme: dark).",
+  "expect": [
+    {
+      "selector": "#themed",
+      "ratio": 10.31,
+      "pass": true,
+      "kind": "solid",
+      "axe": "pass",
+      "why": "light: gray 700 on white",
+      "schemes": [
+        "light"
+      ]
+    },
+    {
+      "selector": "#themed",
+      "ratio": 2.35,
+      "pass": false,
+      "kind": "solid",
+      "axe": "fail",
+      "why": "dark: gray 600 on gray 900",
+      "schemes": [
+        "dark"
+      ]
+    }
+  ]
+}

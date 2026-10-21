@@ -1,0 +1,39 @@
+{
+  "page": "iframe.html",
+  "viewports": [
+    375,
+    1440
+  ],
+  "schemes": [
+    "light",
+    "dark"
+  ],
+  "description": "Text inside a same-origin iframe is measured with the frame offset.",
+  "expect": [
+    {
+      "selector": "#outer",
+      "ratio": 17.74,
+      "pass": true,
+      "kind": "solid",
+      "axe": "pass",
+      "why": "outer document"
+    },
+    {
+      "selector": "iframe >>> #inner-fail",
+      "ratio": 2.54,
+      "pass": false,
+      "kind": "solid",
+      "axe": "fail",
+      "why": "inside the iframe",
+      "note": "iframe"
+    },
+    {
+      "selector": "iframe >>> #inner-pass",
+      "ratio": 17.74,
+      "pass": true,
+      "kind": "solid",
+      "axe": "pass",
+      "why": "inside the iframe"
+    }
+  ]
+}

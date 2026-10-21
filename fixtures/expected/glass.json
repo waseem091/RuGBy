@@ -1,0 +1,30 @@
+{
+  "page": "glass.html",
+  "viewports": [
+    375,
+    1440
+  ],
+  "schemes": [
+    "light",
+    "dark"
+  ],
+  "description": "A backdrop-filter: blur(24px) glass card (rgba(255,255,255,.15)) over 4px blue stripes.",
+  "expect": [
+    {
+      "selector": "#glass-text",
+      "ratio": 4.43,
+      "pass": false,
+      "kind": "solid",
+      "axe": "incomplete",
+      "why": "blur averages the stripes to their mean; white at 15% over it"
+    },
+    {
+      "selector": "#glass-muted",
+      "ratio": 2.46,
+      "pass": false,
+      "kind": "solid",
+      "axe": "incomplete",
+      "why": "blue 300 on the same glass"
+    }
+  ]
+}

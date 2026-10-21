@@ -1,0 +1,30 @@
+{
+  "page": "linear-gradient.html",
+  "viewports": [
+    375,
+    1440
+  ],
+  "schemes": [
+    "light",
+    "dark"
+  ],
+  "description": "Text on CSS linear gradients with a flat 120px plateau where the text starts.",
+  "expect": [
+    {
+      "selector": "#cta",
+      "ratio": 1.8,
+      "pass": false,
+      "kind": "gradient",
+      "axe": "incomplete",
+      "why": "white text; the worst background is the #93c5fd plateau under the first words"
+    },
+    {
+      "selector": "#soft",
+      "ratio": 12.48,
+      "pass": true,
+      "kind": "gradient",
+      "axe": "incomplete",
+      "why": "dark text; the darkest background is the #bfdbfe plateau"
+    }
+  ]
+}

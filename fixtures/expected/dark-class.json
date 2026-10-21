@@ -1,0 +1,36 @@
+{
+  "page": "dark-class.html",
+  "viewports": [
+    375,
+    1440
+  ],
+  "schemes": [
+    "light",
+    "dark"
+  ],
+  "description": "Dark mode through a .dark class on <html> (audited with darkClass: \"dark\").",
+  "expect": [
+    {
+      "selector": "#class-themed",
+      "ratio": 2.43,
+      "pass": false,
+      "kind": "solid",
+      "axe": "fail",
+      "why": "light: gray 400 on gray 50",
+      "schemes": [
+        "light"
+      ]
+    },
+    {
+      "selector": "#class-themed",
+      "ratio": 13.66,
+      "pass": true,
+      "kind": "solid",
+      "axe": "pass",
+      "why": "dark: gray 300 on gray 950",
+      "schemes": [
+        "dark"
+      ]
+    }
+  ]
+}
