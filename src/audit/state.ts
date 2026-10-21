@@ -15,7 +15,7 @@ import { cropImage, decodePng, encodePng, type RgbaImage, strokeRect } from "../
 import { viewportHeight } from "./browser.js";
 import { DEFAULT_HIDE_SELECTORS, type ResolvedOptions } from "./options.js";
 import { type CollectResult, installPageApi, type PageApi, type Rect } from "./page-script.js";
-import { classifyBackground, type Histogram, sampleContrast } from "./sample.js";
+import { classifyBackground, compareCaptures, type Histogram, sampleContrast } from "./sample.js";
 import type { RateLimiter } from "./targets.js";
 import type { AxeVerdict, ContrastCheck, PageResult, Scheme, Severity } from "./types.js";
 
@@ -369,6 +369,8 @@ export async function measureState(
     // Hide every measured text at once. Batching by overlap would leave a
     // neighbor's glyphs visible wherever tight line-heights make line boxes
     // overlap, and those glyphs would be sampled as "background".
+    let covered = 0;
+    let unstable = 0;
     for (const batch of [[...collected.items]]) {
       const indices = batch.map((b) => b.index);
       await page.evaluate((ids) => (window as unknown as WithApi).__rugby.hide(ids), indices);
@@ -400,6 +402,25 @@ export async function measureState(
         const s = sampleContrast(shot, item.rects, fg, blend);
         if (!s) {
           stats.textSkipped++;
+          continue;
+        }
+        // Did hiding this text change the page where it is? If its color clearly
+        // differs from its background but no pixel changed, it isn't visible
+        // (covered by another element, or animated out). If most of the box
+        // changed, the background moved between captures (JS/canvas animation).
+        const cmp = compareCaptures(normal, shot, item.rects);
+        const fgDiff =
+          Math.abs(s.renderedFg.r * 255 - s.medianBg[0]) +
+          Math.abs(s.renderedFg.g * 255 - s.medianBg[1]) +
+          Math.abs(s.renderedFg.b * 255 - s.medianBg[2]);
+        if (cmp.total > 0 && fgDiff > 90 && cmp.changed < Math.max(2, cmp.total * 0.003)) {
+          stats.textSkipped++;
+          covered++;
+          continue;
+        }
+        if (cmp.total >= 20 && cmp.same < cmp.total * 0.25) {
+          stats.textSkipped++;
+          unstable++;
           continue;
         }
         const large = isLargeText(item.fontSizePx, item.fontWeight);
@@ -485,6 +506,15 @@ export async function measureState(
       }
     }
     // Selectors (and crops) for everything we report.
+    if (covered)
+      notes.push(
+        `${covered} text element(s) were not visible (covered by another element) and were not measured`,
+      );
+    if (unstable) {
+      notes.push(
+        `${unstable} text element(s) were skipped because their background changed between captures (animation or video)`,
+      );
+    }
     lap("batches+sampling");
     const wanted = texts.filter((t) => !t.pass || o.includeChecks);
     const selectors = await page.evaluate(

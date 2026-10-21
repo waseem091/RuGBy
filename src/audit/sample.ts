@@ -73,6 +73,45 @@ export function renderText(fg: Rgba, backdrop: Rgba, blend: BlendMode | "normal"
   return blend === "normal" ? compositeOver(fg, backdrop) : blendOver(blend, fg, backdrop);
 }
 
+export interface CaptureComparison {
+  /** Pixels compared (fully covered by the text's boxes, inside both images). */
+  total: number;
+  /** Pixels that changed noticeably when the text was hidden (the glyphs). */
+  changed: number;
+  /** Pixels that stayed (nearly) identical (the background between glyphs). */
+  same: number;
+}
+
+/**
+ * Compare the normal and the hidden-text captures inside a text's boxes.
+ * Visible text changes some pixels when hidden; a static background keeps the
+ * rest identical. Used to drop text that is covered (nothing changes) and text
+ * over animated content (everything changes).
+ */
+export function compareCaptures(
+  before: RgbaImage,
+  after: RgbaImage,
+  rects: Rect[],
+): CaptureComparison {
+  if (before.width !== after.width) return { total: 0, changed: 0, same: 0 };
+  const height = Math.min(before.height, after.height);
+  const clipped: RgbaImage = { width: before.width, height, data: before.data };
+  let total = 0;
+  let changed = 0;
+  let same = 0;
+  for (const o of pixelsInRects(clipped, rects)) {
+    const i = o * 4;
+    const diff =
+      Math.abs(before.data[i]! - after.data[i]!) +
+      Math.abs(before.data[i + 1]! - after.data[i + 1]!) +
+      Math.abs(before.data[i + 2]! - after.data[i + 2]!);
+    total++;
+    if (diff > 24) changed++;
+    else if (diff <= 6) same++;
+  }
+  return { total, changed, same };
+}
+
 /** Background colors (24-bit ints) with their pixel counts. */
 export interface Histogram {
   colors: number[];

@@ -1,0 +1,11 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><style>html,body{margin:0}body{font:18px/1.5 sans-serif;background:#fff;color:#111827}section{padding:16px}p,h1,h2{margin:0 0 8px}</style><title>Animated background</title>
+<style>.hero{padding:40px 16px}</style></head><body>
+<section><p id="static">Static text on a static white background.</p></section>
+<!-- A JavaScript animation (not a CSS one, so RuGBy can't freeze it) changes the hue every frame. Between the two captures the background is different, so the measurement is unreliable and must be skipped. -->
+<section class="hero" id="hero"><p id="animated-text" style="color:#fff">White text on a background that changes every frame.</p></section>
+<script>
+  let h = 0;
+  const hero = document.getElementById("hero");
+  (function tick() { h = (h + 37) % 360; hero.style.background = "hsl(" + h + " 70% 45%)"; requestAnimationFrame(tick); })();
+</script>
+</body></html>

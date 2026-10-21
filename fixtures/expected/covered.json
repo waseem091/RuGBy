@@ -1,0 +1,25 @@
+{
+  "page": "covered.html",
+  "viewports": [
+    375,
+    1440
+  ],
+  "schemes": [
+    "light",
+    "dark"
+  ],
+  "description": "Text under an opaque panel is not visible, so it is not measured (hiding it changes no pixel).",
+  "expect": [
+    {
+      "selector": "#visible",
+      "ratio": 17.74,
+      "pass": true,
+      "kind": "solid",
+      "axe": "pass",
+      "why": "the visible control paragraph"
+    }
+  ],
+  "absent": [
+    "#covered-text"
+  ]
+}

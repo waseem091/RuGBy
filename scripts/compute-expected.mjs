@@ -266,6 +266,27 @@ const pages = {
       ),
     ],
   },
+  "covered.html": {
+    description:
+      "Text under an opaque panel is not visible, so it is not measured (hiding it changes no pixel).",
+    expect: [e("#visible", rgb("#111827"), W, "solid", "pass", "the visible control paragraph")],
+    absent: ["#covered-text"],
+  },
+  "animated.html": {
+    description:
+      "Text over a background that a JavaScript animation repaints every frame is skipped: its background differs between captures.",
+    expect: [
+      e(
+        "#static",
+        rgb("#111827"),
+        W,
+        "solid",
+        "pass",
+        "static text on the same page is still measured",
+      ),
+    ],
+    absent: ["#animated-text"],
+  },
   "opacity.html": {
     description: "Opacity multiplies up the tree (0.6 × 0.5 = 0.3) and composites the text color.",
     expect: [

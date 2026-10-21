@@ -1,0 +1,6 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><style>html,body{margin:0}body{font:18px/1.5 sans-serif;background:#fff;color:#111827}section{padding:16px}p,h1,h2{margin:0 0 8px}</style><title>Covered text</title>
+<style>.stack{position:relative;margin:16px;height:120px}.stack .under{color:#9ca3af;padding:16px}.stack .panel{position:absolute;inset:0;background:#fff;border:1px solid #e5e7eb}</style></head><body>
+<section><p id="visible">This paragraph is visible and readable.</p></section>
+<!-- The light-gray paragraph sits under an opaque panel: nobody can see it, so it must not be reported. -->
+<div class="stack"><p class="under" id="covered-text">Hidden under the panel; nobody can read this.</p><div class="panel"></div></div>
+</body></html>

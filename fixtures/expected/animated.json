@@ -1,0 +1,25 @@
+{
+  "page": "animated.html",
+  "viewports": [
+    375,
+    1440
+  ],
+  "schemes": [
+    "light",
+    "dark"
+  ],
+  "description": "Text over a background that a JavaScript animation repaints every frame is skipped: its background differs between captures.",
+  "expect": [
+    {
+      "selector": "#static",
+      "ratio": 17.74,
+      "pass": true,
+      "kind": "solid",
+      "axe": "pass",
+      "why": "static text on the same page is still measured"
+    }
+  ],
+  "absent": [
+    "#animated-text"
+  ]
+}
