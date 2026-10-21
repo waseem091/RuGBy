@@ -85,17 +85,26 @@ export async function runAudit(input: AuditOptions): Promise<Report> {
   try {
     browser = await launchBrowser(o.executablePath ? { executablePath: o.executablePath } : {});
     const fileTokens = tokens;
-    const hooks: StateHooks = o.drift
-      ? {
-          afterMeasure: (page, scheme) =>
-            measureDrift(page, scheme, fileTokens, {
-              selector: o.selector,
-              threshold: o.driftThreshold,
-            }),
-        }
-      : {};
+    // `tokens: null` (--tokens none) turns drift off rather than falling back to page tokens.
+    const hooks: StateHooks =
+      o.drift && o.tokens !== null
+        ? {
+            afterMeasure: (page, scheme) =>
+              measureDrift(page, scheme, fileTokens, {
+                selector: o.selector,
+                threshold: o.driftThreshold,
+              }),
+          }
+        : {};
     let done = 0;
+    let relaunching: Promise<Browser> | null = null;
     outputs = await pool(states, o.concurrency, async (s) => {
+      // A page can crash Chromium (out of memory on huge pages): start a new one.
+      if (!browser!.isConnected()) {
+        relaunching ??= launchBrowser(o.executablePath ? { executablePath: o.executablePath } : {});
+        browser = await relaunching;
+        relaunching = null;
+      }
       const out = await measureState(browser!, s.url, s.viewport, s.scheme, o, limiter, hooks);
       done++;
       o.onProgress?.({

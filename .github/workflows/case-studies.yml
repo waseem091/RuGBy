@@ -31,16 +31,25 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm exec playwright-core install --with-deps chromium
       - name: Audit each site (home page + one content page, 375/1440, light/dark)
+        env:
+          RUGBY_DEBUG: "1"
         run: |
+          set +e
           mkdir -p case-studies/out
           for id in $(node -e 'for (const s of require("./case-studies/sites.json")) console.log(s.id)'); do
             urls=$(node -e 'const s=require("./case-studies/sites.json").find((x)=>x.id===process.argv[1]); console.log(s.urls.join(" "))' "$id")
             echo "::group::$id"
             mkdir -p "case-studies/out/$id"
-            ( cd "case-studies/out/$id" && timeout 900 node ../../../dist/cli.js audit $urls --fail-on none --html index.html --concurrency 2 > terminal.txt 2> stderr.txt; echo "exit $?" >> terminal.txt )
-            tail -n 40 "case-studies/out/$id/terminal.txt"
+            start=$(date +%s)
+            ( cd "case-studies/out/$id" && timeout 1200 node ../../../dist/cli.js audit $urls --fail-on none --html index.html --concurrency 2 > terminal.txt 2> stderr.txt )
+            code=$?
+            echo "exit $code after $(( $(date +%s) - start ))s"
+            head -n 3 "case-studies/out/$id/terminal.txt"
+            grep -E "^\[rugby\].*(drift|batches\+sampling|axe) " "case-studies/out/$id/stderr.txt" | tail -n 16
+            if [ "$code" != "0" ]; then grep -v "^\[rugby\]" "case-studies/out/$id/stderr.txt" | tail -n 40; fi
             echo "::endgroup::"
           done
+          exit 0
       - name: Digest
         run: node scripts/case-study-digest.mjs
       - uses: actions/upload-artifact@v4

@@ -11,7 +11,7 @@ import {
   renderText,
   sampleContrast,
 } from "../../src/audit/sample.js";
-import { batchItems, cropFinding } from "../../src/audit/state.js";
+import { cropFinding } from "../../src/audit/state.js";
 import { parseSitemap, RateLimiter, resolveTargets } from "../../src/audit/targets.js";
 import { rgba, toHex } from "../../src/color/index.js";
 import { serveStatic } from "../../src/server/static.js";
@@ -34,7 +34,11 @@ function canvas(
 describe("pixel sampling", () => {
   it("collects unique pixels in rects, clamped to the image", () => {
     const img = canvas(10, 10, () => [0, 0, 0]);
-    expect(pixelsInRects(img, [{ x: 8.5, y: 8.5, w: 5, h: 5 }])).toHaveLength(4);
+    // Only fully covered pixels count…
+    expect(pixelsInRects(img, [{ x: 8.5, y: 8.5, w: 5, h: 5 }])).toEqual(Uint32Array.from([99]));
+    expect(pixelsInRects(img, [{ x: 0.5, y: 0.5, w: 3, h: 1.5 }])).toEqual(Uint32Array.from([11, 12]));
+    // …unless the box is thinner than a pixel, then partly covered pixels are used.
+    expect(pixelsInRects(img, [{ x: 2.2, y: 3.2, w: 0.6, h: 0.6 }])).toEqual(Uint32Array.from([32]));
     expect(
       pixelsInRects(img, [
         { x: 0, y: 0, w: 2, h: 1 },
@@ -109,7 +113,7 @@ describe("pixel sampling", () => {
   });
 });
 
-describe("batching and crops", () => {
+describe("crops", () => {
   const item = (index: number, x: number, y: number): RawTextItem => ({
     index,
     text: "t",
@@ -123,10 +127,6 @@ describe("batching and crops", () => {
     textStroke: false,
     hints: { gradient: false, image: false, backdropFilter: false },
     inFrame: false,
-  });
-  it("never puts overlapping text in the same batch", () => {
-    const batches = batchItems([item(0, 0, 0), item(1, 5, 5), item(2, 50, 50), item(3, 6, 6)]);
-    expect(batches.map((b) => b.map((i) => i.index))).toEqual([[0, 2], [1], [3]]);
   });
   it("crops the text box with padding and an outline", () => {
     const img = canvas(100, 100, () => [255, 255, 255]);

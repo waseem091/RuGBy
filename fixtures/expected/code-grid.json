@@ -1,0 +1,22 @@
+{
+  "page": "code-grid.html",
+  "viewports": [
+    375,
+    1440
+  ],
+  "schemes": [
+    "light",
+    "dark"
+  ],
+  "description": "A long grid with inline <code>: the lazily loaded monospace font re-lays-out the page during the first full-page capture. Text boxes must be measured after that.",
+  "expect": [
+    {
+      "selector": "#btn-last",
+      "ratio": 17.72,
+      "pass": true,
+      "kind": "solid",
+      "axe": "pass",
+      "why": "white on zinc 900, at the bottom of a page that shifts during capture"
+    }
+  ]
+}

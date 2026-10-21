@@ -4,7 +4,7 @@
  * background pixels from real screenshots.
  */
 import { AxeBuilder } from "@axe-core/playwright";
-import type { Browser, Page } from "playwright-core";
+import type { Browser, BrowserContext, Page } from "playwright-core";
 import { apcaRequiredLc, roundLc } from "../color/apca.js";
 import { type BlendMode, isBlendMode, withAlpha } from "../color/composite.js";
 import { fromBytes, toHex } from "../color/format.js";
@@ -212,23 +212,17 @@ async function mapAxe(
   return { verdicts, incomplete: axe.targets.filter((t) => t.verdict === "incomplete").length };
 }
 
-/** Greedy batching so no two items in a batch overlap (overlapping text stays visible as background). */
-export function batchItems(items: RawTextItem[]): RawTextItem[][] {
-  const batches: { items: RawTextItem[]; rects: Rect[] }[] = [];
-  const overlaps = (a: Rect, b: Rect) =>
-    a.x < b.x + b.w && b.x < a.x + a.w && a.y < b.y + b.h && b.y < a.y + a.h;
-  for (const item of items) {
-    let placed = false;
-    for (const batch of batches) {
-      if (item.rects.some((r) => batch.rects.some((b) => overlaps(r, b)))) continue;
-      batch.items.push(item);
-      batch.rects.push(...item.rects);
-      placed = true;
-      break;
-    }
-    if (!placed) batches.push({ items: [item], rects: [...item.rects] });
+/** True when text boxes moved by more than a pixel between two collections. */
+export function moved(a: CollectResult, b: CollectResult): boolean {
+  if (a.items.length !== b.items.length) return true;
+  const step = Math.max(1, Math.floor(a.items.length / 200));
+  for (let i = 0; i < a.items.length; i += step) {
+    const ra = a.items[i]!.rects[0];
+    const rb = b.items[i]!.rects[0];
+    if (!ra || !rb) return true;
+    if (Math.abs(ra.x - rb.x) > 1 || Math.abs(ra.y - rb.y) > 1) return true;
   }
-  return batches.map((b) => b.items);
+  return false;
 }
 
 async function screenshot(page: Page, height: number, width: number): Promise<RgbaImage> {
@@ -262,6 +256,18 @@ export function cropFinding(image: RgbaImage, rects: Rect[]): Uint8Array {
   return encodePng(crop);
 }
 
+/** Per-stage timings on stderr when RUGBY_DEBUG is set. */
+function stopwatch(label: string): (stage: string) => void {
+  if (!process.env.RUGBY_DEBUG) return () => {};
+  let last = Date.now();
+  const start = last;
+  return (stage) => {
+    const now = Date.now();
+    process.stderr.write(`[rugby] ${label} ${stage} +${now - last}ms (${now - start}ms)\n`);
+    last = now;
+  };
+}
+
 export async function measureState(
   browser: Browser,
   url: string,
@@ -281,14 +287,15 @@ export async function measureState(
     axeIncompleteFailed: 0,
     axeMissed: 0,
   };
-  const context = await browser.newContext({
-    viewport: { width: viewport, height: viewportHeight(viewport) },
-    deviceScaleFactor: 1,
-    colorScheme: scheme,
-    reducedMotion: "reduce",
-    bypassCSP: true,
-  });
+  let context: BrowserContext | undefined;
   try {
+    context = await browser.newContext({
+      viewport: { width: viewport, height: viewportHeight(viewport) },
+      deviceScaleFactor: 1,
+      colorScheme: scheme,
+      reducedMotion: "reduce",
+      bypassCSP: true,
+    });
     const page = await context.newPage();
     const inflight = new Set<unknown>();
     page.on("request", (r) => inflight.add(r));
@@ -297,7 +304,9 @@ export async function measureState(
     // Guard for bundler helpers that may appear in serialized functions.
     await page.addInitScript("globalThis.__name = globalThis.__name || ((f) => f);");
     await limiter.wait(url);
+    const lap = stopwatch(`${url} @${viewport} ${scheme}`);
     const response = await page.goto(url, { waitUntil: "load", timeout: o.timeoutMs });
+    lap("load");
     if (response && response.status() >= 400) {
       throw new Error(`HTTP ${response.status()} for ${url}`);
     }
@@ -313,19 +322,37 @@ export async function measureState(
     }
     const hide = [...(o.defaultHide ? DEFAULT_HIDE_SELECTORS : []), ...o.hide];
     await injectStyles(page, hide);
+    lap("idle+inject");
     await autoScroll(page, o.maxPageHeight);
+    lap("scroll");
     await page.evaluate(() => document.fonts.ready.then(() => undefined));
     await settle(page);
 
     const axeRaw = o.axe ? await runAxe(page, o.selector) : { targets: [] };
+    lap("axe");
     await page.evaluate(() => window.scrollTo(0, 0));
     await settle(page);
 
     await page.evaluate(installPageApi);
-    const collected: CollectResult = await page.evaluate(
-      (opts) => (window as unknown as WithApi).__rugby.collectText(opts),
-      { rootSelector: o.selector, maxItems: o.maxTextItems },
+    // The first full-page capture can re-lay-out the page (Chromium resizes the
+    // view for captureBeyondViewport; on long pages positions shifted by ~1px per
+    // grid row). Capture once first, then measure, so rects match later captures.
+    const dims = await page.evaluate(() => ({
+      w: Math.max(document.documentElement.scrollWidth, window.innerWidth),
+      h: Math.max(document.documentElement.scrollHeight, window.innerHeight),
+    }));
+    const normal = await screenshot(
+      page,
+      Math.min(dims.h, o.maxPageHeight),
+      Math.min(dims.w, viewport * 3),
     );
+    lap(`screenshot ${normal.width}x${normal.height}`);
+    const collect = (): Promise<CollectResult> =>
+      page.evaluate((opts) => (window as unknown as WithApi).__rugby.collectText(opts), {
+        rootSelector: o.selector,
+        maxItems: o.maxTextItems,
+      });
+    let collected = await collect();
     const sk = collected.skipped;
     stats.textSkipped = sk.clipped + sk.transparent + sk.hidden + sk.disabled;
     if (sk.transparent)
@@ -343,15 +370,31 @@ export async function measureState(
     const width = Math.min(collected.docWidth, viewport * 3);
     const axe = await mapAxe(page, axeRaw);
     if (axeRaw.error) notes.push(`axe-core failed: ${axeRaw.error}`);
-
-    const normal = await screenshot(page, height, width);
+    lap(`collect (${collected.items.length} text items)`);
     const texts: MeasuredText[] = [];
-    for (const batch of batchItems(collected.items)) {
+    // Hide every measured text at once. Batching by overlap would leave a
+    // neighbor's glyphs visible wherever tight line-heights make line boxes
+    // overlap, and those glyphs would be sampled as "background".
+    for (const batch of [[...collected.items]]) {
       const indices = batch.map((b) => b.index);
       await page.evaluate((ids) => (window as unknown as WithApi).__rugby.hide(ids), indices);
       await settle(page);
-      const shot = await screenshot(page, height, width);
+      let shot = await screenshot(page, height, width);
       await page.evaluate(() => (window as unknown as WithApi).__rugby.restore());
+      // If the layout still moved (late fonts, lazy content), measure and capture once more.
+      const again = await collect();
+      if (moved(collected, again)) {
+        notes.push("layout shifted during capture; measured a second time");
+        collected = again;
+        batch.splice(0, batch.length, ...again.items);
+        await page.evaluate(
+          (ids) => (window as unknown as WithApi).__rugby.hide(ids),
+          again.items.map((i) => i.index),
+        );
+        await settle(page);
+        shot = await screenshot(page, height, width);
+        await page.evaluate(() => (window as unknown as WithApi).__rugby.restore());
+      }
       for (const item of batch) {
         const parsed = tryParseColor(item.color);
         if (!parsed) {
@@ -448,6 +491,7 @@ export async function measureState(
       }
     }
     // Selectors (and crops) for everything we report.
+    lap("batches+sampling");
     const wanted = texts.filter((t) => !t.pass || o.includeChecks);
     const selectors = await page.evaluate(
       (ids) => ids.map((i) => (window as unknown as WithApi).__rugby.selectorFor(i)),
@@ -457,7 +501,9 @@ export async function measureState(
       t.selector = selectors[i]!;
     });
     if (o.reportDir) for (const t of texts) if (!t.pass) t.crop = cropFinding(normal, t.rects);
+    lap("selectors+crops");
     const extra = hooks.afterMeasure ? await hooks.afterMeasure(page, scheme) : undefined;
+    lap("drift");
     return {
       page: { url, viewport, scheme, status: "ok", stats, notes },
       texts,
@@ -470,6 +516,7 @@ export async function measureState(
       texts: [],
     };
   } finally {
-    await context.close();
+    // The browser may have crashed; a failed close must not mask the page's own result.
+    await context?.close().catch(() => undefined);
   }
 }

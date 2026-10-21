@@ -353,6 +353,8 @@ export function installPageApi(): void {
         )
           return;
         if (effectiveOpacity(el) <= 0.001) return;
+        // Disabled controls are exempt from contrast rules and usually faded on purpose.
+        if (isDisabled(el)) return;
         const props: [string, string][] = [];
         const isSvg = el.namespaceURI === "http://www.w3.org/2000/svg";
         if (isSvg) {

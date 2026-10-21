@@ -32,13 +32,19 @@ export function nearestToken(color: Rgba, tokens: ColorToken[]): TokenMatch | nu
   return best;
 }
 
-/** A token equal to the authored value, alpha included (for translucent tokens such as scrims). */
+/**
+ * A token equal to the authored value: alpha included (translucent tokens such
+ * as scrims), or an opaque token used with an alpha modifier (Tailwind `/5`,
+ * `color-mix(in oklab, var(--x) 5%, transparent)`), which is a deliberate tint.
+ */
 export function exactRawToken(raw: Rgba, tokens: ColorToken[]): ColorToken | null {
+  let tint: ColorToken | null = null;
   for (const token of tokens) {
-    if (Math.abs(token.rgba.alpha - raw.alpha) > 0.01) continue;
-    if (deltaE(raw, token.rgba) < EXACT_DELTA_E) return token;
+    if (deltaE(raw, token.rgba) >= EXACT_DELTA_E) continue;
+    if (Math.abs(token.rgba.alpha - raw.alpha) <= 0.01) return token;
+    if (token.rgba.alpha >= 1 && raw.alpha < 1) tint ??= token;
   }
-  return null;
+  return tint;
 }
 
 export interface Classification {

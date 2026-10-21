@@ -115,18 +115,58 @@ export async function measureDrift(
   }
   const entries: Omit<DriftEntry, "selector">[] = [];
   let traced = 0;
+  let untraced = 0;
+  const sameSource = (a: SourceInfo | null, b: SourceInfo | null) =>
+    a?.rule === b?.rule &&
+    a?.stylesheet === b?.stylesheet &&
+    a?.line === b?.line &&
+    a?.origin === b?.origin;
+  // Elements painting the same value usually share a rule: trace a few
+  // representatives per group and reuse their source when they agree.
+  const groups = new Map<string, typeof candidates>();
   for (const cand of candidates) {
-    let source: SourceInfo | null = null;
-    if (tracer && traced < maxTraces) {
-      traced++;
-      source = await tracer.trace(cand.index, cand.property);
-      // No author declaration anywhere: an initial value or a user-agent default.
-      if (!source || source.origin === "user-agent") continue;
-    }
-    entries.push({ ...cand, source });
+    const key = [cand.property, cand.value, toHex(cand.rendered), cand.causes.join(";")].join("|");
+    const list = groups.get(key) ?? [];
+    list.push(cand);
+    groups.set(key, list);
   }
-  if (candidates.length > maxTraces)
-    notes.push(`drift: traced the first ${maxTraces} off-token colors`);
+  const keep = (cand: (typeof candidates)[number], source: SourceInfo | null) => {
+    // No author declaration anywhere: an initial value or a user-agent default.
+    if (tracer && (!source || source.origin === "user-agent")) return;
+    entries.push({ ...cand, source });
+  };
+  for (const list of groups.values()) {
+    if (!tracer || traced >= maxTraces) {
+      untraced += list.length;
+      for (const cand of list) keep(cand, null);
+      continue;
+    }
+    const probes = [...new Set([0, Math.floor(list.length / 2), list.length - 1])].map(
+      (i) => list[i]!,
+    );
+    const sources: (SourceInfo | null)[] = [];
+    for (const p of probes) {
+      sources.push(await tracer.trace(p.index, p.property));
+      traced++;
+    }
+    if (sources.every((src) => sameSource(src, sources[0]!))) {
+      for (const cand of list) keep(cand, sources[0]!);
+      continue;
+    }
+    for (const cand of list) {
+      const i = probes.indexOf(cand);
+      if (i >= 0) keep(cand, sources[i]!);
+      else if (traced < maxTraces) {
+        keep(cand, await tracer.trace(cand.index, cand.property));
+        traced++;
+      } else {
+        untraced++;
+        entries.push({ ...cand, source: null });
+      }
+    }
+  }
+  if (untraced)
+    notes.push(`drift: ${untraced} off-token colors were not traced (limit ${maxTraces})`);
   await tracer?.close();
   const indices = [...new Set(entries.map((e) => e.index))];
   const selectors = await page.evaluate(

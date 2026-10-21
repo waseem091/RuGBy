@@ -43,14 +43,26 @@ export interface PixelStats {
 const oklab8 = (r: number, g: number, b: number): Oklab => srgbToOklab([r / 255, g / 255, b / 255]);
 const dE = (a: Oklab, b: Oklab) => Math.hypot(a.l - b.l, a.a - b.a, a.b - b.b) * 100;
 
-/** Collect unique pixel offsets covered by the rects, clamped to the image. */
+/** Unique pixel offsets inside the rects, clamped to the image. */
 export function pixelsInRects(image: RgbaImage, rects: Rect[]): Uint32Array {
   const seen = new Set<number>();
   for (const r of rects) {
-    const x0 = Math.max(0, Math.floor(r.x));
-    const y0 = Math.max(0, Math.floor(r.y));
-    const x1 = Math.min(image.width, Math.ceil(r.x + r.w));
-    const y1 = Math.min(image.height, Math.ceil(r.y + r.h));
+    // Only pixels fully inside the box: a partly covered edge pixel belongs as much
+    // to the neighbor (an inline code chip, a button border) as to this text.
+    let x0 = Math.ceil(r.x);
+    let y0 = Math.ceil(r.y);
+    let x1 = Math.floor(r.x + r.w);
+    let y1 = Math.floor(r.y + r.h);
+    if (x1 <= x0 || y1 <= y0) {
+      x0 = Math.floor(r.x);
+      y0 = Math.floor(r.y);
+      x1 = Math.ceil(r.x + r.w);
+      y1 = Math.ceil(r.y + r.h);
+    }
+    x0 = Math.max(0, x0);
+    y0 = Math.max(0, y0);
+    x1 = Math.min(image.width, x1);
+    y1 = Math.min(image.height, y1);
     for (let y = y0; y < y1; y++) for (let x = x0; x < x1; x++) seen.add(y * image.width + x);
   }
   return Uint32Array.from([...seen].sort((a, b) => a - b));
