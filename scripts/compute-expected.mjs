@@ -253,8 +253,18 @@ const pages = {
     ],
   },
   "code-grid.html": {
-    description: "A long grid with inline <code>: the lazily loaded monospace font re-lays-out the page during the first full-page capture. Text boxes must be measured after that.",
-    expect: [e("#btn-last", W, rgb("#18181b"), "solid", "pass", "white on zinc 900, at the bottom of a page that shifts during capture")],
+    description:
+      "A long grid with inline <code>: the lazily loaded monospace font re-lays-out the page during the first full-page capture. Text boxes must be measured after that.",
+    expect: [
+      e(
+        "#btn-last",
+        W,
+        rgb("#18181b"),
+        "solid",
+        "pass",
+        "white on zinc 900, at the bottom of a page that shifts during capture",
+      ),
+    ],
   },
   "opacity.html": {
     description: "Opacity multiplies up the tree (0.6 × 0.5 = 0.3) and composites the text color.",

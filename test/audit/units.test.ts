@@ -4,14 +4,14 @@ import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { viewportHeight } from "../../src/audit/browser.js";
 import { resolveOptions } from "../../src/audit/options.js";
-import type { RawTextItem } from "../../src/audit/page-script.js";
+import type { CollectResult, RawTextItem } from "../../src/audit/page-script.js";
 import {
   classifyBackground,
   pixelsInRects,
   renderText,
   sampleContrast,
 } from "../../src/audit/sample.js";
-import { cropFinding } from "../../src/audit/state.js";
+import { cropFinding, moved } from "../../src/audit/state.js";
 import { parseSitemap, RateLimiter, resolveTargets } from "../../src/audit/targets.js";
 import { rgba, toHex } from "../../src/color/index.js";
 import { serveStatic } from "../../src/server/static.js";
@@ -36,9 +36,13 @@ describe("pixel sampling", () => {
     const img = canvas(10, 10, () => [0, 0, 0]);
     // Only fully covered pixels count…
     expect(pixelsInRects(img, [{ x: 8.5, y: 8.5, w: 5, h: 5 }])).toEqual(Uint32Array.from([99]));
-    expect(pixelsInRects(img, [{ x: 0.5, y: 0.5, w: 3, h: 1.5 }])).toEqual(Uint32Array.from([11, 12]));
+    expect(pixelsInRects(img, [{ x: 0.5, y: 0.5, w: 3, h: 1.5 }])).toEqual(
+      Uint32Array.from([11, 12]),
+    );
     // …unless the box is thinner than a pixel, then partly covered pixels are used.
-    expect(pixelsInRects(img, [{ x: 2.2, y: 3.2, w: 0.6, h: 0.6 }])).toEqual(Uint32Array.from([32]));
+    expect(pixelsInRects(img, [{ x: 2.2, y: 3.2, w: 0.6, h: 0.6 }])).toEqual(
+      Uint32Array.from([32]),
+    );
     expect(
       pixelsInRects(img, [
         { x: 0, y: 0, w: 2, h: 1 },
@@ -128,6 +132,21 @@ describe("crops", () => {
     hints: { gradient: false, image: false, backdropFilter: false },
     inFrame: false,
   });
+  it("detects text boxes that moved between two collections", () => {
+    const collect = (items: RawTextItem[]): CollectResult => ({
+      items,
+      skipped: { clipped: 0, transparent: 0, hidden: 0, disabled: 0 },
+      docWidth: 100,
+      docHeight: 100,
+      frames: { sameOrigin: 0, crossOrigin: 0 },
+    });
+    const a = collect([item(0, 0, 0), item(1, 0, 40)]);
+    expect(moved(a, collect([item(0, 0, 0.5), item(1, 0, 40.5)]))).toBe(false);
+    expect(moved(a, collect([item(0, 0, 0), item(1, 0, 60)]))).toBe(true);
+    expect(moved(a, collect([item(0, 0, 0)]))).toBe(true);
+    expect(moved(a, collect([item(0, 0, 0), { ...item(1, 0, 40), rects: [] }]))).toBe(true);
+  });
+
   it("crops the text box with padding and an outline", () => {
     const img = canvas(100, 100, () => [255, 255, 255]);
     const png = decodePng(cropFinding(img, [{ x: 40, y: 40, w: 20, h: 10 }]));

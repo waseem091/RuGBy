@@ -14,13 +14,7 @@ import { isLargeText, requiredRatio, roundRatio } from "../color/wcag.js";
 import { cropImage, decodePng, encodePng, type RgbaImage, strokeRect } from "../util/png.js";
 import { viewportHeight } from "./browser.js";
 import { DEFAULT_HIDE_SELECTORS, type ResolvedOptions } from "./options.js";
-import {
-  type CollectResult,
-  installPageApi,
-  type PageApi,
-  type RawTextItem,
-  type Rect,
-} from "./page-script.js";
+import { type CollectResult, installPageApi, type PageApi, type Rect } from "./page-script.js";
 import { classifyBackground, type Histogram, sampleContrast } from "./sample.js";
 import type { RateLimiter } from "./targets.js";
 import type { AxeVerdict, ContrastCheck, PageResult, Scheme, Severity } from "./types.js";
