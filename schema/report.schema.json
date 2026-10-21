@@ -1,0 +1,713 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/waseem091/RuGBy/schema/report.schema.json",
+  "title": "RuGBy audit report",
+  "description": "Output of `rugby audit --json` and the Node API. See docs/report-schema.md.",
+  "type": "object",
+  "definitions": {
+    "background": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "enum": ["solid", "gradient", "image", "mixed"]
+        },
+        "worst": {
+          "type": "string",
+          "pattern": "^#[0-9A-F]{6}$"
+        },
+        "median": {
+          "type": "string",
+          "pattern": "^#[0-9A-F]{6}$"
+        },
+        "sampled": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": ["kind", "worst", "median", "sampled"],
+      "additionalProperties": false
+    },
+    "wcag": {
+      "type": "object",
+      "properties": {
+        "ratio": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 21
+        },
+        "min": {
+          "type": "number"
+        },
+        "median": {
+          "type": "number"
+        },
+        "required": {
+          "type": "number"
+        },
+        "pass": {
+          "type": "boolean"
+        }
+      },
+      "required": ["ratio", "min", "median", "required", "pass"],
+      "additionalProperties": false
+    },
+    "apca": {
+      "type": "object",
+      "properties": {
+        "lc": {
+          "type": "number"
+        },
+        "required": {
+          "type": "number"
+        },
+        "pass": {
+          "type": "boolean"
+        }
+      },
+      "required": ["lc", "required", "pass"],
+      "additionalProperties": false
+    },
+    "suggestion": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "token": {
+              "type": "string"
+            },
+            "value": {
+              "type": "string",
+              "pattern": "^#[0-9A-F]{6}$"
+            },
+            "target": {
+              "enum": ["foreground", "background"]
+            },
+            "ratio": {
+              "type": "number"
+            },
+            "lc": {
+              "type": "number"
+            },
+            "deltaE": {
+              "type": "number"
+            },
+            "replacement": {
+              "type": "string"
+            },
+            "against": {
+              "type": "string",
+              "pattern": "^#[0-9A-F]{6}$"
+            }
+          },
+          "required": ["value", "target", "deltaE"],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "contrastFinding": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "contrast"
+        },
+        "severity": {
+          "enum": ["error", "warning"]
+        },
+        "page": {
+          "type": "string"
+        },
+        "viewport": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "scheme": {
+          "enum": ["light", "dark"]
+        },
+        "selector": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "fontSizePx": {
+          "type": "number"
+        },
+        "fontWeight": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "largeText": {
+          "type": "boolean"
+        },
+        "foreground": {
+          "type": "string",
+          "pattern": "^#[0-9A-F]{6}$"
+        },
+        "background": {
+          "$ref": "#/definitions/background"
+        },
+        "wcag": {
+          "$ref": "#/definitions/wcag"
+        },
+        "apca": {
+          "$ref": "#/definitions/apca"
+        },
+        "axeVerdict": {
+          "enum": ["pass", "fail", "incomplete", "not-checked"]
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "suggestion": {
+          "$ref": "#/definitions/suggestion"
+        },
+        "screenshot": {
+          "type": "string"
+        },
+        "alsoOn": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "type",
+        "severity",
+        "page",
+        "viewport",
+        "scheme",
+        "selector",
+        "text",
+        "fontSizePx",
+        "fontWeight",
+        "largeText",
+        "foreground",
+        "background",
+        "wcag",
+        "apca",
+        "axeVerdict"
+      ],
+      "additionalProperties": false
+    },
+    "driftFinding": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "drift"
+        },
+        "severity": {
+          "enum": ["error", "warning", "info"]
+        },
+        "page": {
+          "type": "string"
+        },
+        "viewports": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "schemes": {
+          "type": "array",
+          "items": {
+            "enum": ["light", "dark"]
+          }
+        },
+        "color": {
+          "type": "string",
+          "pattern": "^#[0-9A-F]{6}$"
+        },
+        "likelyTypo": {
+          "type": "boolean"
+        },
+        "label": {
+          "const": "likely-typo"
+        },
+        "nearestToken": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string",
+                  "pattern": "^#[0-9A-F]{6}([0-9A-F]{2})?$"
+                },
+                "deltaE": {
+                  "type": "number"
+                }
+              },
+              "required": ["name", "value", "deltaE"],
+              "additionalProperties": false
+            }
+          ]
+        },
+        "property": {
+          "type": "string"
+        },
+        "selectors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "source": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "rule": {
+                  "type": "string"
+                },
+                "stylesheet": {
+                  "type": ["string", "null"]
+                },
+                "line": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "origin": {
+                  "type": "string"
+                }
+              },
+              "required": ["rule", "stylesheet"],
+              "additionalProperties": false
+            }
+          ]
+        },
+        "occurrences": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "cause": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "suggestion": {
+          "$ref": "#/definitions/suggestion"
+        },
+        "alsoOn": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "type",
+        "severity",
+        "page",
+        "viewports",
+        "schemes",
+        "color",
+        "likelyTypo",
+        "nearestToken",
+        "property",
+        "selectors",
+        "source",
+        "occurrences"
+      ],
+      "additionalProperties": false
+    },
+    "page": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
+        },
+        "viewport": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "scheme": {
+          "enum": ["light", "dark"]
+        },
+        "status": {
+          "enum": ["ok", "error"]
+        },
+        "error": {
+          "type": "string"
+        },
+        "stats": {
+          "type": "object",
+          "properties": {
+            "textChecked": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "textSkipped": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "contrastFailures": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "axe": {
+              "type": "object",
+              "properties": {
+                "pass": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "fail": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "incomplete": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "not-checked": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "required": ["pass", "fail", "incomplete", "not-checked"],
+              "additionalProperties": false
+            },
+            "axeIncompleteResolved": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "axeIncompleteFailed": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "axeMissed": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "required": [
+            "textChecked",
+            "textSkipped",
+            "contrastFailures",
+            "axe",
+            "axeIncompleteResolved",
+            "axeIncompleteFailed",
+            "axeMissed"
+          ],
+          "additionalProperties": false
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["url", "viewport", "scheme", "status", "stats", "notes"],
+      "additionalProperties": false
+    },
+    "check": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "string"
+        },
+        "viewport": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "scheme": {
+          "enum": ["light", "dark"]
+        },
+        "selector": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "fontSizePx": {
+          "type": "number"
+        },
+        "fontWeight": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "largeText": {
+          "type": "boolean"
+        },
+        "foreground": {
+          "type": "string",
+          "pattern": "^#[0-9A-F]{6}$"
+        },
+        "background": {
+          "$ref": "#/definitions/background"
+        },
+        "wcag": {
+          "$ref": "#/definitions/wcag"
+        },
+        "apca": {
+          "$ref": "#/definitions/apca"
+        },
+        "axeVerdict": {
+          "enum": ["pass", "fail", "incomplete", "not-checked"]
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "page",
+        "viewport",
+        "scheme",
+        "selector",
+        "text",
+        "fontSizePx",
+        "fontWeight",
+        "largeText",
+        "foreground",
+        "background",
+        "wcag",
+        "apca",
+        "axeVerdict"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "properties": {
+    "tool": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "const": "rugby"
+        },
+        "version": {
+          "type": "string"
+        }
+      },
+      "required": ["name", "version"],
+      "additionalProperties": false
+    },
+    "generatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "options": {
+      "type": "object",
+      "properties": {
+        "viewports": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "minItems": 1
+        },
+        "schemes": {
+          "type": "array",
+          "items": {
+            "enum": ["light", "dark"]
+          },
+          "minItems": 1
+        },
+        "standard": {
+          "enum": ["wcag2", "apca", "both"]
+        },
+        "level": {
+          "enum": ["AA", "AAA"]
+        },
+        "driftThreshold": {
+          "type": "number",
+          "minimum": 0
+        },
+        "selector": {
+          "type": "string"
+        }
+      },
+      "required": ["viewports", "schemes", "standard", "level", "driftThreshold", "selector"],
+      "additionalProperties": false
+    },
+    "tokens": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "format": {
+              "enum": ["dtcg", "tailwind", "css", "page"]
+            },
+            "source": {
+              "type": "string"
+            },
+            "count": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "modes": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": ["format", "source", "count", "modes"],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "summary": {
+      "type": "object",
+      "properties": {
+        "pages": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "states": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "textChecked": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "findings": {
+          "type": "object",
+          "properties": {
+            "contrast": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "warning": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "required": ["error", "warning"],
+              "additionalProperties": false
+            },
+            "drift": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "warning": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "info": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "required": ["error", "warning", "info"],
+              "additionalProperties": false
+            }
+          },
+          "required": ["contrast", "drift"],
+          "additionalProperties": false
+        },
+        "axe": {
+          "type": "object",
+          "properties": {
+            "missed": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "incomplete": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "incompleteResolved": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "incompleteFailed": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "required": ["missed", "incomplete", "incompleteResolved", "incompleteFailed"],
+          "additionalProperties": false
+        }
+      },
+      "required": ["pages", "states", "textChecked", "findings", "axe"],
+      "additionalProperties": false
+    },
+    "pages": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/page"
+      }
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "$ref": "#/definitions/contrastFinding"
+          },
+          {
+            "$ref": "#/definitions/driftFinding"
+          }
+        ]
+      }
+    },
+    "tokenUsage": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string",
+            "pattern": "^#[0-9A-F]{6}([0-9A-F]{2})?$"
+          },
+          "mode": {
+            "type": "string"
+          },
+          "used": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "drifted": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": ["name", "value", "used", "drifted"],
+        "additionalProperties": false
+      }
+    },
+    "checks": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/check"
+      }
+    }
+  },
+  "required": ["tool", "options", "tokens", "summary", "pages", "findings"],
+  "additionalProperties": false
+}

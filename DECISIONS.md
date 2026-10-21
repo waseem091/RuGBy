@@ -69,3 +69,11 @@ One line per decision: what was chosen, why, and the alternative.
 - **Re-evaluation over the real pixels:** each failing text keeps its background-pixel histogram, and every candidate token is re-scored with the same 5th-percentile math (a darker text color moves the worst pixel on a gradient, so testing against the old worst pixel is not enough). An acceptance test applies every suggestion to a copy of the page, re-renders and re-measures.
 - **Ranking:** OKLab ΔE to the current color, +10 for a different hue family (neutral, or one of twelve 30° hue sectors), +2 for a different token group. Then background tokens (closest to the median background). Then `null` with a plain note, which also says when opacity is the real problem.
 - **No tokens at all:** suggest the nearest passing OKLCH lightness at the same chroma and hue, snapped to 8 bits before verifying, since the hex is what gets applied.
+
+## Reports
+
+- **HTML is server-rendered** into one static file with inline CSS and a ~40-line inline script for filters and the theme toggle; findings work without JavaScript. Screenshots live in `shots/` next to it and `report.json` is written alongside, so the folder is the complete artifact. Alternative: render from embedded JSON with client-side JS.
+- **JSON Schema draft-07** with `additionalProperties: false` everywhere, so an undocumented field fails the schema test. Alternative: draft 2020-12 (needs ajv's 2020 build).
+- **Terminal output** groups identical failures across viewports and schemes onto one line pair and prints a single ✔ line when clean. Color follows `NO_COLOR` / `FORCE_COLOR` / TTY.
+- **Snapshot tests use a hand-written report**, because real measurements of text over gradients depend on font metrics, which differ between machines.
+- **Tests run files sequentially** (`fileParallelism: false`): browser suites contend for CPU otherwise. The 60-second fixture-audit bound is asserted on the uninstrumented CLI in CI and in tests when coverage is off (V8 coverage slows the pixel loops ~4×).

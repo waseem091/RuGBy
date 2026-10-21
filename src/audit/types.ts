@@ -23,6 +23,8 @@ export interface Suggestion {
   ratio?: number;
   /** APCA Lc after applying the suggestion. */
   lc?: number;
+  /** The background pixel that decides the suggested color's verdict (it can differ from the current worst). */
+  against?: string;
   /** ΔE (OKLab ×100) between the current and the suggested color. */
   deltaE: number;
   /** Concrete source edit, e.g. `#6b7281 → var(--color-gray-500)`. */
@@ -96,6 +98,8 @@ export interface DriftFinding {
   /** How the rendered color differs from the authored value (opacity, filter, compositing). */
   cause?: string[];
   suggestion?: Suggestion | null;
+  /** Other pages where the same color comes from the same rule. */
+  alsoOn?: string[];
 }
 
 export type Finding = ContrastFinding | DriftFinding;

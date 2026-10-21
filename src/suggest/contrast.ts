@@ -45,6 +45,8 @@ export interface Evaluation {
   ratio: number;
   lc: number;
   pass: boolean;
+  /** Background that decides the verdict. */
+  against: Rgba;
 }
 
 function verdict(ratio: number, lc: number, ctx: ContrastContext): boolean {
@@ -58,8 +60,14 @@ export function evaluateForeground(fg: Rgba, ctx: ContrastContext): Evaluation {
   const stats = statsFromHistogram(ctx.histogram, withAlpha(fg, ctx.opacity), ctx.blendMode, {
     glyphDeltaE: 0,
   });
-  if (!stats) return { ratio: 1, lc: 0, pass: false };
-  return { ratio: stats.ratio, lc: stats.lc, pass: verdict(stats.ratio, stats.lc, ctx) };
+  if (!stats) return { ratio: 1, lc: 0, pass: false, against: ctx.medianBg };
+  const [r, g, b] = stats.worst;
+  return {
+    ratio: stats.ratio,
+    lc: stats.lc,
+    pass: verdict(stats.ratio, stats.lc, ctx),
+    against: { r: r / 255, g: g / 255, b: b / 255, alpha: 1 },
+  };
 }
 
 /** Contrast of the current text on a solid replacement background. */
@@ -67,7 +75,7 @@ export function evaluateBackground(bg: Rgba, ctx: ContrastContext): Evaluation {
   const text = renderText(withAlpha(ctx.authored, ctx.opacity), bg, ctx.blendMode);
   const ratio = contrastRatio(text, bg);
   const lc = apcaContrast(text, bg);
-  return { ratio, lc, pass: verdict(ratio, lc, ctx) };
+  return { ratio, lc, pass: verdict(ratio, lc, ctx), against: bg };
 }
 
 /** Hue family: `neutral` for near-grays, otherwise one of 12 hue sectors. */
@@ -158,6 +166,7 @@ export function suggestContrastFix(ctx: ContrastContext, tokens: ColorToken[]): 
     target,
     ratio: roundRatio(e.ratio),
     lc: Math.round(e.lc * 10) / 10,
+    against: toHex(e.against, { opaque: true }),
     deltaE: Math.round(deltaE(value, from) * 100) / 100,
     replacement: token
       ? `${target === "foreground" ? "color" : "background-color"}: var(${token.cssVar})`

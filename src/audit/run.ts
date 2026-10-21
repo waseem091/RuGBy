@@ -3,7 +3,7 @@
  * viewport × scheme in a browser pool, then assemble one deterministic report.
  */
 import { mkdir, rm, writeFile } from "node:fs/promises";
-import { join, relative, resolve } from "node:path";
+import { isAbsolute, join, relative, resolve } from "node:path";
 import type { Browser } from "playwright-core";
 import {
   type DriftStateData,
@@ -17,7 +17,7 @@ import { loadTokens } from "../tokens/detect.js";
 import type { TokenSet } from "../tokens/types.js";
 import { VERSION } from "../version.js";
 import { launchBrowser } from "./browser.js";
-import { type AuditOptions, type ResolvedOptions, resolveOptions } from "./options.js";
+import { type AuditOptions, resolveOptions } from "./options.js";
 import { type MeasuredText, measureState, type StateHooks, type StateOutput } from "./state.js";
 import { RateLimiter, resolveTargets } from "./targets.js";
 import type { ContrastCheck, ContrastFinding, Finding, Report, Scheme } from "./types.js";
@@ -111,6 +111,12 @@ export async function runAudit(input: AuditOptions): Promise<Report> {
     await Promise.all(servers.map((s) => s.close()));
   }
 
+  // Token files are shown relative to the working directory, so reports don't depend on the machine.
+  const displaySource = (source: string) =>
+    source
+      .split(",")
+      .map((p) => (isAbsolute(p) ? relative(o.cwd, p).split("\\").join("/") || p : show(p)))
+      .join(",");
   // Display URLs: local static servers get a stable placeholder origin.
   const display = new Map<string, string>();
   for (const s of servers) display.set(s.url, `local:`);
@@ -241,7 +247,7 @@ export async function runAudit(input: AuditOptions): Promise<Report> {
     tokens: tokens
       ? {
           format: tokens.format,
-          source: show(tokens.source),
+          source: displaySource(tokens.source),
           count: tokens.tokens.length,
           modes: tokens.modes,
         }

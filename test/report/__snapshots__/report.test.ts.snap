@@ -1,0 +1,25 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`terminal output > groups findings by page and matches the snapshot 1`] = `
+"RuGBy · 2 pages · 375,1440px × light,dark · tokens: dtcg (18)
+
+Contrast  2 errors, 1 warning  · 42 text elements · axe missed 2, left 3 incomplete
+  http://localhost:3000/pricing
+    ✖ 1.72:1 (needs 4.5)  main > section.hero h2  "Start your free trial"
+       #9CA3AF on #D1D5DB (gradient)  375,1440 · dark  axe: incomplete
+       → color.gray.700 #374151 (7.10:1)
+  http://localhost:3000/
+    ⚠ 2.10:1 (needs 4.5)  footer a  "A very long footer link label that keeps goin..."
+       #6B7280 on #9CA3AF (image)  375 · light  axe: fail
+
+Drift  2 off-token colors
+    ⚠ #6B7281 color  ΔE 0.4 from color.gray.500 #6B7280 (likely typo)  ×14
+       .muted { color: #6b7281 }  /_next/static/css/app.css:12
+       → #6b7281 → var(--color-gray-500)
+    ⚠ #85B0F6 background-color  ΔE 6.0 from color.blue.300 #93C5FD  ×1
+       span.badge
+       opacity 0.6
+
+Report: rugby-report/index.html
+"
+`;
