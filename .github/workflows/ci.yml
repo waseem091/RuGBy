@@ -37,3 +37,47 @@ jobs:
         run: pnpm exec vitest run test/color/exhaustive.test.ts
         env:
           RUGBY_EXHAUSTIVE: "1"
+
+  action:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+      - name: Audit the fixture pages with the action (report only)
+        id: fixtures
+        uses: ./
+        with:
+          build-dir: fixtures/pages
+          max-pages: "50"
+          tokens: fixtures/tokens/palette.tokens.json
+          dark-class: dark
+          fail-on: none
+          report-name: rugby-report-fixtures
+      - name: The fixtures have known failures, so the action must report them
+        env:
+          FINDINGS: ${{ steps.fixtures.outputs.findings }}
+          CODE: ${{ steps.fixtures.outputs.exit-code }}
+        run: |
+          test "$CODE" = "0"
+          test -f rugby-report/index.html
+          node -e 'const r=require("./rugby-report/report.json"); if (!r.findings.length) process.exit(1); console.log(r.summary)'
+      - name: fail-on drift fails the job on the drift fixture
+        id: drift
+        continue-on-error: true
+        uses: ./
+        with:
+          url: ""
+          build-dir: fixtures/drift-app
+          tokens: fixtures/drift-app/tokens.json
+          fail-on: drift
+          report-name: rugby-report-drift
+      - name: Check that the drift run failed with exit code 1
+        env:
+          OUTCOME: ${{ steps.drift.outcome }}
+          CODE: ${{ steps.drift.outputs.exit-code }}
+          FINDINGS: ${{ steps.drift.outputs.findings }}
+        run: |
+          echo "outcome=$OUTCOME code=$CODE findings=$FINDINGS"
+          test "$OUTCOME" = "failure"
+          test "$CODE" = "1"
+          test "$FINDINGS" = "5"

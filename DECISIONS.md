@@ -77,3 +77,10 @@ One line per decision: what was chosen, why, and the alternative.
 - **Terminal output** groups identical failures across viewports and schemes onto one line pair and prints a single ✔ line when clean. Color follows `NO_COLOR` / `FORCE_COLOR` / TTY.
 - **Snapshot tests use a hand-written report**, because real measurements of text over gradients depend on font metrics, which differ between machines.
 - **Tests run files sequentially** (`fileParallelism: false`): browser suites contend for CPU otherwise. The 60-second fixture-audit bound is asserted on the uninstrumented CLI in CI and in tests when coverage is off (V8 coverage slows the pixel loops ~4×).
+
+## Action, MCP, agent docs
+
+- **Runtime dependencies** (justification): `commander` (CLI parsing), `playwright-core` (Chromium automation; `-core` because it does not download browsers on install), `@axe-core/playwright` (the axe comparison the prompt requires), `@modelcontextprotocol/sdk` + `zod` (the MCP server the prompt requires; zod is the SDK's schema language). PNG, static serving, color math and token parsing are in-house. Tailwind is only used if the audited project has it installed.
+- **The MCP SDK is loaded only by `rugby-mcp`**, so `rugby audit` never imports it. Alternative: a hand-rolled JSON-RPC server (fewer transitive dependencies, but the prompt names the SDK).
+- **GitHub Action is a composite action** that installs RuGBy from the action's own checkout (`pnpm install --frozen-lockfile`, which builds via `prepare`) and Chromium (`playwright-core install --with-deps`). It passes inputs through `env`, never by interpolating into scripts, uploads `rugby-report/` even on failure, writes the terminal output to the job summary, and exits with RuGBy's code. Alternative: a Docker action (slower to start, heavier to maintain).
+- **This repo's CI uses the action twice:** on the fixture pages with `fail-on: none` (they fail by design), and on the drift fixture with `fail-on: drift`, asserting that the job fails with exit code 1 and exactly 5 findings.

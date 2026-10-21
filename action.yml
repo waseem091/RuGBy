@@ -1,0 +1,143 @@
+name: RuGBy rendered-color audit
+description: Pixel-sampled contrast (WCAG 2 + APCA) and design-token drift on rendered pages. Uploads an HTML report.
+author: waseem091
+branding:
+  icon: droplet
+  color: purple
+
+inputs:
+  url:
+    description: URL(s) to audit, separated by spaces or newlines.
+    required: false
+    default: ""
+  build-dir:
+    description: A static build folder (e.g. dist, out) to serve with RuGBy's built-in server and audit.
+    required: false
+    default: ""
+  tokens:
+    description: Token file(s) or directory (W3C design tokens JSON, Tailwind config or CSS). Default auto-detect; "none" to skip drift.
+    required: false
+    default: ""
+  fail-on:
+    description: "Finding types that fail the job: contrast, drift, both (contrast,drift) or none."
+    required: false
+    default: contrast
+  viewports:
+    description: Viewport widths in px.
+    required: false
+    default: "375,1440"
+  schemes:
+    description: Color schemes to emulate.
+    required: false
+    default: light,dark
+  max-pages:
+    description: Page limit for build directories and sitemaps.
+    required: false
+    default: "10"
+  dark-class:
+    description: Class toggled on <html> for the dark scheme (e.g. "dark").
+    required: false
+    default: ""
+  args:
+    description: Extra arguments for `rugby audit`.
+    required: false
+    default: ""
+  report-name:
+    description: Name of the uploaded report artifact.
+    required: false
+    default: rugby-report
+
+outputs:
+  report:
+    description: Path of the JSON report.
+    value: ${{ steps.audit.outputs.report }}
+  findings:
+    description: Number of findings that match fail-on.
+    value: ${{ steps.audit.outputs.findings }}
+  exit-code:
+    description: Exit code of rugby audit (0 clean, 1 findings, 2 bad input, 3 internal error).
+    value: ${{ steps.audit.outputs.exit-code }}
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-node@v5
+      with:
+        node-version: 22
+
+    - name: Install RuGBy
+      shell: bash
+      working-directory: ${{ github.action_path }}
+      run: |
+        corepack enable
+        pnpm install --frozen-lockfile
+        pnpm exec playwright-core install --with-deps chromium
+
+    - name: Run rugby audit
+      id: audit
+      shell: bash
+      env:
+        RUGBY: ${{ github.action_path }}/dist/cli.js
+        INPUT_URL: ${{ inputs.url }}
+        INPUT_BUILD_DIR: ${{ inputs.build-dir }}
+        INPUT_TOKENS: ${{ inputs.tokens }}
+        INPUT_FAIL_ON: ${{ inputs.fail-on }}
+        INPUT_VIEWPORTS: ${{ inputs.viewports }}
+        INPUT_SCHEMES: ${{ inputs.schemes }}
+        INPUT_MAX_PAGES: ${{ inputs.max-pages }}
+        INPUT_DARK_CLASS: ${{ inputs.dark-class }}
+        INPUT_ARGS: ${{ inputs.args }}
+      run: |
+        set +e
+        targets=()
+        for u in $INPUT_URL; do targets+=("$u"); done
+        if [ -n "$INPUT_BUILD_DIR" ]; then targets+=("$INPUT_BUILD_DIR"); fi
+        if [ ${#targets[@]} -eq 0 ]; then
+          echo "::error::Set the url or build-dir input."
+          echo "exit-code=2" >> "$GITHUB_OUTPUT"
+          exit 0
+        fi
+        fail_on="$INPUT_FAIL_ON"
+        if [ "$fail_on" = "both" ]; then fail_on="contrast,drift"; fi
+        opts=(--viewports "$INPUT_VIEWPORTS" --schemes "$INPUT_SCHEMES" --max-pages "$INPUT_MAX_PAGES" --fail-on "$fail_on" --html rugby-report/index.html)
+        if [ -n "$INPUT_TOKENS" ]; then opts+=(--tokens "$INPUT_TOKENS"); fi
+        if [ -n "$INPUT_DARK_CLASS" ]; then opts+=(--dark-class "$INPUT_DARK_CLASS"); fi
+        # shellcheck disable=SC2206
+        extra=($INPUT_ARGS)
+        node "$RUGBY" audit "${targets[@]}" "${opts[@]}" "${extra[@]}" | tee rugby-report.txt
+        code=${PIPESTATUS[0]}
+        echo "exit-code=$code" >> "$GITHUB_OUTPUT"
+        echo "report=rugby-report/report.json" >> "$GITHUB_OUTPUT"
+        if [ -f rugby-report/report.json ]; then
+          findings=$(node -e '
+            const r = require(process.cwd() + "/rugby-report/report.json");
+            const on = process.argv[1].split(",");
+            console.log(r.findings.filter((f) => on.includes(f.type) && (f.type === "contrast" || f.severity !== "info")).length);
+          ' "$fail_on")
+          echo "findings=$findings" >> "$GITHUB_OUTPUT"
+          {
+            echo "### RuGBy"
+            echo '```'
+            cat rugby-report.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+        fi
+        exit 0
+
+    - name: Upload report
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ inputs.report-name }}
+        path: rugby-report/
+        if-no-files-found: warn
+
+    - name: Result
+      shell: bash
+      env:
+        CODE: ${{ steps.audit.outputs.exit-code }}
+      run: |
+        if [ "$CODE" != "0" ]; then
+          echo "::error::rugby audit exited with $CODE (1 = findings matching fail-on, 2 = bad input, 3 = internal error)"
+          exit "$CODE"
+        fi
