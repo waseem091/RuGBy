@@ -12,6 +12,9 @@ const review = existsSync("docs/case-studies/review.json")
   ? JSON.parse(readFileSync("docs/case-studies/review.json", "utf8"))
   : { labels: {} };
 const notes = review.siteNotes ?? {};
+const kinds = Object.fromEntries(
+  JSON.parse(readFileSync("case-studies/sites.json", "utf8")).map((x) => [x.id, x.kind]),
+);
 
 const ok = data.sites.filter((s) => s.status === "ok");
 const sum = (f) => ok.reduce((n, s) => n + f(s), 0);
@@ -31,7 +34,7 @@ lines.push("# Case studies: RuGBy on public sites", "");
 lines.push(
   `${review.intro ?? ""}`.trim(),
   "",
-  `**Across ${ok.length} sites, axe-core left ${incomplete} contrast checks incomplete; RuGBy resolved ${resolved} of them, and ${failed} were real failures.** RuGBy also found ${missed} contrast failures that axe passed, left incomplete, or did not check.`,
+  `**Across ${ok.length} sites, axe-core left ${incomplete} contrast checks incomplete; RuGBy resolved ${resolved} of them from real pixels, and ${failed} were real failures.** In all, ${missed} of RuGBy's contrast failures were elements that axe passed, left incomplete, or did not check. (Counts are page states: the same element at two viewports and two schemes counts up to four times.)`,
   "",
   "## How these numbers were produced",
   "",
@@ -65,6 +68,8 @@ lines.push(
 
 for (const s of ok) {
   lines.push(`## ${s.name}`, "");
+  const kind = s.kind ?? kinds[s.id];
+  if (kind) lines.push(`*${kind === "docs" ? "Documentation site" : "Marketing site"}.*`, "");
   lines.push(`Pages: ${s.urls.map((u) => `<${u}>`).join(", ")}`, "");
   const c = s.counts;
   lines.push(
@@ -91,6 +96,19 @@ for (const s of ok) {
   }
 }
 
+// Earlier runs, kept for the record.
+const history = [];
+if (review.firstRun) {
+  const fr = review.firstRun;
+  history.push(
+    `- **First run:** ${fr.truePositives} of ${fr.sample.length} sampled findings were true positives (${pct(fr.truePositives, fr.sample.length)}). The false positives: ${fr.sample
+      .filter((x) => x.label === "FP")
+      .map((x) => `${x.id} (${x.site}): ${x.reason}`)
+      .join(" ")}`,
+  );
+}
+if (review.secondRun) history.push(`- **Second run:** ${review.secondRun.note}`);
+
 // Precision review.
 const sample = data.precisionSample ?? [];
 const labeled = sample.filter((f) => review.labels[f.id]);
@@ -109,6 +127,9 @@ for (const f of sample) {
   );
 }
 lines.push("");
+if (history.length) {
+  lines.push("### Earlier runs", "", ...history, "");
+}
 if (review.fixes?.length) {
   lines.push("## False positives found and fixed", "");
   for (const fix of review.fixes) lines.push(`- ${fix}`);

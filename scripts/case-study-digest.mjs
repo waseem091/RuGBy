@@ -97,6 +97,7 @@ for (const site of sites) {
   digest.sites.push({
     id: site.id,
     name: site.name,
+    kind: site.kind,
     urls: site.urls,
     status: okPages.length ? "ok" : "error",
     pageErrors: report.pages

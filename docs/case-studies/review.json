@@ -1,5 +1,5 @@
 {
-  "intro": "RuGBy audited the home page and one content page of nine well-known public sites. These numbers are what it measured; they say nothing about how much the teams behind these sites care about accessibility, and many findings are in decorative illustrations.",
+  "intro": "RuGBy audited the home page and one content page of well-known public sites. These numbers are what it measured; they say nothing about how much the teams behind these sites care about accessibility, and many findings are in decorative illustrations and product mock-ups.",
   "firstRun": {
     "note": "First real-world run, before the visibility and stability checks existed.",
     "sample": [
@@ -250,6 +250,7 @@
   "fixes": [
     "Text that isn't visible (covered by another element or animated out) was measured: 3 of the 4 false positives in the first sample. RuGBy now compares the normal and the hidden-text capture inside each text box. If the text's color clearly differs from its background but hiding it changed no pixel, the text is skipped and noted. Fixture: fixtures/pages/covered.html.",
     "Text over JavaScript- or canvas-animated backgrounds was compared against a different frame: 1 of 4. If most of a text box changed between the two captures, the element is skipped and noted. Fixture: fixtures/pages/animated.html.",
+    "The first full-page capture of a page that re-lays-out still shows the old layout, so the screenshot used for crops (and for the covered/animated check) did not line up with the measured text boxes on those pages. RuGBy now takes a throwaway capture first, and retakes both captures if text boxes move. Test: test/audit/alignment.test.ts.",
     "Found while preparing the runs: Chromium's first full-page capture re-lays-out pages that load a monospace fallback font for inline <code>, shifting text ~1px per row, so text far down long docs pages was compared against the wrong pixels. RuGBy now measures after the first capture and re-measures if boxes move. Fixture: fixtures/pages/code-grid.html.",
     "Also found while preparing: tight line-heights made neighbors' glyphs count as background (overlap batching), and Tailwind alpha modifiers flooded drift. Both fixed (see DECISIONS.md)."
   ],
@@ -258,5 +259,21 @@
     "Pause requestAnimationFrame-driven animations instead of only skipping their text.",
     "Re-run with each site's real design tokens where they are published, for a meaningful drift signal."
   ],
-  "siteNotes": {}
+  "siteNotes": {},
+  "secondRun": {
+    "note": "Second run, with the visibility and stability checks. Its review was stopped at S11: S11's crop was empty although the text had been measured. That exposed that the first full-page capture of a page that re-lays-out still shows the old layout, so crops and the covered/animated comparison were misaligned on such pages (Stripe and Tailwind noted layout shifts). After the warm-up-capture fix, the third run below replaces it.",
+    "reviewedBeforeStopping": {
+      "S01": "TP",
+      "S02": "TP",
+      "S03": "TP",
+      "S04": "TP",
+      "S05": "TP",
+      "S06": "TP",
+      "S07": "TP",
+      "S08": "TP",
+      "S09": "TP",
+      "S10": "TP",
+      "S11": "FP (misaligned capture)"
+    }
+  }
 }
