@@ -64,6 +64,9 @@ runs:
     - uses: actions/setup-node@v5
       with:
         node-version: 22
+        # setup-node v5 caches the package manager named in package.json by default,
+        # which fails before pnpm is installed; RuGBy installs it through corepack below.
+        package-manager-cache: false
 
     - name: Install RuGBy
       shell: bash
