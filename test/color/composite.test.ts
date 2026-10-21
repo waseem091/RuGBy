@@ -1,4 +1,4 @@
-import { blend as culoriBlend, converter, differenceEuclidean } from "culori";
+import { converter, blend as culoriBlend, differenceEuclidean } from "culori";
 import { describe, expect, it } from "vitest";
 import {
   applyFilters,

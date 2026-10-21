@@ -14,7 +14,14 @@ function image(width: number, height: number, alpha = 255) {
 }
 
 /** Hand-assemble a PNG with arbitrary IHDR settings. */
-function rawPng(width: number, height: number, bitDepth: number, colorType: number, rows: number[][], extra: [string, number[]][] = []) {
+function rawPng(
+  width: number,
+  height: number,
+  bitDepth: number,
+  colorType: number,
+  rows: number[][],
+  extra: [string, number[]][] = [],
+) {
   const chunk = (type: string, data: Uint8Array) => {
     const out = new Uint8Array(12 + data.length);
     const v = new DataView(out.buffer);
@@ -64,10 +71,17 @@ describe("PNG codec", () => {
     const rgb16 = decodePng(rawPng(1, 1, 16, 2, [[1, 2, 3, 4, 5, 6]]));
     expect(Array.from(rgb16.data)).toEqual([1, 3, 5, 255]);
     const pal = decodePng(
-      rawPng(3, 1, 2, 3, [[0b00011000]], [
-        ["PLTE", [255, 0, 0, 0, 255, 0, 0, 0, 255]],
-        ["tRNS", [128]],
-      ]),
+      rawPng(
+        3,
+        1,
+        2,
+        3,
+        [[0b00011000]],
+        [
+          ["PLTE", [255, 0, 0, 0, 255, 0, 0, 0, 255]],
+          ["tRNS", [128]],
+        ],
+      ),
     );
     expect(Array.from(pal.data)).toEqual([255, 0, 0, 128, 0, 255, 0, 255, 0, 0, 255, 255]);
     const pal8 = decodePng(rawPng(1, 1, 8, 3, [[1]], [["PLTE", [9, 9, 9, 7, 7, 7]]]));
@@ -88,9 +102,13 @@ describe("PNG codec", () => {
     const crop = cropImage(img, -5, 15, 10, 10);
     expect(crop.width).toBe(5);
     expect(crop.height).toBe(5);
-    expect(Array.from(crop.data.subarray(0, 4))).toEqual(Array.from(img.data.subarray(300 * 4, 300 * 4 + 4)));
+    expect(Array.from(crop.data.subarray(0, 4))).toEqual(
+      Array.from(img.data.subarray(300 * 4, 300 * 4 + 4)),
+    );
     strokeRect(img, 2, 2, 5, 5, [255, 0, 255], 1);
-    expect(Array.from(img.data.subarray((2 * 20 + 2) * 4, (2 * 20 + 2) * 4 + 4))).toEqual([255, 0, 255, 255]);
+    expect(Array.from(img.data.subarray((2 * 20 + 2) * 4, (2 * 20 + 2) * 4 + 4))).toEqual([
+      255, 0, 255, 255,
+    ]);
     strokeRect(img, -3, -3, 50, 50, [0, 0, 0]);
   });
 });

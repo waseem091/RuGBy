@@ -13,8 +13,7 @@
       "!dist",
       "!coverage",
       "!rugby-report",
-      "!fixtures/pages",
-      "!fixtures/drift-app",
+      "!fixtures",
       "!**/*.html",
       "!docs/case-studies"
     ]

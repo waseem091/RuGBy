@@ -103,7 +103,9 @@ describe("parseColor", () => {
   });
 
   it("handles none and angle units", () => {
-    expect(toHex(parseColor("oklch(0.5 none none)").rgba)).toBe(toHex(parseColor("oklch(0.5 0 0)").rgba));
+    expect(toHex(parseColor("oklch(0.5 none none)").rgba)).toBe(
+      toHex(parseColor("oklch(0.5 0 0)").rgba),
+    );
     expect(toHex(parseColor("hsl(3.14159rad 100% 50%)").rgba)).toBe("#00FFFF");
     expect(toHex(parseColor("hsl(200grad 100% 50%)").rgba)).toBe("#00FFFF");
   });

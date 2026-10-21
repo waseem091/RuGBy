@@ -58,7 +58,9 @@ describe("the same palette in all three formats", () => {
 
   it("reads a Tailwind config without tailwindcss installed (with a warning)", async () => {
     const warnings: string[] = [];
-    const tokens = await loadTailwindConfig(`${F}/tailwind.config.js`, warnings, { useTailwind: false });
+    const tokens = await loadTailwindConfig(`${F}/tailwind.config.js`, warnings, {
+      useTailwind: false,
+    });
     expect(tokens).toHaveLength(38);
     expect(warnings[0]).toMatch(/default palette is not included/);
   });
@@ -69,10 +71,16 @@ describe("DTCG", () => {
     const set = await loadTokens(`${F}/semantic.tokens.json`);
     const get = (name: string, mode?: string) =>
       set!.tokens.find((t) => t.name === name && t.mode === mode);
-    expect(get("color.text.default")).toMatchObject({ value: "#111827", aliasOf: "color.gray.900" });
+    expect(get("color.text.default")).toMatchObject({
+      value: "#111827",
+      aliasOf: "color.gray.900",
+    });
     expect(get("color.text.link")).toMatchObject({ aliasOf: "color.text.accent" });
     expect(get("color.text.link")!.value).toBe(get("color.brand.primary")!.value);
-    expect(get("color.text.muted", "dark")).toMatchObject({ value: "#374151", aliasOf: "color.gray.700" });
+    expect(get("color.text.muted", "dark")).toMatchObject({
+      value: "#374151",
+      aliasOf: "color.gray.700",
+    });
     expect(get("color.brand.display")!.gamutMapped).toBe(true);
     expect(set!.modes).toEqual(["dark"]);
     expect(set!.tokens.some((t) => t.name.startsWith("color.spacing"))).toBe(false);
@@ -92,7 +100,9 @@ describe("DTCG", () => {
 
   it("reports missing alias targets", () => {
     expect(() =>
-      parseDtcgDocuments([{ file: "x", doc: { color: { a: { $type: "color", $value: "{color.nope}" } } } }]),
+      parseDtcgDocuments([
+        { file: "x", doc: { color: { a: { $type: "color", $value: "{color.nope}" } } } },
+      ]),
     ).toThrow(/references \{color.nope\}, which does not exist/);
   });
 
@@ -114,16 +124,24 @@ describe("DTCG", () => {
   });
 
   it("converts DTCG color objects", () => {
-    expect(dtcgValueToCss({ colorSpace: "srgb", components: [1, 0, 0] }, "x")).toBe("color(srgb 1 0 0)");
-    expect(dtcgValueToCss({ colorSpace: "oklch", components: [0.5, 0.1, "none"], alpha: 0.5 }, "x")).toBe(
-      "oklch(0.5 0.1 none / 0.5)",
+    expect(dtcgValueToCss({ colorSpace: "srgb", components: [1, 0, 0] }, "x")).toBe(
+      "color(srgb 1 0 0)",
     );
-    expect(dtcgValueToCss({ colorSpace: "hsl", components: [10, 50, 50] }, "x")).toBe("hsl(10 50% 50%)");
+    expect(
+      dtcgValueToCss({ colorSpace: "oklch", components: [0.5, 0.1, "none"], alpha: 0.5 }, "x"),
+    ).toBe("oklch(0.5 0.1 none / 0.5)");
+    expect(dtcgValueToCss({ colorSpace: "hsl", components: [10, 50, 50] }, "x")).toBe(
+      "hsl(10 50% 50%)",
+    );
     expect(dtcgValueToCss({ hex: "#abc" }, "x")).toBe("#abc");
     expect(() => dtcgValueToCss(42, "x")).toThrow(TokenError);
     expect(() => dtcgValueToCss({ foo: 1 }, "x")).toThrow(/colorSpace/);
-    expect(() => dtcgValueToCss({ colorSpace: "cmyk", components: [1, 2, 3] }, "x")).toThrow(/unsupported/);
-    expect(() => dtcgValueToCss({ colorSpace: "srgb", components: [1, 2] }, "x")).toThrow(/3 entries/);
+    expect(() => dtcgValueToCss({ colorSpace: "cmyk", components: [1, 2, 3] }, "x")).toThrow(
+      /unsupported/,
+    );
+    expect(() => dtcgValueToCss({ colorSpace: "srgb", components: [1, 2] }, "x")).toThrow(
+      /3 entries/,
+    );
   });
 
   it("includes untyped tokens only when their value is a color", () => {
@@ -235,9 +253,17 @@ describe("CSS custom properties", () => {
 
 describe("discovery", () => {
   it("prefers tokens.json, then *.tokens.json, then a Tailwind config", async () => {
-    const a = await tempDir({ "tokens.json": "{}", "x.tokens.json": "{}", "tailwind.config.js": "" });
+    const a = await tempDir({
+      "tokens.json": "{}",
+      "x.tokens.json": "{}",
+      "tailwind.config.js": "",
+    });
     expect(discoverTokenFiles(a)).toEqual([join(a, "tokens.json")]);
-    const b = await tempDir({ "b.tokens.json": "{}", "a.tokens.json": "{}", "tailwind.config.ts": "" });
+    const b = await tempDir({
+      "b.tokens.json": "{}",
+      "a.tokens.json": "{}",
+      "tailwind.config.ts": "",
+    });
     expect(discoverTokenFiles(b)).toEqual([join(b, "a.tokens.json"), join(b, "b.tokens.json")]);
     const c = await tempDir({ "tailwind.config.mjs": "", "readme.md": "" });
     expect(discoverTokenFiles(c)).toEqual([join(c, "tailwind.config.mjs")]);
@@ -253,9 +279,13 @@ describe("discovery", () => {
   });
 
   it("accepts comma lists and rejects mixed or unknown formats", async () => {
-    const set = await loadTokens(`${F}/modes/light.tokens.json,${F}/modes/dark.tokens.json,${F}/modes/base.tokens.json`);
+    const set = await loadTokens(
+      `${F}/modes/light.tokens.json,${F}/modes/dark.tokens.json,${F}/modes/base.tokens.json`,
+    );
     expect(set!.modes).toEqual(["dark", "light"]);
-    await expect(loadTokens(`${F}/palette.css,${F}/palette.tokens.json`)).rejects.toThrow(/share one format/);
+    await expect(loadTokens(`${F}/palette.css,${F}/palette.tokens.json`)).rejects.toThrow(
+      /share one format/,
+    );
     expect(() => formatOf("tokens.yaml")).toThrow(/Unrecognized token file/);
     await expect(loadTokens(`${F}/nope.json`)).rejects.toThrow(/not found/);
     await expect(loadTokens(await tempDir({}))).rejects.toThrow(/No token files found/);
@@ -284,7 +314,9 @@ describe("names and printing", () => {
     const set = await loadTokens(`${F}/semantic.tokens.json`);
     const plain = formatTokenTable(set!);
     expect(plain).toContain("10 color tokens · dtcg");
-    expect(plain).toMatch(/color\.text\.muted\s+#374151\s+dark\s+--color-text-muted\s+color\.gray\.700/);
+    expect(plain).toMatch(
+      /color\.text\.muted\s+#374151\s+dark\s+--color-text-muted\s+color\.gray\.700/,
+    );
     expect(plain).toContain("* outside sRGB; gamut-mapped in OKLCH");
     expect(formatTokenTable(set!, { color: true })).toContain("\u001b[48;2;");
     const css = await loadTokens(`${F}/theme.css`);

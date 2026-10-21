@@ -9,7 +9,7 @@ import { loadCssFiles } from "./css.js";
 import { loadDtcgFiles } from "./dtcg.js";
 import { buildSet } from "./normalize.js";
 import { loadTailwindConfig } from "./tailwind.js";
-import { TokenError, type TokenFormat, type TokenSet } from "./types.js";
+import { type ColorToken, TokenError, type TokenFormat, type TokenSet } from "./types.js";
 
 const TAILWIND_RE = /^tailwind\.config\.(?:js|ts|cjs|mjs|cts|mts)$/;
 
@@ -52,7 +52,7 @@ export async function loadTokenFiles(files: string[]): Promise<TokenSet> {
   }
   const format = [...formats][0]!;
   const warnings: string[] = [];
-  let tokens;
+  let tokens: ColorToken[];
   if (format === "dtcg") tokens = await loadDtcgFiles(files);
   else if (format === "css") tokens = await loadCssFiles(files, warnings);
   else {
