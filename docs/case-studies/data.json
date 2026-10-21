@@ -4,6 +4,7 @@
     {
       "id": "shadcn",
       "name": "shadcn/ui docs",
+      "kind": "docs",
       "urls": [
         "https://ui.shadcn.com/",
         "https://ui.shadcn.com/docs/components/button"
@@ -248,6 +249,7 @@
     {
       "id": "vercel-templates",
       "name": "Vercel templates",
+      "kind": "marketing",
       "urls": [
         "https://vercel.com/templates",
         "https://vercel.com/templates/next.js/nextjs-commerce"
@@ -255,8 +257,8 @@
       "status": "ok",
       "pageErrors": [],
       "notes": [
-        "167 text element(s) were not visible (covered by another element) and were not measured",
         "network did not go idle within 5s; measured anyway",
+        "167 text element(s) were not visible (covered by another element) and were not measured",
         "133 text element(s) were not visible (covered by another element) and were not measured",
         "layout shifted during capture; measured a second time",
         "103 text element(s) were not visible (covered by another element) and were not measured"
@@ -282,23 +284,23 @@
           "drift": {
             "error": 0,
             "warning": 13,
-            "info": 1
+            "info": 2
           }
         },
         "axe": {
-          "missed": 12,
-          "incomplete": 36,
-          "incompleteResolved": 36,
-          "incompleteFailed": 9
+          "missed": 10,
+          "incomplete": 37,
+          "incompleteResolved": 37,
+          "incompleteFailed": 10
         }
       },
       "counts": {
         "contrast": 46,
         "contrastByAxe": {
           "pass": 0,
-          "fail": 34,
-          "incomplete": 9,
-          "not-checked": 3
+          "fail": 36,
+          "incomplete": 10,
+          "not-checked": 0
         },
         "contrastByKind": {
           "solid": 46,
@@ -306,8 +308,8 @@
           "image": 0,
           "mixed": 0
         },
-        "drift": 14,
-        "likelyTypos": 14
+        "drift": 15,
+        "likelyTypos": 15
       },
       "top": [
         {
@@ -497,6 +499,7 @@
     {
       "id": "tailwind",
       "name": "Tailwind CSS and Tailwind Plus marketing",
+      "kind": "marketing",
       "urls": [
         "https://tailwindcss.com/",
         "https://tailwindcss.com/plus"
@@ -505,10 +508,9 @@
       "pageErrors": [],
       "notes": [
         "layout shifted during capture; measured a second time",
-        "18 text element(s) were not visible (covered by another element) and were not measured",
+        "19 text element(s) were not visible (covered by another element) and were not measured",
         "7 text element(s) were skipped because their background changed between captures (animation or video)",
-        "23 text element(s) were not visible (covered by another element) and were not measured",
-        "4 text element(s) were not visible (covered by another element) and were not measured"
+        "5 text element(s) were not visible (covered by another element) and were not measured"
       ],
       "tokens": {
         "format": "page",
@@ -522,7 +524,7 @@
       "summary": {
         "pages": 2,
         "states": 8,
-        "textChecked": 1816,
+        "textChecked": 1891,
         "findings": {
           "contrast": {
             "error": 107,
@@ -535,19 +537,19 @@
           }
         },
         "axe": {
-          "missed": 89,
-          "incomplete": 985,
-          "incompleteResolved": 985,
-          "incompleteFailed": 62
+          "missed": 99,
+          "incomplete": 989,
+          "incompleteResolved": 989,
+          "incompleteFailed": 65
         }
       },
       "counts": {
         "contrast": 131,
         "contrastByAxe": {
-          "pass": 10,
-          "fail": 42,
-          "incomplete": 62,
-          "not-checked": 17
+          "pass": 13,
+          "fail": 32,
+          "incomplete": 65,
+          "not-checked": 21
         },
         "contrastByKind": {
           "solid": 95,
@@ -707,25 +709,6 @@
           ]
         },
         {
-          "color": "#686A71",
-          "property": "fill",
-          "nearestToken": {
-            "name": "color.zinc.500",
-            "value": "#71717B",
-            "deltaE": 2.75
-          },
-          "source": {
-            "rule": "[presentation attribute] { fill: currentcolor }",
-            "stylesheet": "https://tailwindcss.com/",
-            "origin": "attributes"
-          },
-          "occurrences": 2,
-          "likelyTypo": false,
-          "cause": [
-            "opacity 0.4"
-          ]
-        },
-        {
           "color": "#96989D",
           "property": "color",
           "nearestToken": {
@@ -745,12 +728,33 @@
             "opacity 0.4",
             "over a background image; composited over its fallback color"
           ]
+        },
+        {
+          "color": "#626875",
+          "property": "color",
+          "nearestToken": {
+            "name": "color.gray.500",
+            "value": "#6A7282",
+            "deltaE": 3.39
+          },
+          "source": {
+            "rule": ".dark\\:text-gray-400:where(.system, .system *) { color: var(--color-gray-400) }",
+            "stylesheet": "https://tailwindcss.com/_next/static/chunks/017r-ibrf-le-.css",
+            "line": 1,
+            "origin": "regular"
+          },
+          "occurrences": 1,
+          "likelyTypo": false,
+          "cause": [
+            "opacity 0.6"
+          ]
         }
       ]
     },
     {
       "id": "radix",
       "name": "Radix docs",
+      "kind": "docs",
       "urls": [
         "https://www.radix-ui.com/",
         "https://www.radix-ui.com/primitives/docs/overview/introduction"
@@ -993,6 +997,7 @@
     {
       "id": "nextjs",
       "name": "Next.js docs",
+      "kind": "docs",
       "urls": [
         "https://nextjs.org/",
         "https://nextjs.org/docs"
@@ -1149,6 +1154,7 @@
     {
       "id": "mdn",
       "name": "MDN Web Docs",
+      "kind": "docs",
       "urls": [
         "https://developer.mozilla.org/en-US/",
         "https://developer.mozilla.org/en-US/docs/Web/CSS/color"
@@ -1159,6 +1165,7 @@
         "12 text element(s) were not visible (covered by another element) and were not measured",
         "69 text element(s) were not visible (covered by another element) and were not measured",
         "1 cross-origin frame(s) were not measured",
+        "layout shifted during capture; measured a second time",
         "37 text element(s) were not visible (covered by another element) and were not measured",
         "15 text element(s) were not visible (covered by another element) and were not measured",
         "14 text element(s) were not visible (covered by another element) and were not measured"
@@ -1178,86 +1185,40 @@
         "textChecked": 2541,
         "findings": {
           "contrast": {
-            "error": 5,
+            "error": 4,
             "warning": 0
           },
           "drift": {
             "error": 0,
-            "warning": 30,
+            "warning": 32,
             "info": 0
           }
         },
         "axe": {
-          "missed": 5,
+          "missed": 4,
           "incomplete": 18,
           "incompleteResolved": 18,
-          "incompleteFailed": 1
+          "incompleteFailed": 0
         }
       },
       "counts": {
-        "contrast": 5,
+        "contrast": 4,
         "contrastByAxe": {
           "pass": 4,
           "fail": 0,
-          "incomplete": 1,
+          "incomplete": 0,
           "not-checked": 0
         },
         "contrastByKind": {
-          "solid": 5,
+          "solid": 4,
           "gradient": 0,
           "image": 0,
           "mixed": 0
         },
-        "drift": 30,
+        "drift": 32,
         "likelyTypos": 0
       },
       "top": [
-        {
-          "type": "contrast",
-          "severity": "error",
-          "page": "https://developer.mozilla.org/en-US/docs/Web/CSS/color",
-          "viewport": 375,
-          "scheme": "light",
-          "selector": "#content > aside.layout__right-sidebar.reference-layout__toc > mdn-placement-sidebar >>> section.sidebar-placement > div.placement-container > mdn-placement-note >>> a.placement-note",
-          "text": "Ad",
-          "fontSizePx": 10,
-          "fontWeight": 400,
-          "largeText": false,
-          "foreground": "#444445",
-          "background": {
-            "kind": "solid",
-            "worst": "#AFB0B6",
-            "median": "#AFB0B6",
-            "sampled": 154
-          },
-          "wcag": {
-            "ratio": 4.5,
-            "min": 4.5,
-            "median": 4.5,
-            "required": 4.5,
-            "pass": false
-          },
-          "apca": {
-            "lc": 48,
-            "required": 100,
-            "pass": false
-          },
-          "axeVerdict": "incomplete",
-          "notes": [
-            "effective opacity 0.85 applied to the text color"
-          ],
-          "suggestion": {
-            "token": "color.gray.20",
-            "value": "#2D3034",
-            "target": "foreground",
-            "ratio": 4.58,
-            "lc": 48.4,
-            "against": "#AFB0B6",
-            "deltaE": 0.99,
-            "replacement": "color: var(--color-gray-20)"
-          },
-          "image": "case-studies/mdn-top-1.png"
-        },
         {
           "type": "contrast",
           "severity": "error",
@@ -1299,7 +1260,7 @@
             "deltaE": 0,
             "replacement": "background-color: var(--csstools-light-dark-toggle-5e0f49fc-2)"
           },
-          "image": "case-studies/mdn-top-2.png"
+          "image": "case-studies/mdn-top-1.png"
         }
       ],
       "topDrift": [
@@ -1359,6 +1320,7 @@
     {
       "id": "github",
       "name": "GitHub marketing",
+      "kind": "marketing",
       "urls": [
         "https://github.com/",
         "https://github.com/features/copilot"
@@ -1366,8 +1328,7 @@
       "status": "ok",
       "pageErrors": [],
       "notes": [
-        "1 text element(s) were not visible (covered by another element) and were not measured",
-        "layout shifted during capture; measured a second time"
+        "1 text element(s) were not visible (covered by another element) and were not measured"
       ],
       "tokens": {
         "format": "page",
@@ -1381,7 +1342,7 @@
       "summary": {
         "pages": 2,
         "states": 8,
-        "textChecked": 1232,
+        "textChecked": 1246,
         "findings": {
           "contrast": {
             "error": 0,
@@ -1395,8 +1356,8 @@
         },
         "axe": {
           "missed": 0,
-          "incomplete": 201,
-          "incompleteResolved": 201,
+          "incomplete": 198,
+          "incompleteResolved": 198,
           "incompleteFailed": 0
         }
       },
@@ -1473,6 +1434,7 @@
     {
       "id": "stripe",
       "name": "Stripe",
+      "kind": "marketing",
       "urls": [
         "https://stripe.com/",
         "https://stripe.com/payments"
@@ -1482,14 +1444,14 @@
       "notes": [
         "3 text element(s) with transparent fill (e.g. background-clip: text) were not measured",
         "2 cross-origin frame(s) were not measured",
+        "page is 20666px tall; measured the top 20000px",
+        "129 text element(s) were not visible (covered by another element) and were not measured",
         "page is 20386px tall; measured the top 20000px",
         "layout shifted during capture; measured a second time",
-        "129 text element(s) were not visible (covered by another element) and were not measured",
         "60 text element(s) were not visible (covered by another element) and were not measured",
+        "3 text element(s) were skipped because their background changed between captures (animation or video)",
         "2 text element(s) with transparent fill (e.g. background-clip: text) were not measured",
-        "page is 25038px tall; measured the top 20000px",
-        "8 text element(s) were not visible (covered by another element) and were not measured",
-        "4 text element(s) were skipped because their background changed between captures (animation or video)"
+        "page is 25038px tall; measured the top 20000px"
       ],
       "tokens": {
         "format": "page",
@@ -1503,11 +1465,11 @@
       "summary": {
         "pages": 2,
         "states": 8,
-        "textChecked": 2897,
+        "textChecked": 2929,
         "findings": {
           "contrast": {
-            "error": 401,
-            "warning": 1
+            "error": 415,
+            "warning": 0
           },
           "drift": {
             "error": 0,
@@ -1516,30 +1478,73 @@
           }
         },
         "axe": {
-          "missed": 292,
-          "incomplete": 597,
-          "incompleteResolved": 597,
-          "incompleteFailed": 121
+          "missed": 305,
+          "incomplete": 606,
+          "incompleteResolved": 606,
+          "incompleteFailed": 109
         }
       },
       "counts": {
-        "contrast": 402,
+        "contrast": 415,
         "contrastByAxe": {
-          "pass": 133,
+          "pass": 148,
           "fail": 110,
-          "incomplete": 121,
-          "not-checked": 38
+          "incomplete": 109,
+          "not-checked": 48
         },
         "contrastByKind": {
-          "solid": 395,
+          "solid": 408,
           "gradient": 0,
-          "image": 0,
-          "mixed": 7
+          "image": 1,
+          "mixed": 6
         },
         "drift": 120,
         "likelyTypos": 8
       },
       "top": [
+        {
+          "type": "contrast",
+          "severity": "error",
+          "page": "https://stripe.com/payments",
+          "viewport": 1440,
+          "scheme": "dark",
+          "selector": "a.CustomersCaseStudyCard.theme--Dark:nth-of-type(4) > div.CustomersCaseStudyCard__content > h1.CustomersCaseStudyCard__title",
+          "text": "atVenu streamlines merchandise sales at live events with Stripe",
+          "fontSizePx": 26,
+          "fontWeight": 500,
+          "largeText": true,
+          "foreground": "#FFFFFF",
+          "background": {
+            "kind": "image",
+            "worst": "#35BADF",
+            "median": "#22A7CC",
+            "sampled": 23360
+          },
+          "wcag": {
+            "ratio": 2.27,
+            "min": 1.89,
+            "median": 2.81,
+            "required": 3,
+            "pass": false
+          },
+          "apca": {
+            "lc": -49.3,
+            "required": 55,
+            "pass": false
+          },
+          "axeVerdict": "incomplete",
+          "suggestion": {
+            "token": "color.hds.color.core.neutralDark.700",
+            "value": "#273F73",
+            "target": "foreground",
+            "ratio": 3.07,
+            "lc": 31.3,
+            "against": "#2598BB",
+            "deltaE": 63.03,
+            "replacement": "color: var(--hds-color-core-neutralDark-700)"
+          },
+          "image": "case-studies/stripe-top-1.png"
+        },
         {
           "type": "contrast",
           "severity": "error",
@@ -1581,7 +1586,7 @@
             "deltaE": 36.53,
             "replacement": "color: var(--hds-color-core-neutral-700)"
           },
-          "image": "case-studies/stripe-top-1.png"
+          "image": "case-studies/stripe-top-2.png"
         },
         {
           "type": "contrast",
@@ -1623,52 +1628,6 @@
             "against": "#FC84E1",
             "deltaE": 36.53,
             "replacement": "color: var(--hds-color-core-neutral-700)"
-          },
-          "image": "case-studies/stripe-top-2.png"
-        },
-        {
-          "type": "contrast",
-          "severity": "error",
-          "page": "https://stripe.com/",
-          "viewport": 1440,
-          "scheme": "light",
-          "selector": "h1.hds-heading.hero-section__title:nth-of-type(2) > span.hero-section__title-copy",
-          "text": "Accept payments, handle business banking, and implement custom revenue models—from your first transaction to your bil...",
-          "fontSizePx": 48,
-          "fontWeight": 300,
-          "largeText": true,
-          "foreground": "#724EF6",
-          "background": {
-            "kind": "mixed",
-            "worst": "#E48CEC",
-            "median": "#FFFFFF",
-            "sampled": 40000
-          },
-          "wcag": {
-            "ratio": 2.25,
-            "min": 2.16,
-            "median": 2.92,
-            "required": 3,
-            "pass": false
-          },
-          "apca": {
-            "lc": 28.1,
-            "required": 50,
-            "pass": false
-          },
-          "axeVerdict": "incomplete",
-          "notes": [
-            "mix-blend-mode: hard-light; text color blended per background pixel"
-          ],
-          "suggestion": {
-            "token": "color.hds.color.action.icon.solidAlternateHover",
-            "value": "#2E2B8C",
-            "target": "foreground",
-            "ratio": 3.09,
-            "lc": 36.7,
-            "against": "#E38DEC",
-            "deltaE": 18.81,
-            "replacement": "color: var(--hds-color-action-icon-solidAlternateHover)"
           },
           "image": "case-studies/stripe-top-3.png"
         }
@@ -1728,6 +1687,7 @@
     {
       "id": "linear",
       "name": "Linear",
+      "kind": "marketing",
       "urls": [
         "https://linear.app/",
         "https://linear.app/features"
@@ -1980,6 +1940,7 @@
     {
       "id": "svelte",
       "name": "Svelte",
+      "kind": "docs",
       "urls": [
         "https://svelte.dev/",
         "https://svelte.dev/docs/svelte/overview"
@@ -2332,8 +2293,8 @@
       "page": "https://ui.shadcn.com/docs/components/button",
       "viewport": 1440,
       "scheme": "light",
-      "selector": "div.group.relative:nth-of-type(13) > div.relative.overflow-hidden:nth-of-type(2) > div.relative > div.relative:nth-of-type(1) > figure.\\[\\&\\>pre\\]\\:max-h-96 > div > pre.no-scrollbar.min-w-0 > code > span.line:nth-of-type(1) > span:nth-of-type(3)",
-      "text": "from",
+      "selector": "div.group.relative:nth-of-type(13) > div.relative.overflow-hidden:nth-of-type(2) > div.relative > div.relative:nth-of-type(1) > figure.\\[\\&\\>pre\\]\\:max-h-96 > div > pre.no-scrollbar.min-w-0 > code > span.line:nth-of-type(3) > span:nth-of-type(1)",
+      "text": "import",
       "fontSizePx": 14,
       "fontWeight": 400,
       "largeText": false,
@@ -2342,11 +2303,11 @@
         "kind": "solid",
         "worst": "#F8F8F8",
         "median": "#F8F8F8",
-        "sampled": 544
+        "sampled": 850
       },
       "wcag": {
         "ratio": 4.31,
-        "min": 3.63,
+        "min": 4.31,
         "median": 4.31,
         "required": 4.5,
         "pass": false
@@ -2377,8 +2338,8 @@
       "page": "https://vercel.com/templates/next.js/nextjs-commerce",
       "viewport": 1440,
       "scheme": "light",
-      "selector": "#C7d72a332-L1 > button.vF3MAa_lineNumber",
-      "text": "1",
+      "selector": "#C77e4551b-L2 > button.vF3MAa_lineNumber",
+      "text": "2",
       "fontSizePx": 13,
       "fontWeight": 400,
       "largeText": false,
@@ -2421,41 +2382,44 @@
       "severity": "error",
       "page": "https://tailwindcss.com/",
       "viewport": 375,
-      "scheme": "light",
-      "selector": "div.relative.max-w-full:nth-of-type(5) > div.flex.h-6:nth-of-type(4) > span.inline.dark\\:hidden:nth-of-type(1)",
-      "text": "text-gray-950",
+      "scheme": "dark",
+      "selector": "span.hidden.dark\\:inline:nth-of-type(6)",
+      "text": "text-white",
       "fontSizePx": 12,
       "fontWeight": 400,
       "largeText": false,
-      "foreground": "#CCCCCC",
+      "foreground": "#42454D",
       "background": {
         "kind": "solid",
-        "worst": "#FFFFFF",
-        "median": "#FFFFFF",
-        "sampled": 1288
+        "worst": "#030712",
+        "median": "#030712",
+        "sampled": 1185
       },
       "wcag": {
-        "ratio": 1.61,
-        "min": 1.61,
-        "median": 1.61,
+        "ratio": 2.1,
+        "min": 2.1,
+        "median": 2.1,
         "required": 4.5,
         "pass": false
       },
       "apca": {
-        "lc": 27.3,
+        "lc": -10.1,
         "required": 100,
         "pass": false
       },
       "axeVerdict": "fail",
+      "notes": [
+        "text color is oklab outside sRGB; gamut-mapped in OKLCH for the contrast math"
+      ],
       "suggestion": {
-        "token": "color.black",
-        "value": "#000000",
+        "token": "color.tw.ring.offset.color",
+        "value": "#FFFFFF",
         "target": "foreground",
-        "ratio": 21,
-        "lc": 106,
-        "against": "#FFFFFF",
+        "ratio": 20.13,
+        "lc": -107.8,
+        "against": "#030712",
         "deltaE": 0,
-        "replacement": "color: var(--color-black)"
+        "replacement": "color: var(--tw-ring-offset-color)"
       },
       "image": "case-studies/tailwind-sample-05.png"
     },
@@ -2463,47 +2427,44 @@
       "id": "S06",
       "site": "tailwind",
       "type": "contrast",
-      "severity": "warning",
+      "severity": "error",
       "page": "https://tailwindcss.com/",
       "viewport": 1440,
       "scheme": "light",
-      "selector": "div.\\*\\:flex.\\*\\:\\*\\:max-w-none:nth-of-type(2) > pre.shiki.tailwindcss-theme > code > span.line:nth-of-type(10) > span:nth-of-type(5)",
-      "text": "\" \"",
-      "fontSizePx": 13,
-      "fontWeight": 400,
+      "selector": "p.text-fuchsia-500.dark\\:text-fuchsia-400",
+      "text": "Tailwind in the wild",
+      "fontSizePx": 12,
+      "fontWeight": 600,
       "largeText": false,
-      "foreground": "#74D4FF",
+      "foreground": "#E12AFB",
       "background": {
         "kind": "mixed",
-        "worst": "#00BCFF",
-        "median": "#1C202A",
-        "sampled": 224
+        "worst": "#F2F2F3",
+        "median": "#FFFFFF",
+        "sampled": 2352
       },
       "wcag": {
-        "ratio": 1.31,
-        "min": 1.31,
-        "median": 9.78,
+        "ratio": 3.16,
+        "min": 3.16,
+        "median": 3.53,
         "required": 4.5,
         "pass": false
       },
       "apca": {
-        "lc": -12.7,
-        "required": 100,
+        "lc": 53.4,
+        "required": 90,
         "pass": false
       },
-      "axeVerdict": "not-checked",
-      "notes": [
-        "text color is lab outside sRGB; gamut-mapped in OKLCH for the contrast math"
-      ],
+      "axeVerdict": "incomplete",
       "suggestion": {
-        "token": "color.mauve.800",
-        "value": "#2A212C",
-        "target": "background",
-        "ratio": 9.32,
-        "lc": -71,
-        "against": "#2A212C",
-        "deltaE": 2.74,
-        "replacement": "background-color: var(--color-mauve-800)"
+        "token": "color.fuchsia.700",
+        "value": "#A800B7",
+        "target": "foreground",
+        "ratio": 5.61,
+        "lc": 71.1,
+        "against": "#F2F2F3",
+        "deltaE": 15.21,
+        "replacement": "color: var(--color-fuchsia-700)"
       },
       "image": "case-studies/tailwind-sample-06.png"
     },
@@ -2515,43 +2476,40 @@
       "page": "https://stripe.com/",
       "viewport": 375,
       "scheme": "light",
-      "selector": "div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(4) > div:nth-of-type(1) > div > div",
-      "text": "Card",
-      "fontSizePx": 11,
-      "fontWeight": 300,
+      "selector": "div.platform-graphic__features--stacked:nth-of-type(1) > div.platform-graphic-features > div.platform-graphic-features__capital:nth-of-type(2) > div.platform-graphic__feature-card__wrap:nth-of-type(2) > div:nth-of-type(2) > div > span:nth-of-type(2) > span",
+      "text": "' capital-financing-promotion '",
+      "fontSizePx": 8,
+      "fontWeight": 500,
       "largeText": false,
-      "foreground": "#667691",
+      "foreground": "#00B261",
       "background": {
         "kind": "solid",
-        "worst": "#F8F8FF",
-        "median": "#F8F8FF",
-        "sampled": 170
+        "worst": "#F8FAFD",
+        "median": "#F8FAFD",
+        "sampled": 1224
       },
       "wcag": {
-        "ratio": 4.35,
-        "min": 4.35,
-        "median": 4.35,
+        "ratio": 2.66,
+        "min": 2.66,
+        "median": 2.66,
         "required": 4.5,
         "pass": false
       },
       "apca": {
-        "lc": 68.1,
+        "lc": 49.8,
         "required": 100,
         "pass": false
       },
-      "axeVerdict": "fail",
-      "notes": [
-        "APCA advises against this font size/weight for text"
-      ],
+      "axeVerdict": "incomplete",
       "suggestion": {
-        "token": "color.hds.color.action.icon.navigation.soft",
-        "value": "#50617A",
+        "token": "color.hds.color.core.success.600",
+        "value": "#006F3A",
         "target": "foreground",
-        "ratio": 5.96,
-        "lc": 77.5,
-        "against": "#F8F8FF",
-        "deltaE": 7.45,
-        "replacement": "color: var(--hds-color-action-icon-navigation-soft)"
+        "ratio": 6.02,
+        "lc": 77.6,
+        "against": "#F8FAFD",
+        "deltaE": 20.08,
+        "replacement": "color: var(--hds-color-core-success-600)"
       },
       "image": "case-studies/stripe-sample-07.png"
     },
@@ -2563,40 +2521,43 @@
       "page": "https://stripe.com/",
       "viewport": 1440,
       "scheme": "dark",
-      "selector": "div:nth-of-type(2) > div:nth-of-type(1) > span:nth-of-type(2) > span.tabular-nums--tight",
-      "text": "25%",
-      "fontSizePx": 11,
-      "fontWeight": 400,
+      "selector": "#stat-historical-uptime-description",
+      "text": "for Stripe services",
+      "fontSizePx": 16,
+      "fontWeight": 300,
       "largeText": false,
-      "foreground": "#6B59FE",
+      "foreground": "#7D8BA4",
       "background": {
         "kind": "solid",
-        "worst": "#ECEDFE",
-        "median": "#ECEDFE",
-        "sampled": 234
+        "worst": "#F8F6FE",
+        "median": "#F9F6FF",
+        "sampled": 2560
       },
       "wcag": {
-        "ratio": 4.04,
-        "min": 4.04,
-        "median": 4.04,
+        "ratio": 3.21,
+        "min": 3.21,
+        "median": 3.22,
         "required": 4.5,
         "pass": false
       },
       "apca": {
-        "lc": 61.8,
+        "lc": 57.2,
         "required": 100,
         "pass": false
       },
-      "axeVerdict": "fail",
+      "axeVerdict": "incomplete",
+      "notes": [
+        "APCA advises against this font size/weight for text"
+      ],
       "suggestion": {
-        "token": "color.hds.color.accent.border.solid",
-        "value": "#533AFD",
+        "token": "color.hds.color.core.neutralDark.600",
+        "value": "#45639D",
         "target": "foreground",
-        "ratio": 5.34,
-        "lc": 69.6,
-        "against": "#ECEDFE",
-        "deltaE": 7,
-        "replacement": "color: var(--hds-color-accent-border-solid)"
+        "ratio": 5.56,
+        "lc": 74.9,
+        "against": "#F8F6FE",
+        "deltaE": 14.3,
+        "replacement": "color: var(--hds-color-core-neutralDark-600)"
       },
       "image": "case-studies/stripe-sample-08.png"
     },
@@ -2608,40 +2569,43 @@
       "page": "https://stripe.com/payments",
       "viewport": 375,
       "scheme": "light",
-      "selector": "div.RowLayout:nth-of-type(2) > div.ColumnLayout.ColumnLayout--alignCenter:nth-of-type(1) > div.RowLayout.SideBySide__leftRowLayout:nth-of-type(1) > section.Copy.variant--Section > header.Copy__header > h2.Copy__caption",
-      "text": "In-person payments",
-      "fontSizePx": 18,
-      "fontWeight": 500,
+      "selector": "div:nth-of-type(2) > div:nth-of-type(1) > span:nth-of-type(3)",
+      "text": "Tap, insert, or swipe to pay",
+      "fontSizePx": 9,
+      "fontWeight": 300,
       "largeText": false,
-      "foreground": "#9966FF",
+      "foreground": "#727F96",
       "background": {
         "kind": "solid",
         "worst": "#FFFFFF",
         "median": "#FFFFFF",
-        "sampled": 3652
+        "sampled": 936
       },
       "wcag": {
-        "ratio": 3.68,
-        "min": 3.68,
-        "median": 3.68,
+        "ratio": 4.04,
+        "min": 4.04,
+        "median": 4.04,
         "required": 4.5,
         "pass": false
       },
       "apca": {
-        "lc": 64,
-        "required": 70,
+        "lc": 67.7,
+        "required": 100,
         "pass": false
       },
       "axeVerdict": "fail",
+      "notes": [
+        "APCA advises against this font size/weight for text"
+      ],
       "suggestion": {
-        "token": "color.hds.color.core.brand.500",
-        "value": "#665EFD",
+        "token": "color.hds.color.action.icon.navigation.subdued",
+        "value": "#64748D",
         "target": "foreground",
-        "ratio": 4.58,
-        "lc": 71.2,
+        "ratio": 4.75,
+        "lc": 72.9,
         "against": "#FFFFFF",
-        "deltaE": 8.43,
-        "replacement": "color: var(--hds-color-core-brand-500)"
+        "deltaE": 3.92,
+        "replacement": "color: var(--hds-color-action-icon-navigation-subdued)"
       },
       "image": "case-studies/stripe-sample-09.png"
     },
@@ -2653,37 +2617,41 @@
       "page": "https://stripe.com/payments",
       "viewport": 375,
       "scheme": "dark",
-      "selector": "div.DomGraphic__scaleContainer > div.GraphicForm:nth-of-type(2) > div.GraphicForm__content > div.GraphicFormFieldList > div.GraphicFormField > div.GraphicFormField__content > div.GraphicFormFieldInput:nth-of-type(1) > div.GraphicFormFieldInput__valueContainer > span.GraphicFormFieldInput__value",
-      "text": "United States",
-      "fontSizePx": 14,
-      "fontWeight": 300,
+      "selector": "#global-payments > div.Section__masked > div.Section__container:nth-of-type(2) > div.Section__layoutContainer > div.Section__layout > div.RowLayout > section.Copy.variant--Section > header.Copy__header > h2.Copy__caption",
+      "text": "Global payments",
+      "fontSizePx": 18,
+      "fontWeight": 500,
       "largeText": false,
-      "foreground": "#B3BBC2",
+      "foreground": "#9966FF",
       "background": {
         "kind": "solid",
-        "worst": "#FFFFFF",
-        "median": "#FFFFFF",
-        "sampled": 486
+        "worst": "#F6F9FC",
+        "median": "#F6F9FC",
+        "sampled": 3058
       },
       "wcag": {
-        "ratio": 1.95,
-        "min": 1.95,
-        "median": 1.95,
+        "ratio": 3.49,
+        "min": 3.49,
+        "median": 3.49,
         "required": 4.5,
         "pass": false
       },
       "apca": {
-        "lc": 37.5,
-        "required": 100,
+        "lc": 60.1,
+        "required": 70,
         "pass": false
       },
-      "axeVerdict": "not-checked",
-      "notes": [
-        "effective opacity 0.4 applied to the text color",
-        "APCA advises against this font size/weight for text",
-        "No token passes against this background (tried every text and background token). The text is at 40% effective opacity; raising it is the fix."
-      ],
-      "suggestion": null,
+      "axeVerdict": "pass",
+      "suggestion": {
+        "token": "color.accent.gradient.color.stop.2",
+        "value": "#643AFD",
+        "target": "foreground",
+        "ratio": 5.57,
+        "lc": 74.4,
+        "against": "#F6F9FC",
+        "deltaE": 12.68,
+        "replacement": "color: var(--accent-gradient-color-stop-2)"
+      },
       "image": "case-studies/stripe-sample-10.png"
     },
     {
@@ -2694,44 +2662,37 @@
       "page": "https://stripe.com/payments",
       "viewport": 1440,
       "scheme": "light",
-      "selector": "div.GraphicFormField__content > div.GraphicFormField.GraphicFormPaymentMethodField > div.GraphicFormField__content > div.GraphicFormPaymentMethodField__list > div.GraphicFormPaymentMethodField__item:nth-of-type(1) > span",
-      "text": "Card",
+      "selector": "div.PaymentsHeroAnimationCheckout__payment:nth-of-type(2) > div.GraphicForm:nth-of-type(2) > div.GraphicForm__content > div.GraphicFormFieldList > div.GraphicFormField:nth-of-type(1) > div.GraphicFormField__content > div:nth-of-type(4)",
+      "text": "Show all address fields",
       "fontSizePx": 9,
       "fontWeight": 300,
       "largeText": false,
-      "foreground": "#6D7E94",
+      "foreground": "#ADADAD",
       "background": {
         "kind": "solid",
         "worst": "#FFFFFF",
         "median": "#FFFFFF",
-        "sampled": 190
+        "sampled": 900
       },
       "wcag": {
-        "ratio": 4.15,
-        "min": 4.15,
-        "median": 4.15,
+        "ratio": 2.26,
+        "min": 2.26,
+        "median": 2.26,
         "required": 4.5,
         "pass": false
       },
       "apca": {
-        "lc": 68.6,
+        "lc": 44.5,
         "required": 100,
         "pass": false
       },
       "axeVerdict": "not-checked",
       "notes": [
-        "APCA advises against this font size/weight for text"
+        "effective opacity 0.4 applied to the text color",
+        "APCA advises against this font size/weight for text",
+        "No token passes against this background (tried every text and background token). The text is at 40% effective opacity; raising it is the fix."
       ],
-      "suggestion": {
-        "token": "color.hds.color.action.icon.navigation.subdued",
-        "value": "#64748D",
-        "target": "foreground",
-        "ratio": 4.75,
-        "lc": 72.9,
-        "against": "#FFFFFF",
-        "deltaE": 3.25,
-        "replacement": "color: var(--hds-color-action-icon-navigation-subdued)"
-      },
+      "suggestion": null,
       "image": "case-studies/stripe-sample-11.png"
     },
     {
@@ -2742,8 +2703,8 @@
       "page": "https://stripe.com/payments",
       "viewport": 1440,
       "scheme": "light",
-      "selector": "span.CodeEditorLineNumbers__number:nth-of-type(5)",
-      "text": "5",
+      "selector": "span.CodeEditorLineNumbers__number:nth-of-type(4)",
+      "text": "4",
       "fontSizePx": 14,
       "fontWeight": 500,
       "largeText": false,
@@ -2787,37 +2748,41 @@
       "page": "https://stripe.com/payments",
       "viewport": 1440,
       "scheme": "dark",
-      "selector": "div.DomGraphic__scaleContainer > div.PaymentsHeroAnimationLink:nth-of-type(1) > div.PaymentsHeroAnimationLink__orderDetails:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1)",
-      "text": "Email",
-      "fontSizePx": 14,
-      "fontWeight": 300,
+      "selector": "p > a.Link:nth-of-type(2)",
+      "text": "custom rules",
+      "fontSizePx": 18,
+      "fontWeight": 425,
       "largeText": false,
-      "foreground": "#989898",
+      "foreground": "#9966FF",
       "background": {
         "kind": "solid",
         "worst": "#FFFFFF",
         "median": "#FFFFFF",
-        "sampled": 578
+        "sampled": 2310
       },
       "wcag": {
-        "ratio": 2.89,
-        "min": 2.89,
-        "median": 2.89,
+        "ratio": 3.68,
+        "min": 3.68,
+        "median": 3.68,
         "required": 4.5,
         "pass": false
       },
       "apca": {
-        "lc": 55.2,
-        "required": 100,
+        "lc": 64,
+        "required": 75,
         "pass": false
       },
       "axeVerdict": "pass",
-      "notes": [
-        "effective opacity 0.5 applied to the text color",
-        "APCA advises against this font size/weight for text",
-        "No token passes against this background (tried every text and background token). The text is at 50% effective opacity; raising it is the fix."
-      ],
-      "suggestion": null,
+      "suggestion": {
+        "token": "color.hds.color.core.brand.500",
+        "value": "#665EFD",
+        "target": "foreground",
+        "ratio": 4.58,
+        "lc": 71.2,
+        "against": "#FFFFFF",
+        "deltaE": 8.43,
+        "replacement": "color: var(--hds-color-core-brand-500)"
+      },
       "image": "case-studies/stripe-sample-13.png"
     },
     {
@@ -2828,40 +2793,40 @@
       "page": "https://stripe.com/payments",
       "viewport": 1440,
       "scheme": "dark",
-      "selector": "div.PricingGridRow__ctaContainer:nth-of-type(2) > a.CtaButton.variant--Link",
-      "text": "Payment method pricing",
+      "selector": "section.Copy.variant--Section > footer.Copy__footer > div.CtaGroup.CtaGroup--inline > a.CtaButton.variant--Button:nth-of-type(1)",
+      "text": "See all features",
       "fontSizePx": 15,
       "fontWeight": 425,
       "largeText": false,
-      "foreground": "#00C4C4",
+      "foreground": "#FFFFFF",
       "background": {
         "kind": "solid",
-        "worst": "#F6F9FC",
-        "median": "#F6F9FC",
-        "sampled": 3116
+        "worst": "#9966FF",
+        "median": "#9966FF",
+        "sampled": 1976
       },
       "wcag": {
-        "ratio": 2.05,
-        "min": 2.05,
-        "median": 2.05,
+        "ratio": 3.68,
+        "min": 3.68,
+        "median": 3.68,
         "required": 4.5,
         "pass": false
       },
       "apca": {
-        "lc": 38.1,
+        "lc": -69.5,
         "required": 100,
         "pass": false
       },
-      "axeVerdict": "pass",
+      "axeVerdict": "fail",
       "suggestion": {
-        "token": "color.hds.color.core.neutralDark.600",
-        "value": "#45639D",
+        "token": "color.hds.color.core.brandDark.975",
+        "value": "#171055",
         "target": "foreground",
-        "ratio": 5.64,
-        "lc": 75.8,
-        "against": "#F6F9FC",
-        "deltaE": 27.12,
-        "replacement": "color: var(--hds-color-core-neutralDark-600)"
+        "ratio": 4.59,
+        "lc": 37.4,
+        "against": "#9966FF",
+        "deltaE": 76.77,
+        "replacement": "color: var(--hds-color-core-brandDark-975)"
       },
       "image": "case-studies/stripe-sample-14.png"
     },
@@ -2873,22 +2838,22 @@
       "page": "https://linear.app/",
       "viewport": 375,
       "scheme": "dark",
-      "selector": "div.KFZpfa_activityListRow:nth-of-type(2) > div.KFZpfa_activityText:nth-of-type(2) > span:nth-of-type(1)",
-      "text": "added the labels and",
+      "selector": "div.KFZpfa_activityList:nth-of-type(4) > div.KFZpfa_activityListRow:nth-of-type(1) > div.KFZpfa_activityText:nth-of-type(2) > span:nth-of-type(1) > span.sc-KOGVz.dYCPFa:nth-of-type(2)",
+      "text": "Slack",
       "fontSizePx": 12,
-      "fontWeight": 400,
+      "fontWeight": 510,
       "largeText": false,
       "foreground": "#62666D",
       "background": {
-        "kind": "gradient",
+        "kind": "solid",
         "worst": "#161819",
-        "median": "#161718",
-        "sampled": 360
+        "median": "#151718",
+        "sampled": 90
       },
       "wcag": {
         "ratio": 3.09,
-        "min": 3.08,
-        "median": 3.11,
+        "min": 3.09,
+        "median": 3.12,
         "required": 4.5,
         "pass": false
       },
@@ -2918,27 +2883,27 @@
       "page": "https://linear.app/",
       "viewport": 1440,
       "scheme": "light",
-      "selector": "div.KFZpfa_activityList:nth-of-type(10) > div.KFZpfa_activityListRow > div.KFZpfa_activityText:nth-of-type(2) > span:nth-of-type(1) > span.sc-KOGVz.dYCPFa:nth-of-type(2)",
-      "text": "Todo",
+      "selector": "div.KFZpfa_connectedRow:nth-of-type(3) > div.ImRUSq_root.ImRUSq_align-center > div.ImRUSq_root.ImRUSq_align-baseline > span.sc-KOGVz.jwDQSd:nth-of-type(4)",
+      "text": "2 min ago",
       "fontSizePx": 12,
-      "fontWeight": 510,
+      "fontWeight": 400,
       "largeText": false,
       "foreground": "#62666D",
       "background": {
         "kind": "solid",
-        "worst": "#17181A",
-        "median": "#161719",
-        "sampled": 378
+        "worst": "#1D1D1F",
+        "median": "#1C1C1D",
+        "sampled": 770
       },
       "wcag": {
-        "ratio": 3.08,
-        "min": 3.05,
-        "median": 3.11,
+        "ratio": 2.92,
+        "min": 2.86,
+        "median": 2.95,
         "required": 4.5,
         "pass": false
       },
       "apca": {
-        "lc": -21.8,
+        "lc": -21.2,
         "required": 100,
         "pass": false
       },
@@ -2947,9 +2912,9 @@
         "token": "color.fg.tertiary",
         "value": "#8A8F98",
         "target": "foreground",
-        "ratio": 5.47,
-        "lc": -40.8,
-        "against": "#17181A",
+        "ratio": 5.18,
+        "lc": -40.2,
+        "against": "#1D1D1F",
         "deltaE": 13.97,
         "replacement": "color: var(--color-fg-tertiary)"
       },
@@ -2963,27 +2928,27 @@
       "page": "https://linear.app/",
       "viewport": 1440,
       "scheme": "light",
-      "selector": "div._rhIjq_day:nth-of-type(6) > span.sc-KOGVz.jzUjvc",
-      "text": "13",
+      "selector": "div._rhIjq_day:nth-of-type(4) > span.sc-KOGVz.jzUjvc",
+      "text": "23",
       "fontSizePx": 12,
       "fontWeight": 400,
       "largeText": false,
       "foreground": "#62666D",
       "background": {
         "kind": "solid",
-        "worst": "#0D0F0F",
-        "median": "#0D0F0F",
-        "sampled": 168
+        "worst": "#0C0D0D",
+        "median": "#0B0D0D",
+        "sampled": 196
       },
       "wcag": {
-        "ratio": 3.33,
-        "min": 3.33,
-        "median": 3.33,
+        "ratio": 3.37,
+        "min": 3.12,
+        "median": 3.38,
         "required": 4.5,
         "pass": false
       },
       "apca": {
-        "lc": -22.6,
+        "lc": -22.7,
         "required": 100,
         "pass": false
       },
@@ -2992,9 +2957,9 @@
         "token": "color.fg.tertiary",
         "value": "#8A8F98",
         "target": "foreground",
-        "ratio": 5.92,
-        "lc": -41.6,
-        "against": "#0D0F0F",
+        "ratio": 5.99,
+        "lc": -41.7,
+        "against": "#0C0D0D",
         "deltaE": 13.97,
         "replacement": "color: var(--color-fg-tertiary)"
       },
@@ -3008,8 +2973,8 @@
       "page": "https://linear.app/",
       "viewport": 1440,
       "scheme": "light",
-      "selector": "a.Jmh1Wq_legalLink.I_mUeq_root:nth-of-type(4)",
-      "text": "AUP",
+      "selector": "a.Jmh1Wq_legalLink.I_mUeq_root:nth-of-type(2)",
+      "text": "Terms",
       "fontSizePx": 13,
       "fontWeight": 400,
       "largeText": false,
@@ -3018,7 +2983,7 @@
         "kind": "solid",
         "worst": "#08090A",
         "median": "#08090A",
-        "sampled": 375
+        "sampled": 555
       },
       "wcag": {
         "ratio": 3.45,
@@ -3056,27 +3021,27 @@
       "page": "https://linear.app/",
       "viewport": 1440,
       "scheme": "dark",
-      "selector": "div:nth-of-type(4) > div._5k-xcq_card.qM9FAa_issue > div._5k-xcq_header:nth-of-type(1) > span.sc-KOGVz.gHBLUR:nth-of-type(1)",
-      "text": "ENG-1882",
-      "fontSizePx": 10,
-      "fontWeight": 400,
+      "selector": "div.qM9FAa_col:nth-of-type(2) > div.ImRUSq_root.ImRUSq_column:nth-of-type(2) > div:nth-of-type(3) > div._5k-xcq_card.qM9FAa_issue > div._5k-xcq_tags:nth-of-type(3) > span._5k-xcq_label:nth-of-type(2) > span.sc-KOGVz.jRjUFu:nth-of-type(2)",
+      "text": "AI",
+      "fontSizePx": 12,
+      "fontWeight": 510,
       "largeText": false,
-      "foreground": "#51555A",
+      "foreground": "#72767D",
       "background": {
         "kind": "solid",
-        "worst": "#0E1010",
-        "median": "#0E0F10",
-        "sampled": 506
+        "worst": "#111213",
+        "median": "#101212",
+        "sampled": 154
       },
       "wcag": {
-        "ratio": 2.54,
-        "min": 2.54,
-        "median": 2.55,
+        "ratio": 4.11,
+        "min": 4.09,
+        "median": 4.12,
         "required": 4.5,
         "pass": false
       },
       "apca": {
-        "lc": -15.5,
+        "lc": -29.4,
         "required": 100,
         "pass": false
       },
@@ -3088,10 +3053,10 @@
         "token": "color.sx.1dd5bcf",
         "value": "#9C9DA1",
         "target": "foreground",
-        "ratio": 4.88,
-        "lc": -34.7,
-        "against": "#0E1010",
-        "deltaE": 18.74,
+        "ratio": 4.83,
+        "lc": -34.8,
+        "against": "#111213",
+        "deltaE": 4.84,
         "replacement": "color: var(--sx-1dd5bcf)"
       },
       "image": "case-studies/linear-sample-19.png"
