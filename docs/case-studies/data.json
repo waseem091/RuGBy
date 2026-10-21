@@ -10,7 +10,10 @@
       ],
       "status": "ok",
       "pageErrors": [],
-      "notes": [],
+      "notes": [
+        "3 text element(s) were not visible (covered by another element) and were not measured",
+        "1 text element(s) were not visible (covered by another element) and were not measured"
+      ],
       "tokens": {
         "format": "page",
         "source": "https://ui.shadcn.com/ (:root custom properties)",
@@ -23,7 +26,7 @@
       "summary": {
         "pages": 2,
         "states": 8,
-        "textChecked": 1472,
+        "textChecked": 1464,
         "findings": {
           "contrast": {
             "error": 125,
@@ -37,8 +40,8 @@
         },
         "axe": {
           "missed": 125,
-          "incomplete": 538,
-          "incompleteResolved": 538,
+          "incomplete": 534,
+          "incompleteResolved": 534,
           "incompleteFailed": 123
         }
       },
@@ -243,106 +246,253 @@
       ]
     },
     {
-      "id": "vercel-commerce",
-      "name": "Next.js Commerce (Vercel template demo)",
+      "id": "vercel-templates",
+      "name": "Vercel templates",
       "urls": [
-        "https://demo.vercel.store/",
-        "https://demo.vercel.store/search"
+        "https://vercel.com/templates",
+        "https://vercel.com/templates/next.js/nextjs-commerce"
       ],
-      "status": "error",
-      "pageErrors": [
-        {
-          "url": "https://demo.vercel.store/",
-          "viewport": 375,
-          "scheme": "light",
-          "error": "HTTP 404 for https://demo.vercel.store/"
-        },
-        {
-          "url": "https://demo.vercel.store/",
-          "viewport": 375,
-          "scheme": "dark",
-          "error": "HTTP 404 for https://demo.vercel.store/"
-        },
-        {
-          "url": "https://demo.vercel.store/",
-          "viewport": 1440,
-          "scheme": "light",
-          "error": "HTTP 404 for https://demo.vercel.store/"
-        },
-        {
-          "url": "https://demo.vercel.store/",
-          "viewport": 1440,
-          "scheme": "dark",
-          "error": "HTTP 404 for https://demo.vercel.store/"
-        },
-        {
-          "url": "https://demo.vercel.store/search",
-          "viewport": 375,
-          "scheme": "light",
-          "error": "HTTP 404 for https://demo.vercel.store/search"
-        },
-        {
-          "url": "https://demo.vercel.store/search",
-          "viewport": 375,
-          "scheme": "dark",
-          "error": "HTTP 404 for https://demo.vercel.store/search"
-        },
-        {
-          "url": "https://demo.vercel.store/search",
-          "viewport": 1440,
-          "scheme": "light",
-          "error": "HTTP 404 for https://demo.vercel.store/search"
-        },
-        {
-          "url": "https://demo.vercel.store/search",
-          "viewport": 1440,
-          "scheme": "dark",
-          "error": "HTTP 404 for https://demo.vercel.store/search"
-        }
+      "status": "ok",
+      "pageErrors": [],
+      "notes": [
+        "167 text element(s) were not visible (covered by another element) and were not measured",
+        "network did not go idle within 5s; measured anyway",
+        "133 text element(s) were not visible (covered by another element) and were not measured",
+        "layout shifted during capture; measured a second time",
+        "103 text element(s) were not visible (covered by another element) and were not measured"
       ],
-      "notes": [],
-      "tokens": null,
+      "tokens": {
+        "format": "page",
+        "source": "https://vercel.com/templates (:root custom properties)",
+        "count": 350,
+        "modes": [
+          "dark",
+          "light"
+        ]
+      },
       "summary": {
         "pages": 2,
         "states": 8,
-        "textChecked": 0,
+        "textChecked": 728,
         "findings": {
           "contrast": {
-            "error": 0,
+            "error": 46,
             "warning": 0
           },
           "drift": {
             "error": 0,
-            "warning": 0,
-            "info": 0
+            "warning": 13,
+            "info": 1
           }
         },
         "axe": {
-          "missed": 0,
-          "incomplete": 0,
-          "incompleteResolved": 0,
-          "incompleteFailed": 0
+          "missed": 12,
+          "incomplete": 36,
+          "incompleteResolved": 36,
+          "incompleteFailed": 9
         }
       },
       "counts": {
-        "contrast": 0,
+        "contrast": 46,
         "contrastByAxe": {
           "pass": 0,
-          "fail": 0,
-          "incomplete": 0,
-          "not-checked": 0
+          "fail": 34,
+          "incomplete": 9,
+          "not-checked": 3
         },
         "contrastByKind": {
-          "solid": 0,
+          "solid": 46,
           "gradient": 0,
           "image": 0,
           "mixed": 0
         },
-        "drift": 0,
-        "likelyTypos": 0
+        "drift": 14,
+        "likelyTypos": 14
       },
-      "top": [],
-      "topDrift": []
+      "top": [
+        {
+          "type": "contrast",
+          "severity": "error",
+          "page": "https://vercel.com/templates/next.js/nextjs-commerce",
+          "viewport": 1440,
+          "scheme": "light",
+          "selector": "#C2cbd9cb5-L1 > button.vF3MAa_lineNumber",
+          "text": "1",
+          "fontSizePx": 13,
+          "fontWeight": 400,
+          "largeText": false,
+          "foreground": "#A8A8A8",
+          "background": {
+            "kind": "solid",
+            "worst": "#FFFFFF",
+            "median": "#FFFFFF",
+            "sampled": 119
+          },
+          "wcag": {
+            "ratio": 2.38,
+            "min": 2.38,
+            "median": 2.38,
+            "required": 4.5,
+            "pass": false
+          },
+          "apca": {
+            "lc": 46.9,
+            "required": 100,
+            "pass": false
+          },
+          "axeVerdict": "incomplete",
+          "suggestion": {
+            "token": "color.accents.5",
+            "value": "#666666",
+            "target": "foreground",
+            "ratio": 5.74,
+            "lc": 78.8,
+            "against": "#FFFFFF",
+            "deltaE": 22.13,
+            "replacement": "color: var(--accents-5)"
+          },
+          "image": "case-studies/vercel-templates-top-1.png"
+        },
+        {
+          "type": "contrast",
+          "severity": "error",
+          "page": "https://vercel.com/templates/next.js/nextjs-commerce",
+          "viewport": 1440,
+          "scheme": "light",
+          "selector": "#C7d72a332-L1 > button.vF3MAa_lineNumber",
+          "text": "1",
+          "fontSizePx": 13,
+          "fontWeight": 400,
+          "largeText": false,
+          "foreground": "#A8A8A8",
+          "background": {
+            "kind": "solid",
+            "worst": "#FFFFFF",
+            "median": "#FFFFFF",
+            "sampled": 119
+          },
+          "wcag": {
+            "ratio": 2.38,
+            "min": 2.38,
+            "median": 2.38,
+            "required": 4.5,
+            "pass": false
+          },
+          "apca": {
+            "lc": 46.9,
+            "required": 100,
+            "pass": false
+          },
+          "axeVerdict": "incomplete",
+          "suggestion": {
+            "token": "color.accents.5",
+            "value": "#666666",
+            "target": "foreground",
+            "ratio": 5.74,
+            "lc": 78.8,
+            "against": "#FFFFFF",
+            "deltaE": 22.13,
+            "replacement": "color: var(--accents-5)"
+          },
+          "image": "case-studies/vercel-templates-top-2.png"
+        },
+        {
+          "type": "contrast",
+          "severity": "error",
+          "page": "https://vercel.com/templates/next.js/nextjs-commerce",
+          "viewport": 1440,
+          "scheme": "light",
+          "selector": "#C77e4551b-L1 > button.vF3MAa_lineNumber",
+          "text": "1",
+          "fontSizePx": 13,
+          "fontWeight": 400,
+          "largeText": false,
+          "foreground": "#A8A8A8",
+          "background": {
+            "kind": "solid",
+            "worst": "#FFFFFF",
+            "median": "#FFFFFF",
+            "sampled": 119
+          },
+          "wcag": {
+            "ratio": 2.38,
+            "min": 2.38,
+            "median": 2.38,
+            "required": 4.5,
+            "pass": false
+          },
+          "apca": {
+            "lc": 46.9,
+            "required": 100,
+            "pass": false
+          },
+          "axeVerdict": "incomplete",
+          "suggestion": {
+            "token": "color.accents.5",
+            "value": "#666666",
+            "target": "foreground",
+            "ratio": 5.74,
+            "lc": 78.8,
+            "against": "#FFFFFF",
+            "deltaE": 22.13,
+            "replacement": "color: var(--accents-5)"
+          },
+          "image": "case-studies/vercel-templates-top-3.png"
+        }
+      ],
+      "topDrift": [
+        {
+          "color": "#4D4D4D",
+          "property": "color",
+          "nearestToken": {
+            "name": "color.ds.gray.900",
+            "value": "#4D4D4D",
+            "deltaE": 0.18
+          },
+          "source": {
+            "rule": ".text-gray-900 { color: var(--ds-gray-900) }",
+            "stylesheet": "https://vercel.com/vc-ap-vercel-templates/_next/static/immutable/chunks/0sj6l4-sh-4v8.css",
+            "line": 1,
+            "origin": "regular"
+          },
+          "occurrences": 185,
+          "likelyTypo": true
+        },
+        {
+          "color": "#A1A1A1",
+          "property": "color",
+          "nearestToken": {
+            "name": "color.ds.gray.900",
+            "value": "#A1A1A1",
+            "deltaE": 0.11
+          },
+          "source": {
+            "rule": ".text-gray-900 { color: var(--ds-gray-900) }",
+            "stylesheet": "https://vercel.com/vc-ap-vercel-templates/_next/static/immutable/chunks/0sj6l4-sh-4v8.css",
+            "line": 1,
+            "origin": "regular"
+          },
+          "occurrences": 185,
+          "likelyTypo": true
+        },
+        {
+          "color": "#E6E6E6",
+          "property": "border-color",
+          "nearestToken": {
+            "name": "color.ds.gray.300",
+            "value": "#E6E6E6",
+            "deltaE": 0.15
+          },
+          "source": {
+            "rule": ".border-gray-300 { border-color: var(--ds-gray-300) }",
+            "stylesheet": "https://vercel.com/vc-ap-vercel-templates/_next/static/immutable/chunks/0sj6l4-sh-4v8.css",
+            "line": 1,
+            "origin": "regular"
+          },
+          "occurrences": 90,
+          "likelyTypo": true
+        }
+      ]
     },
     {
       "id": "tailwind",
@@ -354,7 +504,11 @@
       "status": "ok",
       "pageErrors": [],
       "notes": [
-        "layout shifted during capture; measured a second time"
+        "layout shifted during capture; measured a second time",
+        "18 text element(s) were not visible (covered by another element) and were not measured",
+        "7 text element(s) were skipped because their background changed between captures (animation or video)",
+        "23 text element(s) were not visible (covered by another element) and were not measured",
+        "4 text element(s) were not visible (covered by another element) and were not measured"
       ],
       "tokens": {
         "format": "page",
@@ -368,11 +522,11 @@
       "summary": {
         "pages": 2,
         "states": 8,
-        "textChecked": 1894,
+        "textChecked": 1816,
         "findings": {
           "contrast": {
-            "error": 123,
-            "warning": 25
+            "error": 107,
+            "warning": 24
           },
           "drift": {
             "error": 0,
@@ -381,25 +535,25 @@
           }
         },
         "axe": {
-          "missed": 118,
-          "incomplete": 1025,
-          "incompleteResolved": 1025,
-          "incompleteFailed": 75
+          "missed": 89,
+          "incomplete": 985,
+          "incompleteResolved": 985,
+          "incompleteFailed": 62
         }
       },
       "counts": {
-        "contrast": 148,
+        "contrast": 131,
         "contrastByAxe": {
-          "pass": 18,
-          "fail": 30,
-          "incomplete": 75,
-          "not-checked": 25
+          "pass": 10,
+          "fail": 42,
+          "incomplete": 62,
+          "not-checked": 17
         },
         "contrastByKind": {
-          "solid": 98,
-          "gradient": 19,
+          "solid": 95,
+          "gradient": 8,
           "image": 4,
-          "mixed": 27
+          "mixed": 24
         },
         "drift": 4,
         "likelyTypos": 0
@@ -495,43 +649,38 @@
           "type": "contrast",
           "severity": "error",
           "page": "https://tailwindcss.com/",
-          "viewport": 375,
+          "viewport": 1440,
           "scheme": "light",
-          "selector": "div.\\@container.isolate:nth-of-type(4) > div.h-112.p-4:nth-of-type(3) > div.-mr-16.-mb-16 > div.rounded-xl.bg-gray-950 > div.rounded-xl.p-1 > div.with-line-numbers.text-\\[13px\\]\\/6:nth-of-type(2) > div.\\*\\:flex.\\*\\:\\*\\:shrink-0 > pre.shiki.tailwindcss-theme > code > span.line:nth-of-type(17) > span:nth-of-type(2)",
-          "text": ":",
+          "selector": "span.not-group-has-data-xl\\:opacity-40 > div.font-mono.text-\\[13px\\]\\/7",
+          "text": "xl",
           "fontSizePx": 13,
           "fontWeight": 400,
           "largeText": false,
-          "foreground": "#CAD5E2",
+          "foreground": "#8F9096",
           "background": {
             "kind": "gradient",
-            "worst": "#FFFFFF",
-            "median": "#FFFFFF",
-            "sampled": 34
+            "worst": "#ECECED",
+            "median": "#F9F9F9",
+            "sampled": 112
           },
           "wcag": {
-            "ratio": 1.48,
-            "min": 1.48,
-            "median": 1.48,
+            "ratio": 2.69,
+            "min": 2.69,
+            "median": 2.73,
             "required": 4.5,
             "pass": false
           },
           "apca": {
-            "lc": 22.8,
+            "lc": 47.7,
             "required": 100,
             "pass": false
           },
           "axeVerdict": "incomplete",
-          "suggestion": {
-            "token": "color.olive.600",
-            "value": "#5B5B4B",
-            "target": "background",
-            "ratio": 4.66,
-            "lc": -61.4,
-            "against": "#5B5B4B",
-            "deltaE": 53.46,
-            "replacement": "background-color: var(--color-olive-600)"
-          },
+          "notes": [
+            "effective opacity 0.4 applied to the text color",
+            "No token passes against this background (tried every text and background token). The text is at 40% effective opacity; raising it is the fix."
+          ],
+          "suggestion": null,
           "image": "case-studies/tailwind-top-3.png"
         }
       ],
@@ -1007,8 +1156,12 @@
       "status": "ok",
       "pageErrors": [],
       "notes": [
+        "12 text element(s) were not visible (covered by another element) and were not measured",
+        "69 text element(s) were not visible (covered by another element) and were not measured",
         "1 cross-origin frame(s) were not measured",
-        "layout shifted during capture; measured a second time"
+        "37 text element(s) were not visible (covered by another element) and were not measured",
+        "15 text element(s) were not visible (covered by another element) and were not measured",
+        "14 text element(s) were not visible (covered by another element) and were not measured"
       ],
       "tokens": {
         "format": "page",
@@ -1022,43 +1175,89 @@
       "summary": {
         "pages": 2,
         "states": 8,
-        "textChecked": 2805,
+        "textChecked": 2541,
         "findings": {
           "contrast": {
-            "error": 4,
+            "error": 5,
             "warning": 0
           },
           "drift": {
             "error": 0,
-            "warning": 32,
+            "warning": 30,
             "info": 0
           }
         },
         "axe": {
-          "missed": 4,
-          "incomplete": 32,
-          "incompleteResolved": 32,
-          "incompleteFailed": 0
+          "missed": 5,
+          "incomplete": 18,
+          "incompleteResolved": 18,
+          "incompleteFailed": 1
         }
       },
       "counts": {
-        "contrast": 4,
+        "contrast": 5,
         "contrastByAxe": {
           "pass": 4,
           "fail": 0,
-          "incomplete": 0,
+          "incomplete": 1,
           "not-checked": 0
         },
         "contrastByKind": {
-          "solid": 4,
+          "solid": 5,
           "gradient": 0,
           "image": 0,
           "mixed": 0
         },
-        "drift": 32,
+        "drift": 30,
         "likelyTypos": 0
       },
       "top": [
+        {
+          "type": "contrast",
+          "severity": "error",
+          "page": "https://developer.mozilla.org/en-US/docs/Web/CSS/color",
+          "viewport": 375,
+          "scheme": "light",
+          "selector": "#content > aside.layout__right-sidebar.reference-layout__toc > mdn-placement-sidebar >>> section.sidebar-placement > div.placement-container > mdn-placement-note >>> a.placement-note",
+          "text": "Ad",
+          "fontSizePx": 10,
+          "fontWeight": 400,
+          "largeText": false,
+          "foreground": "#444445",
+          "background": {
+            "kind": "solid",
+            "worst": "#AFB0B6",
+            "median": "#AFB0B6",
+            "sampled": 154
+          },
+          "wcag": {
+            "ratio": 4.5,
+            "min": 4.5,
+            "median": 4.5,
+            "required": 4.5,
+            "pass": false
+          },
+          "apca": {
+            "lc": 48,
+            "required": 100,
+            "pass": false
+          },
+          "axeVerdict": "incomplete",
+          "notes": [
+            "effective opacity 0.85 applied to the text color"
+          ],
+          "suggestion": {
+            "token": "color.gray.20",
+            "value": "#2D3034",
+            "target": "foreground",
+            "ratio": 4.58,
+            "lc": 48.4,
+            "against": "#AFB0B6",
+            "deltaE": 0.99,
+            "replacement": "color: var(--color-gray-20)"
+          },
+          "image": "case-studies/mdn-top-1.png"
+        },
         {
           "type": "contrast",
           "severity": "error",
@@ -1100,7 +1299,7 @@
             "deltaE": 0,
             "replacement": "background-color: var(--csstools-light-dark-toggle-5e0f49fc-2)"
           },
-          "image": "case-studies/mdn-top-1.png"
+          "image": "case-studies/mdn-top-2.png"
         }
       ],
       "topDrift": [
@@ -1167,7 +1366,8 @@
       "status": "ok",
       "pageErrors": [],
       "notes": [
-        "network did not go idle within 5s; measured anyway"
+        "1 text element(s) were not visible (covered by another element) and were not measured",
+        "layout shifted during capture; measured a second time"
       ],
       "tokens": {
         "format": "page",
@@ -1181,7 +1381,7 @@
       "summary": {
         "pages": 2,
         "states": 8,
-        "textChecked": 1274,
+        "textChecked": 1232,
         "findings": {
           "contrast": {
             "error": 0,
@@ -1195,8 +1395,8 @@
         },
         "axe": {
           "missed": 0,
-          "incomplete": 204,
-          "incompleteResolved": 204,
+          "incomplete": 201,
+          "incompleteResolved": 201,
           "incompleteFailed": 0
         }
       },
@@ -1280,16 +1480,16 @@
       "status": "ok",
       "pageErrors": [],
       "notes": [
-        "network did not go idle within 5s; measured anyway",
         "3 text element(s) with transparent fill (e.g. background-clip: text) were not measured",
         "2 cross-origin frame(s) were not measured",
         "page is 20386px tall; measured the top 20000px",
         "layout shifted during capture; measured a second time",
-        "page is 20666px tall; measured the top 20000px",
+        "129 text element(s) were not visible (covered by another element) and were not measured",
+        "60 text element(s) were not visible (covered by another element) and were not measured",
         "2 text element(s) with transparent fill (e.g. background-clip: text) were not measured",
-        "page is 25345px tall; measured the top 20000px",
-        "no design tokens found (pass --tokens); drift detection skipped",
-        "page is 25038px tall; measured the top 20000px"
+        "page is 25038px tall; measured the top 20000px",
+        "8 text element(s) were not visible (covered by another element) and were not measured",
+        "4 text element(s) were skipped because their background changed between captures (animation or video)"
       ],
       "tokens": {
         "format": "page",
@@ -1303,11 +1503,11 @@
       "summary": {
         "pages": 2,
         "states": 8,
-        "textChecked": 3318,
+        "textChecked": 2897,
         "findings": {
           "contrast": {
-            "error": 462,
-            "warning": 5
+            "error": 401,
+            "warning": 1
           },
           "drift": {
             "error": 0,
@@ -1316,25 +1516,25 @@
           }
         },
         "axe": {
-          "missed": 340,
-          "incomplete": 732,
-          "incompleteResolved": 732,
-          "incompleteFailed": 128
+          "missed": 292,
+          "incomplete": 597,
+          "incompleteResolved": 597,
+          "incompleteFailed": 121
         }
       },
       "counts": {
-        "contrast": 467,
+        "contrast": 402,
         "contrastByAxe": {
-          "pass": 151,
-          "fail": 127,
-          "incomplete": 128,
-          "not-checked": 61
+          "pass": 133,
+          "fail": 110,
+          "incomplete": 121,
+          "not-checked": 38
         },
         "contrastByKind": {
-          "solid": 446,
-          "gradient": 8,
-          "image": 5,
-          "mixed": 8
+          "solid": 395,
+          "gradient": 0,
+          "image": 0,
+          "mixed": 7
         },
         "drift": 120,
         "likelyTypos": 8
@@ -1346,44 +1546,40 @@
           "page": "https://stripe.com/",
           "viewport": 1440,
           "scheme": "light",
-          "selector": "div.payments-graphic__checkout-browser-url:nth-of-type(1)",
-          "text": "roastery.com/checkout",
-          "fontSizePx": 9,
+          "selector": "h1.hds-heading.hero-section__title:nth-of-type(1) > span.hero-section__title-copy",
+          "text": "Accept payments, handle business banking, and implement custom revenue models—from your first transaction to your bil...",
+          "fontSizePx": 48,
           "fontWeight": 300,
-          "largeText": false,
-          "foreground": "#50617A",
+          "largeText": true,
+          "foreground": "#81B81A",
           "background": {
-            "kind": "gradient",
-            "worst": "#FE954E",
-            "median": "#FF9E51",
-            "sampled": 910
+            "kind": "mixed",
+            "worst": "#C49BFB",
+            "median": "#FFFFFF",
+            "sampled": 40000
           },
           "wcag": {
-            "ratio": 2.89,
-            "min": 2.67,
-            "median": 3.08,
-            "required": 4.5,
+            "ratio": 1.07,
+            "min": 1,
+            "median": 2.39,
+            "required": 3,
             "pass": false
           },
           "apca": {
-            "lc": 36.7,
-            "required": 100,
+            "lc": 0,
+            "required": 50,
             "pass": false
           },
           "axeVerdict": "incomplete",
-          "notes": [
-            "behind a backdrop-filter; background measured from rendered pixels",
-            "APCA advises against this font size/weight for text"
-          ],
           "suggestion": {
-            "token": "color.hds.color.core.neutralDark.700",
-            "value": "#273F73",
+            "token": "color.hds.color.core.neutral.700",
+            "value": "#3C4F69",
             "target": "foreground",
-            "ratio": 4.71,
-            "lc": 49,
-            "against": "#FE954E",
-            "deltaE": 12.19,
-            "replacement": "color: var(--hds-color-core-neutralDark-700)"
+            "ratio": 3.72,
+            "lc": 42.7,
+            "against": "#C899F7",
+            "deltaE": 36.53,
+            "replacement": "color: var(--hds-color-core-neutral-700)"
           },
           "image": "case-studies/stripe-top-1.png"
         },
@@ -1393,44 +1589,40 @@
           "page": "https://stripe.com/",
           "viewport": 1440,
           "scheme": "light",
-          "selector": "div.payments-graphic__checkout-browser-url:nth-of-type(2)",
-          "text": "cartsy.com/checkout",
-          "fontSizePx": 9,
+          "selector": "h1.hds-heading.hero-section__title:nth-of-type(1) > span.hero-section__title-copy > sup",
+          "text": "1",
+          "fontSizePx": 48,
           "fontWeight": 300,
-          "largeText": false,
-          "foreground": "#50617A",
+          "largeText": true,
+          "foreground": "#81B81A",
           "background": {
-            "kind": "gradient",
-            "worst": "#FF9850",
-            "median": "#FFAC4F",
-            "sampled": 830
+            "kind": "mixed",
+            "worst": "#FC84E1",
+            "median": "#FE86E5",
+            "sampled": 960
           },
           "wcag": {
-            "ratio": 2.96,
-            "min": 2.89,
-            "median": 3.38,
-            "required": 4.5,
+            "ratio": 1.08,
+            "min": 1.06,
+            "median": 1.11,
+            "required": 3,
             "pass": false
           },
           "apca": {
-            "lc": 37.8,
-            "required": 100,
+            "lc": 0,
+            "required": 50,
             "pass": false
           },
           "axeVerdict": "incomplete",
-          "notes": [
-            "behind a backdrop-filter; background measured from rendered pixels",
-            "APCA advises against this font size/weight for text"
-          ],
           "suggestion": {
-            "token": "color.hds.color.core.neutralDark.700",
-            "value": "#273F73",
+            "token": "color.hds.color.core.neutral.700",
+            "value": "#3C4F69",
             "target": "foreground",
-            "ratio": 4.82,
-            "lc": 50.1,
-            "against": "#FF9850",
-            "deltaE": 12.19,
-            "replacement": "color: var(--hds-color-core-neutralDark-700)"
+            "ratio": 3.79,
+            "lc": 43.7,
+            "against": "#FC84E1",
+            "deltaE": 36.53,
+            "replacement": "color: var(--hds-color-core-neutral-700)"
           },
           "image": "case-studies/stripe-top-2.png"
         },
@@ -1440,43 +1632,43 @@
           "page": "https://stripe.com/",
           "viewport": 1440,
           "scheme": "light",
-          "selector": "div:nth-of-type(6) > div:nth-of-type(2) > div:nth-of-type(3) > div > div:nth-of-type(1)",
-          "text": "Card",
-          "fontSizePx": 10,
+          "selector": "h1.hds-heading.hero-section__title:nth-of-type(2) > span.hero-section__title-copy",
+          "text": "Accept payments, handle business banking, and implement custom revenue models—from your first transaction to your bil...",
+          "fontSizePx": 48,
           "fontWeight": 300,
-          "largeText": false,
-          "foreground": "#3C4F69",
+          "largeText": true,
+          "foreground": "#724EF6",
           "background": {
-            "kind": "gradient",
-            "worst": "#F96D73",
-            "median": "#FA7A71",
-            "sampled": 147
+            "kind": "mixed",
+            "worst": "#E48CEC",
+            "median": "#FFFFFF",
+            "sampled": 40000
           },
           "wcag": {
-            "ratio": 2.97,
-            "min": 2.85,
-            "median": 3.22,
-            "required": 4.5,
+            "ratio": 2.25,
+            "min": 2.16,
+            "median": 2.92,
+            "required": 3,
             "pass": false
           },
           "apca": {
-            "lc": 33.4,
-            "required": 100,
+            "lc": 28.1,
+            "required": 50,
             "pass": false
           },
           "axeVerdict": "incomplete",
           "notes": [
-            "APCA advises against this font size/weight for text"
+            "mix-blend-mode: hard-light; text color blended per background pixel"
           ],
           "suggestion": {
-            "token": "color.hds.color.core.neutral.900",
-            "value": "#1A2C44",
+            "token": "color.hds.color.action.icon.solidAlternateHover",
+            "value": "#2E2B8C",
             "target": "foreground",
-            "ratio": 5.02,
-            "lc": 45.3,
-            "against": "#F96D73",
-            "deltaE": 13.28,
-            "replacement": "color: var(--hds-color-core-neutral-900)"
+            "ratio": 3.09,
+            "lc": 36.7,
+            "against": "#E38DEC",
+            "deltaE": 18.81,
+            "replacement": "color: var(--hds-color-action-icon-solidAlternateHover)"
           },
           "image": "case-studies/stripe-top-3.png"
         }
@@ -1543,7 +1735,10 @@
       "status": "ok",
       "pageErrors": [],
       "notes": [
-        "3 text element(s) with transparent fill (e.g. background-clip: text) were not measured"
+        "3 text element(s) with transparent fill (e.g. background-clip: text) were not measured",
+        "2 text element(s) were not visible (covered by another element) and were not measured",
+        "71 text element(s) were not visible (covered by another element) and were not measured",
+        "1 text element(s) were not visible (covered by another element) and were not measured"
       ],
       "tokens": {
         "format": "page",
@@ -1557,11 +1752,11 @@
       "summary": {
         "pages": 2,
         "states": 8,
-        "textChecked": 1784,
+        "textChecked": 1634,
         "findings": {
           "contrast": {
-            "error": 420,
-            "warning": 4
+            "error": 356,
+            "warning": 0
           },
           "drift": {
             "error": 0,
@@ -1570,76 +1765,30 @@
           }
         },
         "axe": {
-          "missed": 388,
-          "incomplete": 932,
-          "incompleteResolved": 932,
-          "incompleteFailed": 346
+          "missed": 320,
+          "incomplete": 814,
+          "incompleteResolved": 814,
+          "incompleteFailed": 278
         }
       },
       "counts": {
-        "contrast": 424,
+        "contrast": 356,
         "contrastByAxe": {
           "pass": 0,
           "fail": 36,
-          "incomplete": 346,
+          "incomplete": 278,
           "not-checked": 42
         },
         "contrastByKind": {
-          "solid": 406,
-          "gradient": 4,
-          "image": 6,
-          "mixed": 8
+          "solid": 352,
+          "gradient": 2,
+          "image": 0,
+          "mixed": 2
         },
         "drift": 61,
         "likelyTypos": 12
       },
       "top": [
-        {
-          "type": "contrast",
-          "severity": "warning",
-          "page": "https://linear.app/",
-          "viewport": 1440,
-          "scheme": "light",
-          "selector": "div._rhIjq_row:nth-of-type(3) > div._rhIjq_label:nth-of-type(1) > span.sc-KOGVz.gRmkzr:nth-of-type(2)",
-          "text": "Autonomy status clarity",
-          "fontSizePx": 13,
-          "fontWeight": 400,
-          "largeText": false,
-          "foreground": "#A7C6D1",
-          "background": {
-            "kind": "gradient",
-            "worst": "#058895",
-            "median": "#161715",
-            "sampled": 2130
-          },
-          "wcag": {
-            "ratio": 2.36,
-            "min": 2.14,
-            "median": 8.23,
-            "required": 4.5,
-            "pass": false
-          },
-          "apca": {
-            "lc": -35.6,
-            "required": 100,
-            "pass": false
-          },
-          "axeVerdict": "incomplete",
-          "notes": [
-            "effective opacity 0.8 applied to the text color"
-          ],
-          "suggestion": {
-            "token": "color.line.quaternary",
-            "value": "#141515",
-            "target": "background",
-            "ratio": 8.34,
-            "lc": -58.2,
-            "against": "#141515",
-            "deltaE": 0.9,
-            "replacement": "background-color: var(--color-line-quaternary)"
-          },
-          "image": "case-studies/linear-top-1.png"
-        },
         {
           "type": "contrast",
           "severity": "error",
@@ -1681,6 +1830,49 @@
             "deltaE": 13.97,
             "replacement": "color: var(--color-fg-tertiary)"
           },
+          "image": "case-studies/linear-top-1.png"
+        },
+        {
+          "type": "contrast",
+          "severity": "error",
+          "page": "https://linear.app/",
+          "viewport": 1440,
+          "scheme": "light",
+          "selector": "div.bVIB3G_row:nth-of-type(4) > div.ImRUSq_root.ImRUSq_align-center:nth-of-type(2) > span.-VOcTG_badge:nth-of-type(3) > span.sx-1n2onr6.sx-ln7xf2:nth-of-type(1)",
+          "text": "Working…",
+          "fontSizePx": 12,
+          "fontWeight": 510,
+          "largeText": false,
+          "foreground": "#626366",
+          "background": {
+            "kind": "mixed",
+            "worst": "#0A160C",
+            "median": "#09130C",
+            "sampled": 812
+          },
+          "wcag": {
+            "ratio": 3.09,
+            "min": 3.09,
+            "median": 3.15,
+            "required": 4.5,
+            "pass": false
+          },
+          "apca": {
+            "lc": -21.1,
+            "required": 100,
+            "pass": false
+          },
+          "axeVerdict": "incomplete",
+          "suggestion": {
+            "token": "color.sx.1d2fpwc",
+            "value": "#8F9197",
+            "target": "foreground",
+            "ratio": 5.88,
+            "lc": -42.4,
+            "against": "#0A160C",
+            "deltaE": 15.71,
+            "replacement": "color: var(--sx-1d2fpwc)"
+          },
           "image": "case-studies/linear-top-2.png"
         },
         {
@@ -1689,43 +1881,40 @@
           "page": "https://linear.app/",
           "viewport": 1440,
           "scheme": "light",
-          "selector": "span.sc-KOGVz.dvwHH:nth-of-type(2)",
-          "text": "1.6881...",
-          "fontSizePx": 12,
+          "selector": "span.wMQZWG_branchArrow:nth-of-type(2)",
+          "text": "←",
+          "fontSizePx": 10,
           "fontWeight": 400,
           "largeText": false,
-          "foreground": "#797D85",
+          "foreground": "#555557",
           "background": {
-            "kind": "image",
-            "worst": "#353637",
-            "median": "#252627",
-            "sampled": 645
+            "kind": "solid",
+            "worst": "#28292A",
+            "median": "#262728",
+            "sampled": 72
           },
           "wcag": {
-            "ratio": 2.94,
-            "min": 2.8,
-            "median": 3.52,
+            "ratio": 1.96,
+            "min": 1.93,
+            "median": 2.01,
             "required": 4.5,
             "pass": false
           },
           "apca": {
-            "lc": -26.6,
+            "lc": -12.6,
             "required": 100,
             "pass": false
           },
           "axeVerdict": "incomplete",
-          "notes": [
-            "effective opacity 0.8 applied to the text color"
-          ],
           "suggestion": {
-            "token": "color.sx.1awr4hy",
-            "value": "#C3C4C8",
+            "token": "color.sx.1d2fpwc",
+            "value": "#8F9197",
             "target": "foreground",
-            "ratio": 5.07,
-            "lc": -48.3,
-            "against": "#353637",
-            "deltaE": 17.21,
-            "replacement": "color: var(--sx-1awr4hy)"
+            "ratio": 4.63,
+            "lc": -39.5,
+            "against": "#28292A",
+            "deltaE": 20.68,
+            "replacement": "color: var(--sx-1d2fpwc)"
           },
           "image": "case-studies/linear-top-3.png"
         }
@@ -1797,7 +1986,9 @@
       ],
       "status": "ok",
       "pageErrors": [],
-      "notes": [],
+      "notes": [
+        "1 text element(s) were not visible (covered by another element) and were not measured"
+      ],
       "tokens": {
         "format": "page",
         "source": "https://svelte.dev/ (:root custom properties)",
@@ -1810,7 +2001,7 @@
       "summary": {
         "pages": 2,
         "states": 8,
-        "textChecked": 416,
+        "textChecked": 412,
         "findings": {
           "contrast": {
             "error": 19,
@@ -2096,7 +2287,7 @@
       "page": "https://ui.shadcn.com/docs/components/button",
       "viewport": 375,
       "scheme": "light",
-      "selector": "div.group.relative:nth-of-type(16) > div.relative.overflow-hidden:nth-of-type(2) > div.relative > div.relative:nth-of-type(1) > figure.\\[\\&\\>pre\\]\\:max-h-96 > div > pre.no-scrollbar.min-w-0 > code > span.line:nth-of-type(1) > span:nth-of-type(1)",
+      "selector": "span.line:nth-of-type(2) > span:nth-of-type(1)",
       "text": "import",
       "fontSizePx": 14,
       "fontWeight": 400,
@@ -2141,8 +2332,8 @@
       "page": "https://ui.shadcn.com/docs/components/button",
       "viewport": 1440,
       "scheme": "light",
-      "selector": "div.group.relative:nth-of-type(16) > div.relative.overflow-hidden:nth-of-type(2) > div.relative > div.relative:nth-of-type(1) > figure.\\[\\&\\>pre\\]\\:max-h-96 > div > pre.no-scrollbar.min-w-0 > code > span.line:nth-of-type(1) > span:nth-of-type(1)",
-      "text": "import",
+      "selector": "div.group.relative:nth-of-type(13) > div.relative.overflow-hidden:nth-of-type(2) > div.relative > div.relative:nth-of-type(1) > figure.\\[\\&\\>pre\\]\\:max-h-96 > div > pre.no-scrollbar.min-w-0 > code > span.line:nth-of-type(1) > span:nth-of-type(3)",
+      "text": "from",
       "fontSizePx": 14,
       "fontWeight": 400,
       "largeText": false,
@@ -2151,11 +2342,11 @@
         "kind": "solid",
         "worst": "#F8F8F8",
         "median": "#F8F8F8",
-        "sampled": 850
+        "sampled": 544
       },
       "wcag": {
         "ratio": 4.31,
-        "min": 4.31,
+        "min": 3.63,
         "median": 4.31,
         "required": 4.5,
         "pass": false
@@ -2180,14 +2371,59 @@
     },
     {
       "id": "S04",
+      "site": "vercel-templates",
+      "type": "contrast",
+      "severity": "error",
+      "page": "https://vercel.com/templates/next.js/nextjs-commerce",
+      "viewport": 1440,
+      "scheme": "light",
+      "selector": "#C7d72a332-L1 > button.vF3MAa_lineNumber",
+      "text": "1",
+      "fontSizePx": 13,
+      "fontWeight": 400,
+      "largeText": false,
+      "foreground": "#A8A8A8",
+      "background": {
+        "kind": "solid",
+        "worst": "#FFFFFF",
+        "median": "#FFFFFF",
+        "sampled": 119
+      },
+      "wcag": {
+        "ratio": 2.38,
+        "min": 2.38,
+        "median": 2.38,
+        "required": 4.5,
+        "pass": false
+      },
+      "apca": {
+        "lc": 46.9,
+        "required": 100,
+        "pass": false
+      },
+      "axeVerdict": "incomplete",
+      "suggestion": {
+        "token": "color.accents.5",
+        "value": "#666666",
+        "target": "foreground",
+        "ratio": 5.74,
+        "lc": 78.8,
+        "against": "#FFFFFF",
+        "deltaE": 22.13,
+        "replacement": "color: var(--accents-5)"
+      },
+      "image": "case-studies/vercel-templates-sample-04.png"
+    },
+    {
+      "id": "S05",
       "site": "tailwind",
       "type": "contrast",
       "severity": "error",
       "page": "https://tailwindcss.com/",
       "viewport": 375,
       "scheme": "light",
-      "selector": "div.relative.max-w-full:nth-of-type(4) > div.flex.h-6:nth-of-type(4)",
-      "text": "text-base",
+      "selector": "div.relative.max-w-full:nth-of-type(5) > div.flex.h-6:nth-of-type(4) > span.inline.dark\\:hidden:nth-of-type(1)",
+      "text": "text-gray-950",
       "fontSizePx": 12,
       "fontWeight": 400,
       "largeText": false,
@@ -2196,7 +2432,7 @@
         "kind": "solid",
         "worst": "#FFFFFF",
         "median": "#FFFFFF",
-        "sampled": 1008
+        "sampled": 1288
       },
       "wcag": {
         "ratio": 1.61,
@@ -2210,7 +2446,7 @@
         "required": 100,
         "pass": false
       },
-      "axeVerdict": "incomplete",
+      "axeVerdict": "fail",
       "suggestion": {
         "token": "color.black",
         "value": "#000000",
@@ -2221,61 +2457,112 @@
         "deltaE": 0,
         "replacement": "color: var(--color-black)"
       },
-      "image": "case-studies/tailwind-sample-04.png"
+      "image": "case-studies/tailwind-sample-05.png"
     },
     {
-      "id": "S05",
+      "id": "S06",
       "site": "tailwind",
       "type": "contrast",
       "severity": "warning",
       "page": "https://tailwindcss.com/",
       "viewport": 1440,
       "scheme": "light",
-      "selector": "div.absolute.-right-3:nth-of-type(2) > div.flex.items-center:nth-of-type(3) > div.flex.flex-col:nth-of-type(2) > span.truncate.text-sm\\/6:nth-of-type(2)",
-      "text": "مصمم واجهات المستخدم",
-      "fontSizePx": 14,
+      "selector": "div.\\*\\:flex.\\*\\:\\*\\:max-w-none:nth-of-type(2) > pre.shiki.tailwindcss-theme > code > span.line:nth-of-type(10) > span:nth-of-type(5)",
+      "text": "\" \"",
+      "fontSizePx": 13,
       "fontWeight": 400,
       "largeText": false,
-      "foreground": "#6A7282",
+      "foreground": "#74D4FF",
       "background": {
-        "kind": "gradient",
-        "worst": "#F0F0F0",
-        "median": "#FFFFFF",
-        "sampled": 1616
+        "kind": "mixed",
+        "worst": "#00BCFF",
+        "median": "#1C202A",
+        "sampled": 224
       },
       "wcag": {
-        "ratio": 4.24,
-        "min": 4.09,
-        "median": 4.84,
+        "ratio": 1.31,
+        "min": 1.31,
+        "median": 9.78,
         "required": 4.5,
         "pass": false
       },
       "apca": {
-        "lc": 64.6,
+        "lc": -12.7,
         "required": 100,
         "pass": false
       },
       "axeVerdict": "not-checked",
+      "notes": [
+        "text color is lab outside sRGB; gamut-mapped in OKLCH for the contrast math"
+      ],
       "suggestion": {
-        "token": "color.olive.600",
-        "value": "#5B5B4B",
-        "target": "foreground",
-        "ratio": 6.06,
-        "lc": 75,
-        "against": "#F0F0F0",
-        "deltaE": 9.91,
-        "replacement": "color: var(--color-olive-600)"
+        "token": "color.mauve.800",
+        "value": "#2A212C",
+        "target": "background",
+        "ratio": 9.32,
+        "lc": -71,
+        "against": "#2A212C",
+        "deltaE": 2.74,
+        "replacement": "background-color: var(--color-mauve-800)"
       },
-      "image": "case-studies/tailwind-sample-05.png"
+      "image": "case-studies/tailwind-sample-06.png"
     },
     {
-      "id": "S06",
+      "id": "S07",
       "site": "stripe",
       "type": "contrast",
       "severity": "error",
       "page": "https://stripe.com/",
       "viewport": 375,
       "scheme": "light",
+      "selector": "div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(4) > div:nth-of-type(1) > div > div",
+      "text": "Card",
+      "fontSizePx": 11,
+      "fontWeight": 300,
+      "largeText": false,
+      "foreground": "#667691",
+      "background": {
+        "kind": "solid",
+        "worst": "#F8F8FF",
+        "median": "#F8F8FF",
+        "sampled": 170
+      },
+      "wcag": {
+        "ratio": 4.35,
+        "min": 4.35,
+        "median": 4.35,
+        "required": 4.5,
+        "pass": false
+      },
+      "apca": {
+        "lc": 68.1,
+        "required": 100,
+        "pass": false
+      },
+      "axeVerdict": "fail",
+      "notes": [
+        "APCA advises against this font size/weight for text"
+      ],
+      "suggestion": {
+        "token": "color.hds.color.action.icon.navigation.soft",
+        "value": "#50617A",
+        "target": "foreground",
+        "ratio": 5.96,
+        "lc": 77.5,
+        "against": "#F8F8FF",
+        "deltaE": 7.45,
+        "replacement": "color: var(--hds-color-action-icon-navigation-soft)"
+      },
+      "image": "case-studies/stripe-sample-07.png"
+    },
+    {
+      "id": "S08",
+      "site": "stripe",
+      "type": "contrast",
+      "severity": "error",
+      "page": "https://stripe.com/",
+      "viewport": 1440,
+      "scheme": "dark",
       "selector": "div:nth-of-type(2) > div:nth-of-type(1) > span:nth-of-type(2) > span.tabular-nums--tight",
       "text": "25%",
       "fontSizePx": 11,
@@ -2286,7 +2573,7 @@
         "kind": "solid",
         "worst": "#ECEDFE",
         "median": "#ECEDFE",
-        "sampled": 140
+        "sampled": 234
       },
       "wcag": {
         "ratio": 4.04,
@@ -2311,85 +2598,123 @@
         "deltaE": 7,
         "replacement": "color: var(--hds-color-accent-border-solid)"
       },
-      "image": "case-studies/stripe-sample-06.png"
+      "image": "case-studies/stripe-sample-08.png"
     },
     {
-      "id": "S07",
-      "site": "stripe",
-      "type": "contrast",
-      "severity": "error",
-      "page": "https://stripe.com/",
-      "viewport": 1440,
-      "scheme": "light",
-      "selector": "div:nth-of-type(3) > div:nth-of-type(3) > div:nth-of-type(1) > div > div:nth-of-type(1)",
-      "text": "Shipping",
-      "fontSizePx": 10,
-      "fontWeight": 300,
-      "largeText": false,
-      "foreground": "#50617A",
-      "background": {
-        "kind": "solid",
-        "worst": "#E583F4",
-        "median": "#E784F7",
-        "sampled": 429
-      },
-      "wcag": {
-        "ratio": 2.67,
-        "min": 2.67,
-        "median": 2.71,
-        "required": 4.5,
-        "pass": false
-      },
-      "apca": {
-        "lc": 33.1,
-        "required": 100,
-        "pass": false
-      },
-      "axeVerdict": "pass",
-      "notes": [
-        "APCA advises against this font size/weight for text"
-      ],
-      "suggestion": {
-        "token": "color.hds.color.core.neutral.800",
-        "value": "#273951",
-        "target": "foreground",
-        "ratio": 4.96,
-        "lc": 48.6,
-        "against": "#E583F4",
-        "deltaE": 14.79,
-        "replacement": "color: var(--hds-color-core-neutral-800)"
-      },
-      "image": "case-studies/stripe-sample-07.png"
-    },
-    {
-      "id": "S08",
+      "id": "S09",
       "site": "stripe",
       "type": "contrast",
       "severity": "error",
       "page": "https://stripe.com/payments",
       "viewport": 375,
       "scheme": "light",
-      "selector": "div.GraphicFormFieldList:nth-of-type(1) > div.GraphicFormField.GraphicFormPaymentMethodField:nth-of-type(1) > div.GraphicFormField__content > div.GraphicFormPaymentMethodField__list > div.GraphicFormPaymentMethodField__item:nth-of-type(3) > span",
-      "text": "Revolut Pay",
-      "fontSizePx": 10,
-      "fontWeight": 300,
+      "selector": "div.RowLayout:nth-of-type(2) > div.ColumnLayout.ColumnLayout--alignCenter:nth-of-type(1) > div.RowLayout.SideBySide__leftRowLayout:nth-of-type(1) > section.Copy.variant--Section > header.Copy__header > h2.Copy__caption",
+      "text": "In-person payments",
+      "fontSizePx": 18,
+      "fontWeight": 500,
       "largeText": false,
-      "foreground": "#727F96",
+      "foreground": "#9966FF",
       "background": {
         "kind": "solid",
         "worst": "#FFFFFF",
         "median": "#FFFFFF",
-        "sampled": 130
+        "sampled": 3652
       },
       "wcag": {
-        "ratio": 4.04,
-        "min": 4.04,
-        "median": 4.04,
+        "ratio": 3.68,
+        "min": 3.68,
+        "median": 3.68,
         "required": 4.5,
         "pass": false
       },
       "apca": {
-        "lc": 67.7,
+        "lc": 64,
+        "required": 70,
+        "pass": false
+      },
+      "axeVerdict": "fail",
+      "suggestion": {
+        "token": "color.hds.color.core.brand.500",
+        "value": "#665EFD",
+        "target": "foreground",
+        "ratio": 4.58,
+        "lc": 71.2,
+        "against": "#FFFFFF",
+        "deltaE": 8.43,
+        "replacement": "color: var(--hds-color-core-brand-500)"
+      },
+      "image": "case-studies/stripe-sample-09.png"
+    },
+    {
+      "id": "S10",
+      "site": "stripe",
+      "type": "contrast",
+      "severity": "error",
+      "page": "https://stripe.com/payments",
+      "viewport": 375,
+      "scheme": "dark",
+      "selector": "div.DomGraphic__scaleContainer > div.GraphicForm:nth-of-type(2) > div.GraphicForm__content > div.GraphicFormFieldList > div.GraphicFormField > div.GraphicFormField__content > div.GraphicFormFieldInput:nth-of-type(1) > div.GraphicFormFieldInput__valueContainer > span.GraphicFormFieldInput__value",
+      "text": "United States",
+      "fontSizePx": 14,
+      "fontWeight": 300,
+      "largeText": false,
+      "foreground": "#B3BBC2",
+      "background": {
+        "kind": "solid",
+        "worst": "#FFFFFF",
+        "median": "#FFFFFF",
+        "sampled": 486
+      },
+      "wcag": {
+        "ratio": 1.95,
+        "min": 1.95,
+        "median": 1.95,
+        "required": 4.5,
+        "pass": false
+      },
+      "apca": {
+        "lc": 37.5,
+        "required": 100,
+        "pass": false
+      },
+      "axeVerdict": "not-checked",
+      "notes": [
+        "effective opacity 0.4 applied to the text color",
+        "APCA advises against this font size/weight for text",
+        "No token passes against this background (tried every text and background token). The text is at 40% effective opacity; raising it is the fix."
+      ],
+      "suggestion": null,
+      "image": "case-studies/stripe-sample-10.png"
+    },
+    {
+      "id": "S11",
+      "site": "stripe",
+      "type": "contrast",
+      "severity": "error",
+      "page": "https://stripe.com/payments",
+      "viewport": 1440,
+      "scheme": "light",
+      "selector": "div.GraphicFormField__content > div.GraphicFormField.GraphicFormPaymentMethodField > div.GraphicFormField__content > div.GraphicFormPaymentMethodField__list > div.GraphicFormPaymentMethodField__item:nth-of-type(1) > span",
+      "text": "Card",
+      "fontSizePx": 9,
+      "fontWeight": 300,
+      "largeText": false,
+      "foreground": "#6D7E94",
+      "background": {
+        "kind": "solid",
+        "worst": "#FFFFFF",
+        "median": "#FFFFFF",
+        "sampled": 190
+      },
+      "wcag": {
+        "ratio": 4.15,
+        "min": 4.15,
+        "median": 4.15,
+        "required": 4.5,
+        "pass": false
+      },
+      "apca": {
+        "lc": 68.6,
         "required": 100,
         "pass": false
       },
@@ -2404,21 +2729,21 @@
         "ratio": 4.75,
         "lc": 72.9,
         "against": "#FFFFFF",
-        "deltaE": 3.92,
+        "deltaE": 3.25,
         "replacement": "color: var(--hds-color-action-icon-navigation-subdued)"
       },
-      "image": "case-studies/stripe-sample-08.png"
+      "image": "case-studies/stripe-sample-11.png"
     },
     {
-      "id": "S09",
+      "id": "S12",
       "site": "stripe",
       "type": "contrast",
       "severity": "error",
       "page": "https://stripe.com/payments",
-      "viewport": 375,
+      "viewport": 1440,
       "scheme": "light",
-      "selector": "span.CodeEditorLineNumbers__number:nth-of-type(6)",
-      "text": "6",
+      "selector": "span.CodeEditorLineNumbers__number:nth-of-type(5)",
+      "text": "5",
       "fontSizePx": 14,
       "fontWeight": 500,
       "largeText": false,
@@ -2441,7 +2766,7 @@
         "required": 100,
         "pass": false
       },
-      "axeVerdict": "incomplete",
+      "axeVerdict": "pass",
       "suggestion": {
         "token": "color.hds.color.core.neutralDark.400",
         "value": "#839BC8",
@@ -2451,144 +2776,6 @@
         "against": "#0C2E4E",
         "deltaE": 15.17,
         "replacement": "color: var(--hds-color-core-neutralDark-400)"
-      },
-      "image": "case-studies/stripe-sample-09.png"
-    },
-    {
-      "id": "S10",
-      "site": "stripe",
-      "type": "contrast",
-      "severity": "error",
-      "page": "https://stripe.com/payments",
-      "viewport": 375,
-      "scheme": "dark",
-      "selector": "section.Copy.PaymentsAdvancedCapabilitiesCard__copy > footer.Copy__footer > a.CtaButton.variant--Button",
-      "text": "Contact sales",
-      "fontSizePx": 15,
-      "fontWeight": 425,
-      "largeText": false,
-      "foreground": "#FFFFFF",
-      "background": {
-        "kind": "solid",
-        "worst": "#9966FF",
-        "median": "#9966FF",
-        "sampled": 1748
-      },
-      "wcag": {
-        "ratio": 3.68,
-        "min": 3.68,
-        "median": 3.68,
-        "required": 4.5,
-        "pass": false
-      },
-      "apca": {
-        "lc": -69.5,
-        "required": 100,
-        "pass": false
-      },
-      "axeVerdict": "incomplete",
-      "suggestion": {
-        "token": "color.hds.color.core.brandDark.975",
-        "value": "#171055",
-        "target": "foreground",
-        "ratio": 4.59,
-        "lc": 37.4,
-        "against": "#9966FF",
-        "deltaE": 76.77,
-        "replacement": "color: var(--hds-color-core-brandDark-975)"
-      },
-      "image": "case-studies/stripe-sample-10.png"
-    },
-    {
-      "id": "S11",
-      "site": "stripe",
-      "type": "contrast",
-      "severity": "error",
-      "page": "https://stripe.com/payments",
-      "viewport": 1440,
-      "scheme": "light",
-      "selector": "#global-payments > div.Section__masked > div.Section__container:nth-of-type(2) > div.Section__layoutContainer > div.Section__layout > div.RowLayout > section.Copy.variant--Section > header.Copy__header > h2.Copy__caption",
-      "text": "Global payments",
-      "fontSizePx": 18,
-      "fontWeight": 500,
-      "largeText": false,
-      "foreground": "#9966FF",
-      "background": {
-        "kind": "solid",
-        "worst": "#F6F9FC",
-        "median": "#F6F9FC",
-        "sampled": 3058
-      },
-      "wcag": {
-        "ratio": 3.49,
-        "min": 3.49,
-        "median": 3.49,
-        "required": 4.5,
-        "pass": false
-      },
-      "apca": {
-        "lc": 60.1,
-        "required": 70,
-        "pass": false
-      },
-      "axeVerdict": "pass",
-      "suggestion": {
-        "token": "color.accent.gradient.color.stop.2",
-        "value": "#643AFD",
-        "target": "foreground",
-        "ratio": 5.57,
-        "lc": 74.4,
-        "against": "#F6F9FC",
-        "deltaE": 12.68,
-        "replacement": "color: var(--accent-gradient-color-stop-2)"
-      },
-      "image": "case-studies/stripe-sample-11.png"
-    },
-    {
-      "id": "S12",
-      "site": "stripe",
-      "type": "contrast",
-      "severity": "error",
-      "page": "https://stripe.com/payments",
-      "viewport": 1440,
-      "scheme": "light",
-      "selector": "a.Link.newsletter-signup__link:nth-of-type(2)",
-      "text": "Privacy Policy",
-      "fontSizePx": 12,
-      "fontWeight": 300,
-      "largeText": false,
-      "foreground": "#707F98",
-      "background": {
-        "kind": "solid",
-        "worst": "#F6F9FC",
-        "median": "#F6F9FC",
-        "sampled": 1008
-      },
-      "wcag": {
-        "ratio": 3.84,
-        "min": 3.84,
-        "median": 3.84,
-        "required": 4.5,
-        "pass": false
-      },
-      "apca": {
-        "lc": 63.9,
-        "required": 100,
-        "pass": false
-      },
-      "axeVerdict": "pass",
-      "notes": [
-        "APCA advises against this font size/weight for text"
-      ],
-      "suggestion": {
-        "token": "color.hds.color.action.icon.navigation.soft",
-        "value": "#50617A",
-        "target": "foreground",
-        "ratio": 5.96,
-        "lc": 77.5,
-        "against": "#F6F9FC",
-        "deltaE": 10.5,
-        "replacement": "color: var(--hds-color-action-icon-navigation-soft)"
       },
       "image": "case-studies/stripe-sample-12.png"
     },
@@ -2600,90 +2787,83 @@
       "page": "https://stripe.com/payments",
       "viewport": 1440,
       "scheme": "dark",
-      "selector": "div.AuthenticationFeatureGraphic__ui:nth-of-type(2) > div:nth-of-type(4)",
-      "text": "Resend code",
+      "selector": "div.DomGraphic__scaleContainer > div.PaymentsHeroAnimationLink:nth-of-type(1) > div.PaymentsHeroAnimationLink__orderDetails:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1)",
+      "text": "Email",
       "fontSizePx": 14,
       "fontWeight": 300,
       "largeText": false,
-      "foreground": "#ABB5C5",
+      "foreground": "#989898",
       "background": {
         "kind": "solid",
-        "worst": "#F8F9FB",
-        "median": "#F8FAFB",
-        "sampled": 1360
+        "worst": "#FFFFFF",
+        "median": "#FFFFFF",
+        "sampled": 578
       },
       "wcag": {
-        "ratio": 1.96,
-        "min": 1.96,
-        "median": 1.98,
+        "ratio": 2.89,
+        "min": 2.89,
+        "median": 2.89,
         "required": 4.5,
         "pass": false
       },
       "apca": {
-        "lc": 36.8,
+        "lc": 55.2,
         "required": 100,
         "pass": false
       },
-      "axeVerdict": "incomplete",
+      "axeVerdict": "pass",
       "notes": [
-        "APCA advises against this font size/weight for text"
+        "effective opacity 0.5 applied to the text color",
+        "APCA advises against this font size/weight for text",
+        "No token passes against this background (tried every text and background token). The text is at 50% effective opacity; raising it is the fix."
       ],
-      "suggestion": {
-        "token": "color.hds.color.action.icon.navigation.subdued",
-        "value": "#64748D",
-        "target": "foreground",
-        "ratio": 4.51,
-        "lc": 69.3,
-        "against": "#F8F9FB",
-        "deltaE": 21.59,
-        "replacement": "color: var(--hds-color-action-icon-navigation-subdued)"
-      },
+      "suggestion": null,
       "image": "case-studies/stripe-sample-13.png"
     },
     {
       "id": "S14",
-      "site": "linear",
+      "site": "stripe",
       "type": "contrast",
       "severity": "error",
-      "page": "https://linear.app/",
-      "viewport": 375,
-      "scheme": "light",
-      "selector": "div.KFZpfa_connectedRow:nth-of-type(1) > div.ImRUSq_root.ImRUSq_align-center > div.ImRUSq_root.ImRUSq_align-baseline > span.sc-KOGVz.jwDQSd:nth-of-type(4)",
-      "text": "2 min ago",
-      "fontSizePx": 12,
-      "fontWeight": 400,
+      "page": "https://stripe.com/payments",
+      "viewport": 1440,
+      "scheme": "dark",
+      "selector": "div.PricingGridRow__ctaContainer:nth-of-type(2) > a.CtaButton.variant--Link",
+      "text": "Payment method pricing",
+      "fontSizePx": 15,
+      "fontWeight": 425,
       "largeText": false,
-      "foreground": "#62666D",
+      "foreground": "#00C4C4",
       "background": {
         "kind": "solid",
-        "worst": "#1C1C1E",
-        "median": "#1A1A1C",
-        "sampled": 182
+        "worst": "#F6F9FC",
+        "median": "#F6F9FC",
+        "sampled": 3116
       },
       "wcag": {
-        "ratio": 2.95,
-        "min": 2.95,
-        "median": 3.01,
+        "ratio": 2.05,
+        "min": 2.05,
+        "median": 2.05,
         "required": 4.5,
         "pass": false
       },
       "apca": {
-        "lc": -21.3,
+        "lc": 38.1,
         "required": 100,
         "pass": false
       },
-      "axeVerdict": "incomplete",
+      "axeVerdict": "pass",
       "suggestion": {
-        "token": "color.fg.tertiary",
-        "value": "#8A8F98",
+        "token": "color.hds.color.core.neutralDark.600",
+        "value": "#45639D",
         "target": "foreground",
-        "ratio": 5.24,
-        "lc": -40.3,
-        "against": "#1C1C1E",
-        "deltaE": 13.97,
-        "replacement": "color: var(--color-fg-tertiary)"
+        "ratio": 5.64,
+        "lc": 75.8,
+        "against": "#F6F9FC",
+        "deltaE": 27.12,
+        "replacement": "color: var(--hds-color-core-neutralDark-600)"
       },
-      "image": "case-studies/linear-sample-14.png"
+      "image": "case-studies/stripe-sample-14.png"
     },
     {
       "id": "S15",
@@ -2691,29 +2871,29 @@
       "type": "contrast",
       "severity": "error",
       "page": "https://linear.app/",
-      "viewport": 1440,
-      "scheme": "light",
-      "selector": "div.KFZpfa_activityList:nth-of-type(4) > div.KFZpfa_activityListRow:nth-of-type(1) > div.KFZpfa_activityText:nth-of-type(2) > span:nth-of-type(2)",
-      "text": "·",
+      "viewport": 375,
+      "scheme": "dark",
+      "selector": "div.KFZpfa_activityListRow:nth-of-type(2) > div.KFZpfa_activityText:nth-of-type(2) > span:nth-of-type(1)",
+      "text": "added the labels and",
       "fontSizePx": 12,
       "fontWeight": 400,
       "largeText": false,
       "foreground": "#62666D",
       "background": {
-        "kind": "solid",
-        "worst": "#17191A",
-        "median": "#161819",
-        "sampled": 28
+        "kind": "gradient",
+        "worst": "#161819",
+        "median": "#161718",
+        "sampled": 360
       },
       "wcag": {
-        "ratio": 3.06,
-        "min": 3.05,
-        "median": 3.09,
+        "ratio": 3.09,
+        "min": 3.08,
+        "median": 3.11,
         "required": 4.5,
         "pass": false
       },
       "apca": {
-        "lc": -21.7,
+        "lc": -21.8,
         "required": 100,
         "pass": false
       },
@@ -2722,9 +2902,9 @@
         "token": "color.fg.tertiary",
         "value": "#8A8F98",
         "target": "foreground",
-        "ratio": 5.43,
-        "lc": -40.7,
-        "against": "#17191A",
+        "ratio": 5.48,
+        "lc": -40.8,
+        "against": "#161819",
         "deltaE": 13.97,
         "replacement": "color: var(--color-fg-tertiary)"
       },
@@ -2738,22 +2918,160 @@
       "page": "https://linear.app/",
       "viewport": 1440,
       "scheme": "light",
-      "selector": "div.qM9FAa_col:nth-of-type(3) > div.ImRUSq_root.ImRUSq_column:nth-of-type(2) > div:nth-of-type(3) > div._5k-xcq_card.qM9FAa_issue > div._5k-xcq_header:nth-of-type(1) > span.sc-KOGVz.gHBLUR:nth-of-type(1)",
-      "text": "ENG-2187",
+      "selector": "div.KFZpfa_activityList:nth-of-type(10) > div.KFZpfa_activityListRow > div.KFZpfa_activityText:nth-of-type(2) > span:nth-of-type(1) > span.sc-KOGVz.dYCPFa:nth-of-type(2)",
+      "text": "Todo",
+      "fontSizePx": 12,
+      "fontWeight": 510,
+      "largeText": false,
+      "foreground": "#62666D",
+      "background": {
+        "kind": "solid",
+        "worst": "#17181A",
+        "median": "#161719",
+        "sampled": 378
+      },
+      "wcag": {
+        "ratio": 3.08,
+        "min": 3.05,
+        "median": 3.11,
+        "required": 4.5,
+        "pass": false
+      },
+      "apca": {
+        "lc": -21.8,
+        "required": 100,
+        "pass": false
+      },
+      "axeVerdict": "incomplete",
+      "suggestion": {
+        "token": "color.fg.tertiary",
+        "value": "#8A8F98",
+        "target": "foreground",
+        "ratio": 5.47,
+        "lc": -40.8,
+        "against": "#17181A",
+        "deltaE": 13.97,
+        "replacement": "color: var(--color-fg-tertiary)"
+      },
+      "image": "case-studies/linear-sample-16.png"
+    },
+    {
+      "id": "S17",
+      "site": "linear",
+      "type": "contrast",
+      "severity": "error",
+      "page": "https://linear.app/",
+      "viewport": 1440,
+      "scheme": "light",
+      "selector": "div._rhIjq_day:nth-of-type(6) > span.sc-KOGVz.jzUjvc",
+      "text": "13",
+      "fontSizePx": 12,
+      "fontWeight": 400,
+      "largeText": false,
+      "foreground": "#62666D",
+      "background": {
+        "kind": "solid",
+        "worst": "#0D0F0F",
+        "median": "#0D0F0F",
+        "sampled": 168
+      },
+      "wcag": {
+        "ratio": 3.33,
+        "min": 3.33,
+        "median": 3.33,
+        "required": 4.5,
+        "pass": false
+      },
+      "apca": {
+        "lc": -22.6,
+        "required": 100,
+        "pass": false
+      },
+      "axeVerdict": "incomplete",
+      "suggestion": {
+        "token": "color.fg.tertiary",
+        "value": "#8A8F98",
+        "target": "foreground",
+        "ratio": 5.92,
+        "lc": -41.6,
+        "against": "#0D0F0F",
+        "deltaE": 13.97,
+        "replacement": "color: var(--color-fg-tertiary)"
+      },
+      "image": "case-studies/linear-sample-17.png"
+    },
+    {
+      "id": "S18",
+      "site": "linear",
+      "type": "contrast",
+      "severity": "error",
+      "page": "https://linear.app/",
+      "viewport": 1440,
+      "scheme": "light",
+      "selector": "a.Jmh1Wq_legalLink.I_mUeq_root:nth-of-type(4)",
+      "text": "AUP",
+      "fontSizePx": 13,
+      "fontWeight": 400,
+      "largeText": false,
+      "foreground": "#62666D",
+      "background": {
+        "kind": "solid",
+        "worst": "#08090A",
+        "median": "#08090A",
+        "sampled": 375
+      },
+      "wcag": {
+        "ratio": 3.45,
+        "min": 3.45,
+        "median": 3.45,
+        "required": 4.5,
+        "pass": false
+      },
+      "apca": {
+        "lc": -22.8,
+        "required": 100,
+        "pass": false
+      },
+      "axeVerdict": "fail",
+      "suggestion": {
+        "token": "color.fg.tertiary",
+        "value": "#8A8F98",
+        "target": "foreground",
+        "ratio": 6.13,
+        "lc": -41.8,
+        "against": "#08090A",
+        "deltaE": 13.97,
+        "replacement": "color: var(--color-fg-tertiary)"
+      },
+      "alsoOn": [
+        "https://linear.app/features"
+      ],
+      "image": "case-studies/linear-sample-18.png"
+    },
+    {
+      "id": "S19",
+      "site": "linear",
+      "type": "contrast",
+      "severity": "error",
+      "page": "https://linear.app/",
+      "viewport": 1440,
+      "scheme": "dark",
+      "selector": "div:nth-of-type(4) > div._5k-xcq_card.qM9FAa_issue > div._5k-xcq_header:nth-of-type(1) > span.sc-KOGVz.gHBLUR:nth-of-type(1)",
+      "text": "ENG-1882",
       "fontSizePx": 10,
       "fontWeight": 400,
       "largeText": false,
-      "foreground": "#52555B",
+      "foreground": "#51555A",
       "background": {
         "kind": "solid",
-        "worst": "#121314",
-        "median": "#111214",
+        "worst": "#0E1010",
+        "median": "#0E0F10",
         "sampled": 506
       },
       "wcag": {
-        "ratio": 2.5,
-        "min": 2.49,
-        "median": 2.51,
+        "ratio": 2.54,
+        "min": 2.54,
+        "median": 2.55,
         "required": 4.5,
         "pass": false
       },
@@ -2770,151 +3088,10 @@
         "token": "color.sx.1dd5bcf",
         "value": "#9C9DA1",
         "target": "foreground",
-        "ratio": 4.8,
-        "lc": -34.8,
-        "against": "#121314",
+        "ratio": 4.88,
+        "lc": -34.7,
+        "against": "#0E1010",
         "deltaE": 18.74,
-        "replacement": "color: var(--sx-1dd5bcf)"
-      },
-      "image": "case-studies/linear-sample-16.png"
-    },
-    {
-      "id": "S17",
-      "site": "linear",
-      "type": "contrast",
-      "severity": "error",
-      "page": "https://linear.app/",
-      "viewport": 1440,
-      "scheme": "light",
-      "selector": "div._rhIjq_row:nth-of-type(4) > div._rhIjq_milestones:nth-of-type(3) > div._rhIjq_milestoneLabel:nth-of-type(2) > span.sc-KOGVz.ipHSrD",
-      "text": "GA",
-      "fontSizePx": 10,
-      "fontWeight": 400,
-      "largeText": false,
-      "foreground": "#50545A",
-      "background": {
-        "kind": "solid",
-        "worst": "#0A0C0C",
-        "median": "#0A0B0C",
-        "sampled": 143
-      },
-      "wcag": {
-        "ratio": 2.58,
-        "min": 2.58,
-        "median": 2.58,
-        "required": 4.5,
-        "pass": false
-      },
-      "apca": {
-        "lc": -15.4,
-        "required": 100,
-        "pass": false
-      },
-      "axeVerdict": "incomplete",
-      "notes": [
-        "effective opacity 0.8 applied to the text color"
-      ],
-      "suggestion": {
-        "token": "color.sx.1dd5bcf",
-        "value": "#9C9DA1",
-        "target": "foreground",
-        "ratio": 4.96,
-        "lc": -34.5,
-        "against": "#0A0C0C",
-        "deltaE": 18.74,
-        "replacement": "color: var(--sx-1dd5bcf)"
-      },
-      "image": "case-studies/linear-sample-17.png"
-    },
-    {
-      "id": "S18",
-      "site": "linear",
-      "type": "contrast",
-      "severity": "error",
-      "page": "https://linear.app/",
-      "viewport": 1440,
-      "scheme": "dark",
-      "selector": "div.KFZpfa_commentEntry:nth-of-type(3) > div.ImRUSq_root.ImRUSq_align-center > div.ImRUSq_root.ImRUSq_align-baseline > span.sc-KOGVz.jwDQSd:nth-of-type(2)",
-      "text": "·",
-      "fontSizePx": 12,
-      "fontWeight": 400,
-      "largeText": false,
-      "foreground": "#62666D",
-      "background": {
-        "kind": "solid",
-        "worst": "#1E1E1F",
-        "median": "#1C1C1D",
-        "sampled": 42
-      },
-      "wcag": {
-        "ratio": 2.89,
-        "min": 2.89,
-        "median": 2.95,
-        "required": 4.5,
-        "pass": false
-      },
-      "apca": {
-        "lc": -21.1,
-        "required": 100,
-        "pass": false
-      },
-      "axeVerdict": "incomplete",
-      "suggestion": {
-        "token": "color.fg.tertiary",
-        "value": "#8A8F98",
-        "target": "foreground",
-        "ratio": 5.13,
-        "lc": -40.1,
-        "against": "#1E1E1F",
-        "deltaE": 13.97,
-        "replacement": "color: var(--color-fg-tertiary)"
-      },
-      "image": "case-studies/linear-sample-18.png"
-    },
-    {
-      "id": "S19",
-      "site": "linear",
-      "type": "contrast",
-      "severity": "error",
-      "page": "https://linear.app/",
-      "viewport": 1440,
-      "scheme": "dark",
-      "selector": "div._5k-xcq_card.qM9FAa_issue:nth-of-type(3) > div._5k-xcq_tags:nth-of-type(3) > span._5k-xcq_label:nth-of-type(2) > span.sc-KOGVz.jRjUFu",
-      "text": "61202",
-      "fontSizePx": 12,
-      "fontWeight": 510,
-      "largeText": false,
-      "foreground": "#70747C",
-      "background": {
-        "kind": "solid",
-        "worst": "#08090A",
-        "median": "#08090A",
-        "sampled": 490
-      },
-      "wcag": {
-        "ratio": 4.26,
-        "min": 4.26,
-        "median": 4.26,
-        "required": 4.5,
-        "pass": false
-      },
-      "apca": {
-        "lc": -29,
-        "required": 100,
-        "pass": false
-      },
-      "axeVerdict": "incomplete",
-      "notes": [
-        "effective opacity 0.8 applied to the text color"
-      ],
-      "suggestion": {
-        "token": "color.sx.1dd5bcf",
-        "value": "#9C9DA1",
-        "target": "foreground",
-        "ratio": 5.01,
-        "lc": -34.3,
-        "against": "#08090A",
-        "deltaE": 4.84,
         "replacement": "color: var(--sx-1dd5bcf)"
       },
       "image": "case-studies/linear-sample-19.png"
@@ -2927,38 +3104,38 @@
       "page": "https://linear.app/",
       "viewport": 1440,
       "scheme": "dark",
-      "selector": "section.b-30Va_root.b-30Va_rootHomepage:nth-of-type(2) > div.b-30Va_footer.hide-mobile:nth-of-type(3) > div.Fzcv4W_inset.b-30Va_footerContent:nth-of-type(2) > div.M31rWW_ingredients:nth-of-type(2) > div.M31rWW_ingredient:nth-of-type(5) > button.M31rWW_ingredientButton > span.M31rWW_ingredientLink > span.sc-KOGVz.jqlWID > span.M31rWW_ingredientPlus",
-      "text": "+",
-      "fontSizePx": 18,
+      "selector": "div.aFfDra_frame.aFfDra_highlightTopRight:nth-of-type(2) > div.GkoSzG_panel:nth-of-type(1) > div.GkoSzG_chatFrame > div.GkoSzG_chat > div.GkoSzG_content > div.aFfDra_conversation > div.q1lnWq_message:nth-of-type(1) > div.q1lnWq_contextRow:nth-of-type(2) > span.q1lnWq_contextAdded:nth-of-type(3)",
+      "text": "added to context",
+      "fontSizePx": 12,
       "fontWeight": 400,
       "largeText": false,
       "foreground": "#62666D",
       "background": {
         "kind": "solid",
-        "worst": "#08090A",
-        "median": "#08090A",
-        "sampled": 220
+        "worst": "#101112",
+        "median": "#0F1011",
+        "sampled": 1330
       },
       "wcag": {
-        "ratio": 3.45,
-        "min": 3.45,
-        "median": 3.45,
+        "ratio": 3.28,
+        "min": 3.28,
+        "median": 3.3,
         "required": 4.5,
         "pass": false
       },
       "apca": {
-        "lc": -22.8,
-        "required": 75,
+        "lc": -22.4,
+        "required": 100,
         "pass": false
       },
-      "axeVerdict": "not-checked",
+      "axeVerdict": "incomplete",
       "suggestion": {
         "token": "color.fg.tertiary",
         "value": "#8A8F98",
         "target": "foreground",
-        "ratio": 6.13,
-        "lc": -41.8,
-        "against": "#08090A",
+        "ratio": 5.82,
+        "lc": -41.4,
+        "against": "#101112",
         "deltaE": 13.97,
         "replacement": "color: var(--color-fg-tertiary)"
       },
