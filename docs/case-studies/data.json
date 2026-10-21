@@ -1,0 +1,2968 @@
+{
+  "generatedFrom": "case-studies/sites.json",
+  "sites": [
+    {
+      "id": "shadcn",
+      "name": "shadcn/ui docs",
+      "urls": [
+        "https://ui.shadcn.com/",
+        "https://ui.shadcn.com/docs/components/button"
+      ],
+      "status": "ok",
+      "pageErrors": [],
+      "notes": [],
+      "tokens": {
+        "format": "page",
+        "source": "https://ui.shadcn.com/ (:root custom properties)",
+        "count": 408,
+        "modes": [
+          "dark",
+          "light"
+        ]
+      },
+      "summary": {
+        "pages": 2,
+        "states": 8,
+        "textChecked": 1472,
+        "findings": {
+          "contrast": {
+            "error": 125,
+            "warning": 4
+          },
+          "drift": {
+            "error": 0,
+            "warning": 22,
+            "info": 0
+          }
+        },
+        "axe": {
+          "missed": 125,
+          "incomplete": 538,
+          "incompleteResolved": 538,
+          "incompleteFailed": 123
+        }
+      },
+      "counts": {
+        "contrast": 129,
+        "contrastByAxe": {
+          "pass": 0,
+          "fail": 4,
+          "incomplete": 123,
+          "not-checked": 2
+        },
+        "contrastByKind": {
+          "solid": 121,
+          "gradient": 0,
+          "image": 0,
+          "mixed": 8
+        },
+        "drift": 22,
+        "likelyTypos": 2
+      },
+      "top": [
+        {
+          "type": "contrast",
+          "severity": "warning",
+          "page": "https://ui.shadcn.com/docs/components/button",
+          "viewport": 375,
+          "scheme": "light",
+          "selector": "figure:nth-of-type(2) > pre.no-scrollbar.min-w-0 > code > span > span:nth-of-type(9)",
+          "text": "Button",
+          "fontSizePx": 14,
+          "fontWeight": 400,
+          "largeText": false,
+          "foreground": "#116329",
+          "background": {
+            "kind": "mixed",
+            "worst": "#3E3E3E",
+            "median": "#F8F8F8",
+            "sampled": 425
+          },
+          "wcag": {
+            "ratio": 1.45,
+            "min": 1.01,
+            "median": 6.96,
+            "required": 4.5,
+            "pass": false
+          },
+          "apca": {
+            "lc": -7.6,
+            "required": 100,
+            "pass": false
+          },
+          "axeVerdict": "incomplete",
+          "suggestion": {
+            "token": "color.code",
+            "value": "#F8F8F8",
+            "target": "background",
+            "ratio": 6.98,
+            "lc": 81.2,
+            "against": "#F8F8F8",
+            "deltaE": 0.09,
+            "replacement": "background-color: var(--color-code)"
+          },
+          "image": "case-studies/shadcn-top-1.png"
+        },
+        {
+          "type": "contrast",
+          "severity": "error",
+          "page": "https://ui.shadcn.com/",
+          "viewport": 1440,
+          "scheme": "light",
+          "selector": "div.hidden.flex-col:nth-of-type(3) > div.group\\/card.flex:nth-of-type(3) > div.flex.items-center:nth-of-type(3) > button.group\\/button.inline-flex",
+          "text": "Update Security",
+          "fontSizePx": 14,
+          "fontWeight": 500,
+          "largeText": false,
+          "foreground": "#FAFAFA",
+          "background": {
+            "kind": "mixed",
+            "worst": "#B3B3B3",
+            "median": "#A8A8A8",
+            "sampled": 1768
+          },
+          "wcag": {
+            "ratio": 2.01,
+            "min": 2.01,
+            "median": 2.28,
+            "required": 4.5,
+            "pass": false
+          },
+          "apca": {
+            "lc": -42.3,
+            "required": 100,
+            "pass": false
+          },
+          "axeVerdict": "incomplete",
+          "suggestion": {
+            "token": "color.neutral.800",
+            "value": "#262626",
+            "target": "foreground",
+            "ratio": 5.57,
+            "lc": 47.4,
+            "against": "#9D9D9D",
+            "deltaE": 71.6,
+            "replacement": "color: var(--color-neutral-800)"
+          },
+          "image": "case-studies/shadcn-top-2.png"
+        },
+        {
+          "type": "contrast",
+          "severity": "error",
+          "page": "https://ui.shadcn.com/docs/components/button",
+          "viewport": 1440,
+          "scheme": "light",
+          "selector": "div.group.relative:nth-of-type(4) > div.relative.overflow-hidden:nth-of-type(2) > div.relative > div.relative:nth-of-type(1) > figure.\\[\\&\\>pre\\]\\:max-h-96 > div > pre.no-scrollbar.min-w-0 > code > span.line:nth-of-type(1) > span:nth-of-type(3)",
+          "text": "from",
+          "fontSizePx": 14,
+          "fontWeight": 400,
+          "largeText": false,
+          "foreground": "#D73A49",
+          "background": {
+            "kind": "mixed",
+            "worst": "#E5E5E5",
+            "median": "#F8F8F8",
+            "sampled": 544
+          },
+          "wcag": {
+            "ratio": 3.63,
+            "min": 3.63,
+            "median": 4.31,
+            "required": 4.5,
+            "pass": false
+          },
+          "apca": {
+            "lc": 55.1,
+            "required": 100,
+            "pass": false
+          },
+          "axeVerdict": "incomplete",
+          "suggestion": {
+            "token": "color.rose.700",
+            "value": "#C70036",
+            "target": "foreground",
+            "ratio": 4.81,
+            "lc": 62.2,
+            "against": "#E5E5E5",
+            "deltaE": 6.61,
+            "replacement": "color: var(--color-rose-700)"
+          },
+          "image": "case-studies/shadcn-top-3.png"
+        }
+      ],
+      "topDrift": [
+        {
+          "color": "#D73A49",
+          "property": "color",
+          "nearestToken": {
+            "name": "color.rose.600",
+            "value": "#EC003F",
+            "deltaE": 4.83
+          },
+          "source": {
+            "rule": "element.style { color: #D73A49 }",
+            "stylesheet": "https://ui.shadcn.com/docs/components/base/button",
+            "origin": "inline"
+          },
+          "occurrences": 57,
+          "likelyTypo": false
+        },
+        {
+          "color": "#F97583",
+          "property": "color",
+          "nearestToken": {
+            "name": "color.rose.400",
+            "value": "#FF637E",
+            "deltaE": 3.3
+          },
+          "source": {
+            "rule": "[data-line] span:is(.dark *) { color: var(--shiki-dark)!important !important }",
+            "stylesheet": "https://ui.shadcn.com/_next/static/immutable/chunks/3m9k1yskyudya.css",
+            "line": 1,
+            "origin": "regular"
+          },
+          "occurrences": 57,
+          "likelyTypo": false
+        },
+        {
+          "color": "#032F62",
+          "property": "color",
+          "nearestToken": {
+            "name": "color.blue.950",
+            "value": "#162456",
+            "deltaE": 3.66
+          },
+          "source": {
+            "rule": "element.style { color: #032F62 }",
+            "stylesheet": "https://ui.shadcn.com/docs/components/base/button",
+            "origin": "inline"
+          },
+          "occurrences": 23,
+          "likelyTypo": false
+        }
+      ]
+    },
+    {
+      "id": "vercel-commerce",
+      "name": "Next.js Commerce (Vercel template demo)",
+      "urls": [
+        "https://demo.vercel.store/",
+        "https://demo.vercel.store/search"
+      ],
+      "status": "error",
+      "pageErrors": [
+        {
+          "url": "https://demo.vercel.store/",
+          "viewport": 375,
+          "scheme": "light",
+          "error": "HTTP 404 for https://demo.vercel.store/"
+        },
+        {
+          "url": "https://demo.vercel.store/",
+          "viewport": 375,
+          "scheme": "dark",
+          "error": "HTTP 404 for https://demo.vercel.store/"
+        },
+        {
+          "url": "https://demo.vercel.store/",
+          "viewport": 1440,
+          "scheme": "light",
+          "error": "HTTP 404 for https://demo.vercel.store/"
+        },
+        {
+          "url": "https://demo.vercel.store/",
+          "viewport": 1440,
+          "scheme": "dark",
+          "error": "HTTP 404 for https://demo.vercel.store/"
+        },
+        {
+          "url": "https://demo.vercel.store/search",
+          "viewport": 375,
+          "scheme": "light",
+          "error": "HTTP 404 for https://demo.vercel.store/search"
+        },
+        {
+          "url": "https://demo.vercel.store/search",
+          "viewport": 375,
+          "scheme": "dark",
+          "error": "HTTP 404 for https://demo.vercel.store/search"
+        },
+        {
+          "url": "https://demo.vercel.store/search",
+          "viewport": 1440,
+          "scheme": "light",
+          "error": "HTTP 404 for https://demo.vercel.store/search"
+        },
+        {
+          "url": "https://demo.vercel.store/search",
+          "viewport": 1440,
+          "scheme": "dark",
+          "error": "HTTP 404 for https://demo.vercel.store/search"
+        }
+      ],
+      "notes": [],
+      "tokens": null,
+      "summary": {
+        "pages": 2,
+        "states": 8,
+        "textChecked": 0,
+        "findings": {
+          "contrast": {
+            "error": 0,
+            "warning": 0
+          },
+          "drift": {
+            "error": 0,
+            "warning": 0,
+            "info": 0
+          }
+        },
+        "axe": {
+          "missed": 0,
+          "incomplete": 0,
+          "incompleteResolved": 0,
+          "incompleteFailed": 0
+        }
+      },
+      "counts": {
+        "contrast": 0,
+        "contrastByAxe": {
+          "pass": 0,
+          "fail": 0,
+          "incomplete": 0,
+          "not-checked": 0
+        },
+        "contrastByKind": {
+          "solid": 0,
+          "gradient": 0,
+          "image": 0,
+          "mixed": 0
+        },
+        "drift": 0,
+        "likelyTypos": 0
+      },
+      "top": [],
+      "topDrift": []
+    },
+    {
+      "id": "tailwind",
+      "name": "Tailwind CSS and Tailwind Plus marketing",
+      "urls": [
+        "https://tailwindcss.com/",
+        "https://tailwindcss.com/plus"
+      ],
+      "status": "ok",
+      "pageErrors": [],
+      "notes": [
+        "layout shifted during capture; measured a second time"
+      ],
+      "tokens": {
+        "format": "page",
+        "source": "https://tailwindcss.com/ (:root custom properties)",
+        "count": 616,
+        "modes": [
+          "dark",
+          "light"
+        ]
+      },
+      "summary": {
+        "pages": 2,
+        "states": 8,
+        "textChecked": 1894,
+        "findings": {
+          "contrast": {
+            "error": 123,
+            "warning": 25
+          },
+          "drift": {
+            "error": 0,
+            "warning": 4,
+            "info": 0
+          }
+        },
+        "axe": {
+          "missed": 118,
+          "incomplete": 1025,
+          "incompleteResolved": 1025,
+          "incompleteFailed": 75
+        }
+      },
+      "counts": {
+        "contrast": 148,
+        "contrastByAxe": {
+          "pass": 18,
+          "fail": 30,
+          "incomplete": 75,
+          "not-checked": 25
+        },
+        "contrastByKind": {
+          "solid": 98,
+          "gradient": 19,
+          "image": 4,
+          "mixed": 27
+        },
+        "drift": 4,
+        "likelyTypos": 0
+      },
+      "top": [
+        {
+          "type": "contrast",
+          "severity": "error",
+          "page": "https://tailwindcss.com/",
+          "viewport": 375,
+          "scheme": "light",
+          "selector": "div.\\@container.isolate:nth-of-type(4) > div.h-112.p-4:nth-of-type(3) > div.-mr-16.-mb-16 > div.rounded-xl.bg-gray-950 > div.rounded-xl.p-1 > div.with-line-numbers.text-\\[13px\\]\\/6:nth-of-type(2) > div.\\*\\:flex.\\*\\:\\*\\:shrink-0 > pre.shiki.tailwindcss-theme > code > span.line:nth-of-type(17) > span:nth-of-type(5)",
+          "text": "0.3 0.4 145",
+          "fontSizePx": 13,
+          "fontWeight": 400,
+          "largeText": false,
+          "foreground": "#F8FAFC",
+          "background": {
+            "kind": "gradient",
+            "worst": "#FFFFFF",
+            "median": "#FFFFFF",
+            "sampled": 174
+          },
+          "wcag": {
+            "ratio": 1.05,
+            "min": 1.05,
+            "median": 1.05,
+            "required": 4.5,
+            "pass": false
+          },
+          "apca": {
+            "lc": 0,
+            "required": 100,
+            "pass": false
+          },
+          "axeVerdict": "incomplete",
+          "suggestion": {
+            "token": "color.neutral.500",
+            "value": "#737373",
+            "target": "background",
+            "ratio": 4.52,
+            "lc": -74.8,
+            "against": "#737373",
+            "deltaE": 44.4,
+            "replacement": "background-color: var(--color-neutral-500)"
+          },
+          "image": "case-studies/tailwind-top-1.png"
+        },
+        {
+          "type": "contrast",
+          "severity": "error",
+          "page": "https://tailwindcss.com/",
+          "viewport": 375,
+          "scheme": "light",
+          "selector": "div.\\@container.isolate:nth-of-type(9) > div.h-112.p-4:nth-of-type(3) > div.-mr-16.-mb-16 > div.rounded-xl.bg-gray-950 > div.rounded-xl.p-1 > div.with-line-numbers.text-\\[13px\\]\\/6:nth-of-type(2) > div.\\*\\:flex.\\*\\:\\*\\:shrink-0 > pre.shiki.tailwindcss-theme > code > span.line:nth-of-type(17) > span:nth-of-type(2)",
+          "text": "utilities",
+          "fontSizePx": 13,
+          "fontWeight": 400,
+          "largeText": false,
+          "foreground": "#F8FAFC",
+          "background": {
+            "kind": "gradient",
+            "worst": "#FFFFFF",
+            "median": "#FFFFFF",
+            "sampled": 174
+          },
+          "wcag": {
+            "ratio": 1.05,
+            "min": 1.05,
+            "median": 1.05,
+            "required": 4.5,
+            "pass": false
+          },
+          "apca": {
+            "lc": 0,
+            "required": 100,
+            "pass": false
+          },
+          "axeVerdict": "incomplete",
+          "suggestion": {
+            "token": "color.neutral.500",
+            "value": "#737373",
+            "target": "background",
+            "ratio": 4.52,
+            "lc": -74.8,
+            "against": "#737373",
+            "deltaE": 44.4,
+            "replacement": "background-color: var(--color-neutral-500)"
+          },
+          "image": "case-studies/tailwind-top-2.png"
+        },
+        {
+          "type": "contrast",
+          "severity": "error",
+          "page": "https://tailwindcss.com/",
+          "viewport": 375,
+          "scheme": "light",
+          "selector": "div.\\@container.isolate:nth-of-type(4) > div.h-112.p-4:nth-of-type(3) > div.-mr-16.-mb-16 > div.rounded-xl.bg-gray-950 > div.rounded-xl.p-1 > div.with-line-numbers.text-\\[13px\\]\\/6:nth-of-type(2) > div.\\*\\:flex.\\*\\:\\*\\:shrink-0 > pre.shiki.tailwindcss-theme > code > span.line:nth-of-type(17) > span:nth-of-type(2)",
+          "text": ":",
+          "fontSizePx": 13,
+          "fontWeight": 400,
+          "largeText": false,
+          "foreground": "#CAD5E2",
+          "background": {
+            "kind": "gradient",
+            "worst": "#FFFFFF",
+            "median": "#FFFFFF",
+            "sampled": 34
+          },
+          "wcag": {
+            "ratio": 1.48,
+            "min": 1.48,
+            "median": 1.48,
+            "required": 4.5,
+            "pass": false
+          },
+          "apca": {
+            "lc": 22.8,
+            "required": 100,
+            "pass": false
+          },
+          "axeVerdict": "incomplete",
+          "suggestion": {
+            "token": "color.olive.600",
+            "value": "#5B5B4B",
+            "target": "background",
+            "ratio": 4.66,
+            "lc": -61.4,
+            "against": "#5B5B4B",
+            "deltaE": 53.46,
+            "replacement": "background-color: var(--color-olive-600)"
+          },
+          "image": "case-studies/tailwind-top-3.png"
+        }
+      ],
+      "topDrift": [
+        {
+          "color": "#686A71",
+          "property": "color",
+          "nearestToken": {
+            "name": "color.zinc.500",
+            "value": "#71717B",
+            "deltaE": 2.75
+          },
+          "source": {
+            "rule": ".dark\\:text-white:where(.system, .system *) { color: var(--color-white) }",
+            "stylesheet": "https://tailwindcss.com/_next/static/chunks/017r-ibrf-le-.css",
+            "line": 1,
+            "origin": "regular"
+          },
+          "occurrences": 2,
+          "likelyTypo": false,
+          "cause": [
+            "opacity 0.4",
+            "over a background image; composited over its fallback color"
+          ]
+        },
+        {
+          "color": "#686A71",
+          "property": "fill",
+          "nearestToken": {
+            "name": "color.zinc.500",
+            "value": "#71717B",
+            "deltaE": 2.75
+          },
+          "source": {
+            "rule": "[presentation attribute] { fill: currentcolor }",
+            "stylesheet": "https://tailwindcss.com/",
+            "origin": "attributes"
+          },
+          "occurrences": 2,
+          "likelyTypo": false,
+          "cause": [
+            "opacity 0.4"
+          ]
+        },
+        {
+          "color": "#96989D",
+          "property": "color",
+          "nearestToken": {
+            "name": "color.zinc.400",
+            "value": "#9F9FA9",
+            "deltaE": 2.63
+          },
+          "source": {
+            "rule": ".text-gray-950 { color: var(--color-gray-950) }",
+            "stylesheet": "https://tailwindcss.com/_next/static/chunks/017r-ibrf-le-.css",
+            "line": 1,
+            "origin": "regular"
+          },
+          "occurrences": 2,
+          "likelyTypo": false,
+          "cause": [
+            "opacity 0.4",
+            "over a background image; composited over its fallback color"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "radix",
+      "name": "Radix docs",
+      "urls": [
+        "https://www.radix-ui.com/",
+        "https://www.radix-ui.com/primitives/docs/overview/introduction"
+      ],
+      "status": "ok",
+      "pageErrors": [],
+      "notes": [],
+      "tokens": {
+        "format": "page",
+        "source": "https://www.radix-ui.com/ (:root custom properties)",
+        "count": 1790,
+        "modes": [
+          "dark",
+          "light"
+        ]
+      },
+      "summary": {
+        "pages": 2,
+        "states": 8,
+        "textChecked": 768,
+        "findings": {
+          "contrast": {
+            "error": 13,
+            "warning": 0
+          },
+          "drift": {
+            "error": 0,
+            "warning": 2,
+            "info": 3
+          }
+        },
+        "axe": {
+          "missed": 9,
+          "incomplete": 228,
+          "incompleteResolved": 228,
+          "incompleteFailed": 9
+        }
+      },
+      "counts": {
+        "contrast": 13,
+        "contrastByAxe": {
+          "pass": 0,
+          "fail": 4,
+          "incomplete": 9,
+          "not-checked": 0
+        },
+        "contrastByKind": {
+          "solid": 9,
+          "gradient": 4,
+          "image": 0,
+          "mixed": 0
+        },
+        "drift": 5,
+        "likelyTypos": 0
+      },
+      "top": [
+        {
+          "type": "contrast",
+          "severity": "error",
+          "page": "https://www.radix-ui.com/",
+          "viewport": 1440,
+          "scheme": "light",
+          "selector": "div.rt-Box.rt-r-p-6:nth-of-type(2) > div.rt-Flex.rt-r-fd-column > span.rt-Text.rt-r-size-2",
+          "text": "Sophie Johnson",
+          "fontSizePx": 14,
+          "fontWeight": 500,
+          "largeText": false,
+          "foreground": "#FFFFFF",
+          "background": {
+            "kind": "gradient",
+            "worst": "#A57DF3",
+            "median": "#9879EF",
+            "sampled": 972
+          },
+          "wcag": {
+            "ratio": 3.08,
+            "min": 3,
+            "median": 3.32,
+            "required": 4.5,
+            "pass": false
+          },
+          "apca": {
+            "lc": -62.8,
+            "required": 100,
+            "pass": false
+          },
+          "axeVerdict": "incomplete",
+          "suggestion": {
+            "token": "color.mauve.12",
+            "value": "#211F26",
+            "target": "foreground",
+            "ratio": 4.54,
+            "lc": 38,
+            "against": "#8A75ED",
+            "deltaE": 75.56,
+            "replacement": "color: var(--mauve-12)"
+          },
+          "image": "case-studies/radix-top-1.png"
+        },
+        {
+          "type": "contrast",
+          "severity": "error",
+          "page": "https://www.radix-ui.com/",
+          "viewport": 1440,
+          "scheme": "light",
+          "selector": "div.rt-Box.rt-r-p-6:nth-of-type(2) > div.rt-Flex.rt-r-fd-column > div.rt-Box > div.rt-Flex.rt-r-ai-center:nth-of-type(1) > span.rt-Text.rt-r-size-2",
+          "text": "4929 3849 5027 1846",
+          "fontSizePx": 14,
+          "fontWeight": 400,
+          "largeText": false,
+          "foreground": "#FFFFFF",
+          "background": {
+            "kind": "gradient",
+            "worst": "#7D73EA",
+            "median": "#6A6EE6",
+            "sampled": 1272
+          },
+          "wcag": {
+            "ratio": 3.81,
+            "min": 3.72,
+            "median": 4.21,
+            "required": 4.5,
+            "pass": false
+          },
+          "apca": {
+            "lc": -70.9,
+            "required": 100,
+            "pass": false
+          },
+          "axeVerdict": "incomplete",
+          "suggestion": {
+            "token": "color.iris.9",
+            "value": "#5B5BD6",
+            "target": "background",
+            "ratio": 5.37,
+            "lc": -81.7,
+            "against": "#5B5BD6",
+            "deltaE": 5.66,
+            "replacement": "background-color: var(--iris-9)"
+          },
+          "image": "case-studies/radix-top-2.png"
+        },
+        {
+          "type": "contrast",
+          "severity": "error",
+          "page": "https://www.radix-ui.com/",
+          "viewport": 375,
+          "scheme": "light",
+          "selector": "div.rt-Flex.rt-r-fd-column:nth-of-type(1) > span.rt-Text.rt-r-size-5:nth-of-type(3) > span.rt-Text.rt-r-size-5",
+          "text": "/ mo",
+          "fontSizePx": 20,
+          "fontWeight": 700,
+          "largeText": true,
+          "foreground": "#B9BBC6",
+          "background": {
+            "kind": "solid",
+            "worst": "#FFFFFF",
+            "median": "#FFFFFF",
+            "sampled": 462
+          },
+          "wcag": {
+            "ratio": 1.91,
+            "min": 1.91,
+            "median": 1.91,
+            "required": 3,
+            "pass": false
+          },
+          "apca": {
+            "lc": 36.5,
+            "required": 55,
+            "pass": false
+          },
+          "axeVerdict": "incomplete",
+          "suggestion": {
+            "token": "color.indigo.12",
+            "value": "#1F2D5C",
+            "target": "foreground",
+            "ratio": 13.22,
+            "lc": 99.4,
+            "against": "#FFFFFF",
+            "deltaE": 15.01,
+            "replacement": "color: var(--indigo-12)"
+          },
+          "image": "case-studies/radix-top-3.png"
+        }
+      ],
+      "topDrift": [
+        {
+          "color": "#6B757E",
+          "property": "box-shadow",
+          "nearestToken": {
+            "name": "color.slate.9",
+            "value": "#696E77",
+            "deltaE": 2.08
+          },
+          "source": {
+            "rule": ".themes-hero-layout-module__y5YOcq__ThemesHeroLayoutShowcase .rt-Card { box-shadow: inset var(--shadow-4) }",
+            "stylesheet": "https://www.radix-ui.com/_next/static/chunks/15vdxrzhob4vr.css",
+            "line": 40,
+            "origin": "regular"
+          },
+          "occurrences": 6,
+          "likelyTypo": false
+        },
+        {
+          "color": "#C3C9D5",
+          "property": "box-shadow",
+          "nearestToken": {
+            "name": "color.slate.7",
+            "value": "#CDCED6",
+            "deltaE": 2.03
+          },
+          "source": {
+            "rule": ".themes-hero-layout-module__y5YOcq__ThemesHeroLayoutShowcase .rt-Card { box-shadow: inset var(--shadow-4) }",
+            "stylesheet": "https://www.radix-ui.com/_next/static/chunks/15vdxrzhob4vr.css",
+            "line": 40,
+            "origin": "regular"
+          },
+          "occurrences": 6,
+          "likelyTypo": false
+        },
+        {
+          "color": "#7971E9",
+          "property": "box-shadow",
+          "nearestToken": {
+            "name": "color.violet.9",
+            "value": "#6E56CF",
+            "deltaE": 7.51
+          },
+          "source": {
+            "rule": "element.style { box-shadow: 0 1px 20px -5px #7971E9AA }",
+            "stylesheet": "https://www.radix-ui.com/",
+            "origin": "inline"
+          },
+          "occurrences": 1,
+          "likelyTypo": false
+        }
+      ]
+    },
+    {
+      "id": "nextjs",
+      "name": "Next.js docs",
+      "urls": [
+        "https://nextjs.org/",
+        "https://nextjs.org/docs"
+      ],
+      "status": "ok",
+      "pageErrors": [],
+      "notes": [],
+      "tokens": {
+        "format": "page",
+        "source": "https://nextjs.org/ (:root custom properties)",
+        "count": 456,
+        "modes": [
+          "dark",
+          "light"
+        ]
+      },
+      "summary": {
+        "pages": 2,
+        "states": 8,
+        "textChecked": 930,
+        "findings": {
+          "contrast": {
+            "error": 2,
+            "warning": 0
+          },
+          "drift": {
+            "error": 0,
+            "warning": 23,
+            "info": 2
+          }
+        },
+        "axe": {
+          "missed": 2,
+          "incomplete": 116,
+          "incompleteResolved": 116,
+          "incompleteFailed": 0
+        }
+      },
+      "counts": {
+        "contrast": 2,
+        "contrastByAxe": {
+          "pass": 0,
+          "fail": 0,
+          "incomplete": 0,
+          "not-checked": 2
+        },
+        "contrastByKind": {
+          "solid": 2,
+          "gradient": 0,
+          "image": 0,
+          "mixed": 0
+        },
+        "drift": 25,
+        "likelyTypos": 25
+      },
+      "top": [
+        {
+          "type": "contrast",
+          "severity": "error",
+          "page": "https://nextjs.org/",
+          "viewport": 375,
+          "scheme": "light",
+          "selector": "span.block.text-label-13-mono:nth-of-type(1)",
+          "text": "$",
+          "fontSizePx": 13,
+          "fontWeight": 400,
+          "largeText": false,
+          "foreground": "#8F8F8F",
+          "background": {
+            "kind": "solid",
+            "worst": "#FFFFFF",
+            "median": "#FFFFFF",
+            "sampled": 119
+          },
+          "wcag": {
+            "ratio": 3.23,
+            "min": 3.23,
+            "median": 3.23,
+            "required": 4.5,
+            "pass": false
+          },
+          "apca": {
+            "lc": 59.6,
+            "required": 100,
+            "pass": false
+          },
+          "axeVerdict": "not-checked",
+          "suggestion": {
+            "token": "color.accents.5",
+            "value": "#666666",
+            "target": "foreground",
+            "ratio": 5.74,
+            "lc": 78.8,
+            "against": "#FFFFFF",
+            "deltaE": 13.98,
+            "replacement": "color: var(--accents-5)"
+          },
+          "image": "case-studies/nextjs-top-1.png"
+        }
+      ],
+      "topDrift": [
+        {
+          "color": "#4D4D4D",
+          "property": "color",
+          "nearestToken": {
+            "name": "color.ds.gray.900",
+            "value": "#4D4D4D",
+            "deltaE": 0.18
+          },
+          "source": {
+            "rule": ".text-gray-900 { color: var(--ds-gray-900) }",
+            "stylesheet": "https://nextjs.org/_next/static/immutable/chunks/3wtk_3wtbs-q8.css",
+            "line": 1,
+            "origin": "regular"
+          },
+          "occurrences": 125,
+          "likelyTypo": true
+        },
+        {
+          "color": "#A1A1A1",
+          "property": "color",
+          "nearestToken": {
+            "name": "color.ds.gray.900",
+            "value": "#A1A1A1",
+            "deltaE": 0.11
+          },
+          "source": {
+            "rule": ".text-gray-900 { color: var(--ds-gray-900) }",
+            "stylesheet": "https://nextjs.org/_next/static/immutable/chunks/3wtk_3wtbs-q8.css",
+            "line": 1,
+            "origin": "regular"
+          },
+          "occurrences": 125,
+          "likelyTypo": true
+        },
+        {
+          "color": "#4D4D4D",
+          "property": "fill",
+          "nearestToken": {
+            "name": "color.ds.gray.900",
+            "value": "#4D4D4D",
+            "deltaE": 0.18
+          },
+          "source": {
+            "rule": "[presentation attribute] { fill: currentcolor }",
+            "stylesheet": "https://nextjs.org/docs",
+            "origin": "attributes"
+          },
+          "occurrences": 15,
+          "likelyTypo": true
+        }
+      ]
+    },
+    {
+      "id": "mdn",
+      "name": "MDN Web Docs",
+      "urls": [
+        "https://developer.mozilla.org/en-US/",
+        "https://developer.mozilla.org/en-US/docs/Web/CSS/color"
+      ],
+      "status": "ok",
+      "pageErrors": [],
+      "notes": [
+        "1 cross-origin frame(s) were not measured",
+        "layout shifted during capture; measured a second time"
+      ],
+      "tokens": {
+        "format": "page",
+        "source": "https://developer.mozilla.org/en-US/ (:root custom properties)",
+        "count": 113,
+        "modes": [
+          "dark",
+          "light"
+        ]
+      },
+      "summary": {
+        "pages": 2,
+        "states": 8,
+        "textChecked": 2805,
+        "findings": {
+          "contrast": {
+            "error": 4,
+            "warning": 0
+          },
+          "drift": {
+            "error": 0,
+            "warning": 32,
+            "info": 0
+          }
+        },
+        "axe": {
+          "missed": 4,
+          "incomplete": 32,
+          "incompleteResolved": 32,
+          "incompleteFailed": 0
+        }
+      },
+      "counts": {
+        "contrast": 4,
+        "contrastByAxe": {
+          "pass": 4,
+          "fail": 0,
+          "incomplete": 0,
+          "not-checked": 0
+        },
+        "contrastByKind": {
+          "solid": 4,
+          "gradient": 0,
+          "image": 0,
+          "mixed": 0
+        },
+        "drift": 32,
+        "likelyTypos": 0
+      },
+      "top": [
+        {
+          "type": "contrast",
+          "severity": "error",
+          "page": "https://developer.mozilla.org/en-US/docs/Web/CSS/color",
+          "viewport": 375,
+          "scheme": "dark",
+          "selector": "a > span.token.property",
+          "text": "<color>",
+          "fontSizePx": 16,
+          "fontWeight": 400,
+          "largeText": false,
+          "foreground": "#FF97A0",
+          "background": {
+            "kind": "solid",
+            "worst": "#A4CEFE",
+            "median": "#2D3034",
+            "sampled": 1260
+          },
+          "wcag": {
+            "ratio": 1.26,
+            "min": 1.26,
+            "median": 6.43,
+            "required": 4.5,
+            "pass": false
+          },
+          "apca": {
+            "lc": 9.5,
+            "required": 90,
+            "pass": false
+          },
+          "axeVerdict": "pass",
+          "suggestion": {
+            "token": "color.csstools.light.dark.toggle.5e0f49fc.2",
+            "value": "#2D3034",
+            "target": "background",
+            "ratio": 6.43,
+            "lc": -57.3,
+            "against": "#2D3034",
+            "deltaE": 0,
+            "replacement": "background-color: var(--csstools-light-dark-toggle-5e0f49fc-2)"
+          },
+          "image": "case-studies/mdn-top-1.png"
+        }
+      ],
+      "topDrift": [
+        {
+          "color": "#B3B3B3",
+          "property": "color",
+          "nearestToken": {
+            "name": "color.csstools.light.dark.toggle.79030429.1",
+            "value": "#C3C7CB",
+            "deltaE": 6.14
+          },
+          "source": {
+            "rule": ":is(.code-example, .css-formal-syntax) .token.punctuation { color: light-dark(rgb(81, 86, 93), rgb(179, 179, 179)) }",
+            "stylesheet": null,
+            "line": 9,
+            "origin": "regular"
+          },
+          "occurrences": 166,
+          "likelyTypo": false
+        },
+        {
+          "color": "#FF97A0",
+          "property": "color",
+          "nearestToken": {
+            "name": "color.csstools.light.dark.toggle.cb2b76e6.2",
+            "value": "#FC7D92",
+            "deltaE": 5.64
+          },
+          "source": {
+            "rule": ":is(.code-example, .css-formal-syntax) :is(.token.attr-name, .token.builtin, .token.class-name, .token.function, .token.inserted, .token.property, .token.selector) { color: light-dark(rgb(211, 0, 56), rgb(255, 151, 160)) }",
+            "stylesheet": null,
+            "line": 10,
+            "origin": "regular"
+          },
+          "occurrences": 68,
+          "likelyTypo": false
+        },
+        {
+          "color": "#E5C07B",
+          "property": "color",
+          "nearestToken": {
+            "name": "color.csstools.light.dark.toggle.cb2b76e6.3",
+            "value": "#FEBE8F",
+            "deltaE": 4.84
+          },
+          "source": {
+            "rule": ".ͼu { color: rgb(229, 192, 123) }",
+            "stylesheet": null,
+            "line": 85,
+            "origin": "regular"
+          },
+          "occurrences": 14,
+          "likelyTypo": false
+        }
+      ]
+    },
+    {
+      "id": "github",
+      "name": "GitHub marketing",
+      "urls": [
+        "https://github.com/",
+        "https://github.com/features/copilot"
+      ],
+      "status": "ok",
+      "pageErrors": [],
+      "notes": [
+        "network did not go idle within 5s; measured anyway"
+      ],
+      "tokens": {
+        "format": "page",
+        "source": "https://github.com/ (:root custom properties)",
+        "count": 2724,
+        "modes": [
+          "dark",
+          "light"
+        ]
+      },
+      "summary": {
+        "pages": 2,
+        "states": 8,
+        "textChecked": 1274,
+        "findings": {
+          "contrast": {
+            "error": 0,
+            "warning": 0
+          },
+          "drift": {
+            "error": 0,
+            "warning": 17,
+            "info": 0
+          }
+        },
+        "axe": {
+          "missed": 0,
+          "incomplete": 204,
+          "incompleteResolved": 204,
+          "incompleteFailed": 0
+        }
+      },
+      "counts": {
+        "contrast": 0,
+        "contrastByAxe": {
+          "pass": 0,
+          "fail": 0,
+          "incomplete": 0,
+          "not-checked": 0
+        },
+        "contrastByKind": {
+          "solid": 0,
+          "gradient": 0,
+          "image": 0,
+          "mixed": 0
+        },
+        "drift": 17,
+        "likelyTypos": 2
+      },
+      "top": [],
+      "topDrift": [
+        {
+          "color": "#A371F7",
+          "property": "fill",
+          "nearestToken": {
+            "name": "color.base.color.scale.purple.3",
+            "value": "#A665F9",
+            "deltaE": 2.58
+          },
+          "source": {
+            "rule": ".lp-AccordionItem-summary svg { fill: #a371f7 }",
+            "stylesheet": "https://github.githubassets.com/assets/home-6e1ba190d2b41fdf.css",
+            "line": 1,
+            "origin": "regular"
+          },
+          "occurrences": 6,
+          "likelyTypo": false
+        },
+        {
+          "color": "#0065A9",
+          "property": "fill",
+          "nearestToken": {
+            "name": "color.display.cyan.bgColor.emphasis",
+            "value": "#036A8C",
+            "deltaE": 5.26
+          },
+          "source": {
+            "rule": "[presentation attribute] { fill: rgb(0, 101, 169) }",
+            "stylesheet": "https://github.com/features/copilot",
+            "origin": "attributes"
+          },
+          "occurrences": 1,
+          "likelyTypo": false
+        },
+        {
+          "color": "#007ACC",
+          "property": "fill",
+          "nearestToken": {
+            "name": "color.brand.Label.color.green.blue.purple.2",
+            "value": "#096BDE",
+            "deltaE": 5.12
+          },
+          "source": {
+            "rule": "[presentation attribute] { fill: rgb(0, 122, 204) }",
+            "stylesheet": "https://github.com/features/copilot",
+            "origin": "attributes"
+          },
+          "occurrences": 1,
+          "likelyTypo": false
+        }
+      ]
+    },
+    {
+      "id": "stripe",
+      "name": "Stripe",
+      "urls": [
+        "https://stripe.com/",
+        "https://stripe.com/payments"
+      ],
+      "status": "ok",
+      "pageErrors": [],
+      "notes": [
+        "network did not go idle within 5s; measured anyway",
+        "3 text element(s) with transparent fill (e.g. background-clip: text) were not measured",
+        "2 cross-origin frame(s) were not measured",
+        "page is 20386px tall; measured the top 20000px",
+        "layout shifted during capture; measured a second time",
+        "page is 20666px tall; measured the top 20000px",
+        "2 text element(s) with transparent fill (e.g. background-clip: text) were not measured",
+        "page is 25345px tall; measured the top 20000px",
+        "no design tokens found (pass --tokens); drift detection skipped",
+        "page is 25038px tall; measured the top 20000px"
+      ],
+      "tokens": {
+        "format": "page",
+        "source": "https://stripe.com/ (:root custom properties)",
+        "count": 872,
+        "modes": [
+          "dark",
+          "light"
+        ]
+      },
+      "summary": {
+        "pages": 2,
+        "states": 8,
+        "textChecked": 3318,
+        "findings": {
+          "contrast": {
+            "error": 462,
+            "warning": 5
+          },
+          "drift": {
+            "error": 0,
+            "warning": 109,
+            "info": 11
+          }
+        },
+        "axe": {
+          "missed": 340,
+          "incomplete": 732,
+          "incompleteResolved": 732,
+          "incompleteFailed": 128
+        }
+      },
+      "counts": {
+        "contrast": 467,
+        "contrastByAxe": {
+          "pass": 151,
+          "fail": 127,
+          "incomplete": 128,
+          "not-checked": 61
+        },
+        "contrastByKind": {
+          "solid": 446,
+          "gradient": 8,
+          "image": 5,
+          "mixed": 8
+        },
+        "drift": 120,
+        "likelyTypos": 8
+      },
+      "top": [
+        {
+          "type": "contrast",
+          "severity": "error",
+          "page": "https://stripe.com/",
+          "viewport": 1440,
+          "scheme": "light",
+          "selector": "div.payments-graphic__checkout-browser-url:nth-of-type(1)",
+          "text": "roastery.com/checkout",
+          "fontSizePx": 9,
+          "fontWeight": 300,
+          "largeText": false,
+          "foreground": "#50617A",
+          "background": {
+            "kind": "gradient",
+            "worst": "#FE954E",
+            "median": "#FF9E51",
+            "sampled": 910
+          },
+          "wcag": {
+            "ratio": 2.89,
+            "min": 2.67,
+            "median": 3.08,
+            "required": 4.5,
+            "pass": false
+          },
+          "apca": {
+            "lc": 36.7,
+            "required": 100,
+            "pass": false
+          },
+          "axeVerdict": "incomplete",
+          "notes": [
+            "behind a backdrop-filter; background measured from rendered pixels",
+            "APCA advises against this font size/weight for text"
+          ],
+          "suggestion": {
+            "token": "color.hds.color.core.neutralDark.700",
+            "value": "#273F73",
+            "target": "foreground",
+            "ratio": 4.71,
+            "lc": 49,
+            "against": "#FE954E",
+            "deltaE": 12.19,
+            "replacement": "color: var(--hds-color-core-neutralDark-700)"
+          },
+          "image": "case-studies/stripe-top-1.png"
+        },
+        {
+          "type": "contrast",
+          "severity": "error",
+          "page": "https://stripe.com/",
+          "viewport": 1440,
+          "scheme": "light",
+          "selector": "div.payments-graphic__checkout-browser-url:nth-of-type(2)",
+          "text": "cartsy.com/checkout",
+          "fontSizePx": 9,
+          "fontWeight": 300,
+          "largeText": false,
+          "foreground": "#50617A",
+          "background": {
+            "kind": "gradient",
+            "worst": "#FF9850",
+            "median": "#FFAC4F",
+            "sampled": 830
+          },
+          "wcag": {
+            "ratio": 2.96,
+            "min": 2.89,
+            "median": 3.38,
+            "required": 4.5,
+            "pass": false
+          },
+          "apca": {
+            "lc": 37.8,
+            "required": 100,
+            "pass": false
+          },
+          "axeVerdict": "incomplete",
+          "notes": [
+            "behind a backdrop-filter; background measured from rendered pixels",
+            "APCA advises against this font size/weight for text"
+          ],
+          "suggestion": {
+            "token": "color.hds.color.core.neutralDark.700",
+            "value": "#273F73",
+            "target": "foreground",
+            "ratio": 4.82,
+            "lc": 50.1,
+            "against": "#FF9850",
+            "deltaE": 12.19,
+            "replacement": "color: var(--hds-color-core-neutralDark-700)"
+          },
+          "image": "case-studies/stripe-top-2.png"
+        },
+        {
+          "type": "contrast",
+          "severity": "error",
+          "page": "https://stripe.com/",
+          "viewport": 1440,
+          "scheme": "light",
+          "selector": "div:nth-of-type(6) > div:nth-of-type(2) > div:nth-of-type(3) > div > div:nth-of-type(1)",
+          "text": "Card",
+          "fontSizePx": 10,
+          "fontWeight": 300,
+          "largeText": false,
+          "foreground": "#3C4F69",
+          "background": {
+            "kind": "gradient",
+            "worst": "#F96D73",
+            "median": "#FA7A71",
+            "sampled": 147
+          },
+          "wcag": {
+            "ratio": 2.97,
+            "min": 2.85,
+            "median": 3.22,
+            "required": 4.5,
+            "pass": false
+          },
+          "apca": {
+            "lc": 33.4,
+            "required": 100,
+            "pass": false
+          },
+          "axeVerdict": "incomplete",
+          "notes": [
+            "APCA advises against this font size/weight for text"
+          ],
+          "suggestion": {
+            "token": "color.hds.color.core.neutral.900",
+            "value": "#1A2C44",
+            "target": "foreground",
+            "ratio": 5.02,
+            "lc": 45.3,
+            "against": "#F96D73",
+            "deltaE": 13.28,
+            "replacement": "color: var(--hds-color-core-neutral-900)"
+          },
+          "image": "case-studies/stripe-top-3.png"
+        }
+      ],
+      "topDrift": [
+        {
+          "color": "#000000",
+          "property": "color",
+          "nearestToken": {
+            "name": "color.hds.color.core.brand.975",
+            "value": "#0F1137",
+            "deltaE": 21.62
+          },
+          "source": {
+            "rule": ".modular-solutions-bento-card { color: inherit }",
+            "stylesheet": "https://b.stripecdn.com/mkt-ssr-statics/assets/_next/static/css/0a1af55a00525366.css",
+            "line": 1,
+            "origin": "regular"
+          },
+          "occurrences": 22,
+          "likelyTypo": false
+        },
+        {
+          "color": "#000000",
+          "property": "fill",
+          "nearestToken": {
+            "name": "color.hds.color.core.brand.975",
+            "value": "#0F1137",
+            "deltaE": 21.62
+          },
+          "source": {
+            "rule": "[presentation attribute] { fill: black }",
+            "stylesheet": "https://stripe.com/",
+            "origin": "attributes"
+          },
+          "occurrences": 13,
+          "likelyTypo": false
+        },
+        {
+          "color": "#000000",
+          "property": "fill",
+          "nearestToken": {
+            "name": "color.hds.color.core.brand.975",
+            "value": "#0F1137",
+            "deltaE": 21.62
+          },
+          "source": {
+            "rule": "[presentation attribute] { fill: rgb(0, 0, 0) }",
+            "stylesheet": "https://stripe.com/",
+            "origin": "attributes"
+          },
+          "occurrences": 6,
+          "likelyTypo": false
+        }
+      ]
+    },
+    {
+      "id": "linear",
+      "name": "Linear",
+      "urls": [
+        "https://linear.app/",
+        "https://linear.app/features"
+      ],
+      "status": "ok",
+      "pageErrors": [],
+      "notes": [
+        "3 text element(s) with transparent fill (e.g. background-clip: text) were not measured"
+      ],
+      "tokens": {
+        "format": "page",
+        "source": "https://linear.app/ (:root custom properties)",
+        "count": 376,
+        "modes": [
+          "dark",
+          "light"
+        ]
+      },
+      "summary": {
+        "pages": 2,
+        "states": 8,
+        "textChecked": 1784,
+        "findings": {
+          "contrast": {
+            "error": 420,
+            "warning": 4
+          },
+          "drift": {
+            "error": 0,
+            "warning": 61,
+            "info": 0
+          }
+        },
+        "axe": {
+          "missed": 388,
+          "incomplete": 932,
+          "incompleteResolved": 932,
+          "incompleteFailed": 346
+        }
+      },
+      "counts": {
+        "contrast": 424,
+        "contrastByAxe": {
+          "pass": 0,
+          "fail": 36,
+          "incomplete": 346,
+          "not-checked": 42
+        },
+        "contrastByKind": {
+          "solid": 406,
+          "gradient": 4,
+          "image": 6,
+          "mixed": 8
+        },
+        "drift": 61,
+        "likelyTypos": 12
+      },
+      "top": [
+        {
+          "type": "contrast",
+          "severity": "warning",
+          "page": "https://linear.app/",
+          "viewport": 1440,
+          "scheme": "light",
+          "selector": "div._rhIjq_row:nth-of-type(3) > div._rhIjq_label:nth-of-type(1) > span.sc-KOGVz.gRmkzr:nth-of-type(2)",
+          "text": "Autonomy status clarity",
+          "fontSizePx": 13,
+          "fontWeight": 400,
+          "largeText": false,
+          "foreground": "#A7C6D1",
+          "background": {
+            "kind": "gradient",
+            "worst": "#058895",
+            "median": "#161715",
+            "sampled": 2130
+          },
+          "wcag": {
+            "ratio": 2.36,
+            "min": 2.14,
+            "median": 8.23,
+            "required": 4.5,
+            "pass": false
+          },
+          "apca": {
+            "lc": -35.6,
+            "required": 100,
+            "pass": false
+          },
+          "axeVerdict": "incomplete",
+          "notes": [
+            "effective opacity 0.8 applied to the text color"
+          ],
+          "suggestion": {
+            "token": "color.line.quaternary",
+            "value": "#141515",
+            "target": "background",
+            "ratio": 8.34,
+            "lc": -58.2,
+            "against": "#141515",
+            "deltaE": 0.9,
+            "replacement": "background-color: var(--color-line-quaternary)"
+          },
+          "image": "case-studies/linear-top-1.png"
+        },
+        {
+          "type": "contrast",
+          "severity": "error",
+          "page": "https://linear.app/",
+          "viewport": 375,
+          "scheme": "light",
+          "selector": "div.KFZpfa_activityListRow:nth-of-type(2) > div.KFZpfa_activityText:nth-of-type(2) > span:nth-of-type(1)",
+          "text": "added the labels and",
+          "fontSizePx": 12,
+          "fontWeight": 400,
+          "largeText": false,
+          "foreground": "#62666D",
+          "background": {
+            "kind": "gradient",
+            "worst": "#161819",
+            "median": "#161718",
+            "sampled": 360
+          },
+          "wcag": {
+            "ratio": 3.09,
+            "min": 3.08,
+            "median": 3.11,
+            "required": 4.5,
+            "pass": false
+          },
+          "apca": {
+            "lc": -21.8,
+            "required": 100,
+            "pass": false
+          },
+          "axeVerdict": "incomplete",
+          "suggestion": {
+            "token": "color.fg.tertiary",
+            "value": "#8A8F98",
+            "target": "foreground",
+            "ratio": 5.48,
+            "lc": -40.8,
+            "against": "#161819",
+            "deltaE": 13.97,
+            "replacement": "color: var(--color-fg-tertiary)"
+          },
+          "image": "case-studies/linear-top-2.png"
+        },
+        {
+          "type": "contrast",
+          "severity": "error",
+          "page": "https://linear.app/",
+          "viewport": 1440,
+          "scheme": "light",
+          "selector": "span.sc-KOGVz.dvwHH:nth-of-type(2)",
+          "text": "1.6881...",
+          "fontSizePx": 12,
+          "fontWeight": 400,
+          "largeText": false,
+          "foreground": "#797D85",
+          "background": {
+            "kind": "image",
+            "worst": "#353637",
+            "median": "#252627",
+            "sampled": 645
+          },
+          "wcag": {
+            "ratio": 2.94,
+            "min": 2.8,
+            "median": 3.52,
+            "required": 4.5,
+            "pass": false
+          },
+          "apca": {
+            "lc": -26.6,
+            "required": 100,
+            "pass": false
+          },
+          "axeVerdict": "incomplete",
+          "notes": [
+            "effective opacity 0.8 applied to the text color"
+          ],
+          "suggestion": {
+            "token": "color.sx.1awr4hy",
+            "value": "#C3C4C8",
+            "target": "foreground",
+            "ratio": 5.07,
+            "lc": -48.3,
+            "against": "#353637",
+            "deltaE": 17.21,
+            "replacement": "color: var(--sx-1awr4hy)"
+          },
+          "image": "case-studies/linear-top-3.png"
+        }
+      ],
+      "topDrift": [
+        {
+          "color": "#0295A5",
+          "property": "fill",
+          "nearestToken": {
+            "name": "color.sx.1qlh175",
+            "value": "#00889C",
+            "deltaE": 3.84
+          },
+          "source": {
+            "rule": ".fFDhtq_dot { fill: var(--graph-dot) }",
+            "stylesheet": "https://static.linear.app/web/_next/static/css/DXpOFAO4.css",
+            "line": 3,
+            "origin": "regular"
+          },
+          "occurrences": 369,
+          "likelyTypo": false,
+          "cause": [
+            "opacity 0.8",
+            "over a background image; composited over its fallback color"
+          ]
+        },
+        {
+          "color": "#F79CE0",
+          "property": "color",
+          "nearestToken": {
+            "name": "color.sx.1bu05id",
+            "value": "#FF8583",
+            "deltaE": 12.31
+          },
+          "source": {
+            "rule": ".ngusfW_keyword { color: var(--token-keyword) }",
+            "stylesheet": "https://static.linear.app/web/_next/static/css/B1AV-EHC.css",
+            "line": 3,
+            "origin": "regular"
+          },
+          "occurrences": 39,
+          "likelyTypo": false
+        },
+        {
+          "color": "#F7BF8B",
+          "property": "color",
+          "nearestToken": {
+            "name": "color.sx.183dfpr",
+            "value": "#FF9958",
+            "deltaE": 8.86
+          },
+          "source": {
+            "rule": ".ngusfW_variable { color: var(--token-variable) }",
+            "stylesheet": "https://static.linear.app/web/_next/static/css/B1AV-EHC.css",
+            "line": 3,
+            "origin": "regular"
+          },
+          "occurrences": 21,
+          "likelyTypo": false
+        }
+      ]
+    },
+    {
+      "id": "svelte",
+      "name": "Svelte",
+      "urls": [
+        "https://svelte.dev/",
+        "https://svelte.dev/docs/svelte/overview"
+      ],
+      "status": "ok",
+      "pageErrors": [],
+      "notes": [],
+      "tokens": {
+        "format": "page",
+        "source": "https://svelte.dev/ (:root custom properties)",
+        "count": 71,
+        "modes": [
+          "dark",
+          "light"
+        ]
+      },
+      "summary": {
+        "pages": 2,
+        "states": 8,
+        "textChecked": 416,
+        "findings": {
+          "contrast": {
+            "error": 19,
+            "warning": 0
+          },
+          "drift": {
+            "error": 0,
+            "warning": 28,
+            "info": 0
+          }
+        },
+        "axe": {
+          "missed": 13,
+          "incomplete": 96,
+          "incompleteResolved": 96,
+          "incompleteFailed": 11
+        }
+      },
+      "counts": {
+        "contrast": 19,
+        "contrastByAxe": {
+          "pass": 6,
+          "fail": 6,
+          "incomplete": 7,
+          "not-checked": 0
+        },
+        "contrastByKind": {
+          "solid": 16,
+          "gradient": 0,
+          "image": 0,
+          "mixed": 3
+        },
+        "drift": 28,
+        "likelyTypos": 18
+      },
+      "top": [
+        {
+          "type": "contrast",
+          "severity": "error",
+          "page": "https://svelte.dev/",
+          "viewport": 375,
+          "scheme": "dark",
+          "selector": "a.cta.svelte-2ha69v",
+          "text": "get started",
+          "fontSizePx": 20,
+          "fontWeight": 400,
+          "largeText": false,
+          "foreground": "#F96743",
+          "background": {
+            "kind": "mixed",
+            "worst": "#484C51",
+            "median": "#44494D",
+            "sampled": 2622
+          },
+          "wcag": {
+            "ratio": 2.9,
+            "min": 2.82,
+            "median": 3.06,
+            "required": 4.5,
+            "pass": false
+          },
+          "apca": {
+            "lc": -32.6,
+            "required": 75,
+            "pass": false
+          },
+          "axeVerdict": "incomplete",
+          "suggestion": {
+            "token": "color.shiki.token.function",
+            "value": "#EAB095",
+            "target": "foreground",
+            "ratio": 4.59,
+            "lc": -53.1,
+            "against": "#484C51",
+            "deltaE": 15.82,
+            "replacement": "color: var(--shiki-token-function)"
+          },
+          "image": "case-studies/svelte-top-1.png"
+        },
+        {
+          "type": "contrast",
+          "severity": "error",
+          "page": "https://svelte.dev/",
+          "viewport": 1440,
+          "scheme": "light",
+          "selector": "kbd.svelte-curb4c:nth-of-type(1)",
+          "text": "Ctrl",
+          "fontSizePx": 12,
+          "fontWeight": 400,
+          "largeText": false,
+          "foreground": "#808080",
+          "background": {
+            "kind": "solid",
+            "worst": "#F2F2F2",
+            "median": "#F2F2F2",
+            "sampled": 350
+          },
+          "wcag": {
+            "ratio": 3.53,
+            "min": 3.53,
+            "median": 3.53,
+            "required": 4.5,
+            "pass": false
+          },
+          "apca": {
+            "lc": 59.2,
+            "required": 100,
+            "pass": false
+          },
+          "axeVerdict": "incomplete",
+          "suggestion": {
+            "token": "color.sk.fg.3",
+            "value": "#666666",
+            "target": "foreground",
+            "ratio": 5.13,
+            "lc": 71,
+            "against": "#F2F2F2",
+            "deltaE": 8.96,
+            "replacement": "color: var(--sk-fg-3)"
+          },
+          "alsoOn": [
+            "https://svelte.dev/docs/svelte/overview"
+          ],
+          "image": "case-studies/svelte-top-2.png"
+        },
+        {
+          "type": "contrast",
+          "severity": "error",
+          "page": "https://svelte.dev/",
+          "viewport": 1440,
+          "scheme": "light",
+          "selector": "kbd.svelte-curb4c:nth-of-type(2)",
+          "text": "K",
+          "fontSizePx": 12,
+          "fontWeight": 400,
+          "largeText": false,
+          "foreground": "#808080",
+          "background": {
+            "kind": "solid",
+            "worst": "#F2F2F2",
+            "median": "#F2F2F2",
+            "sampled": 98
+          },
+          "wcag": {
+            "ratio": 3.53,
+            "min": 3.53,
+            "median": 3.53,
+            "required": 4.5,
+            "pass": false
+          },
+          "apca": {
+            "lc": 59.2,
+            "required": 100,
+            "pass": false
+          },
+          "axeVerdict": "incomplete",
+          "suggestion": {
+            "token": "color.sk.fg.3",
+            "value": "#666666",
+            "target": "foreground",
+            "ratio": 5.13,
+            "lc": 71,
+            "against": "#F2F2F2",
+            "deltaE": 8.96,
+            "replacement": "color: var(--sk-fg-3)"
+          },
+          "alsoOn": [
+            "https://svelte.dev/docs/svelte/overview"
+          ],
+          "image": "case-studies/svelte-top-3.png"
+        }
+      ],
+      "topDrift": [
+        {
+          "color": "#646566",
+          "property": "color",
+          "nearestToken": {
+            "name": "color.sk.raised.highlight",
+            "value": "#454E5E",
+            "deltaE": 8.96
+          },
+          "source": {
+            "rule": "a { color: var(--sk-fg-accent) }",
+            "stylesheet": "https://svelte.dev/_app/immutable/assets/components.D4OIDCkK.css",
+            "line": 1,
+            "origin": "regular"
+          },
+          "occurrences": 96,
+          "likelyTypo": false,
+          "cause": [
+            "filter: grayscale(1) opacity(0.7)",
+            "over a background image; composited over its fallback color"
+          ]
+        },
+        {
+          "color": "#FFFFFF",
+          "property": "color",
+          "nearestToken": {
+            "name": "color.sk.fg.1",
+            "value": "#E5E5E6",
+            "deltaE": 7.72
+          },
+          "source": {
+            "rule": "a.svelte-1ssgw6y { color: inherit }",
+            "stylesheet": "https://svelte.dev/_app/immutable/assets/components.D4OIDCkK.css",
+            "line": 1,
+            "origin": "regular"
+          },
+          "occurrences": 4,
+          "likelyTypo": false
+        },
+        {
+          "color": "#F8603A",
+          "property": "border-left-color",
+          "nearestToken": {
+            "name": "color.shiki.token.function",
+            "value": "#D43008",
+            "deltaE": 11.32
+          },
+          "source": {
+            "rule": ".raised { border-color: var(--sk-raised-color) }",
+            "stylesheet": "https://svelte.dev/_app/immutable/assets/components.D4OIDCkK.css",
+            "line": 1,
+            "origin": "regular"
+          },
+          "occurrences": 2,
+          "likelyTypo": false
+        }
+      ]
+    }
+  ],
+  "precisionSample": [
+    {
+      "id": "S01",
+      "site": "shadcn",
+      "type": "contrast",
+      "severity": "error",
+      "page": "https://ui.shadcn.com/",
+      "viewport": 1440,
+      "scheme": "light",
+      "selector": "div.flex.flex-col:nth-of-type(1) > div.group\\/card.flex:nth-of-type(3) > div.px-\\(--card-spacing\\):nth-of-type(2) > div.group\\/item-group.flex > div.group\\/item.flex:nth-of-type(2) > div.flex.flex-1:nth-of-type(1) > p.line-clamp-2.text-left",
+      "text": "Real Estate",
+      "fontSizePx": 12,
+      "fontWeight": 500,
+      "largeText": false,
+      "foreground": "#737373",
+      "background": {
+        "kind": "solid",
+        "worst": "#F8F8F8",
+        "median": "#F9F9F9",
+        "sampled": 1215
+      },
+      "wcag": {
+        "ratio": 4.46,
+        "min": 4.46,
+        "median": 4.49,
+        "required": 4.5,
+        "pass": false
+      },
+      "apca": {
+        "lc": 68.7,
+        "required": 100,
+        "pass": false
+      },
+      "axeVerdict": "incomplete",
+      "suggestion": {
+        "token": "color.stone.500",
+        "value": "#79716B",
+        "target": "foreground",
+        "ratio": 4.53,
+        "lc": 69.2,
+        "against": "#F8F8F8",
+        "deltaE": 1.33,
+        "replacement": "color: var(--color-stone-500)"
+      },
+      "image": "case-studies/shadcn-sample-01.png"
+    },
+    {
+      "id": "S02",
+      "site": "shadcn",
+      "type": "contrast",
+      "severity": "error",
+      "page": "https://ui.shadcn.com/docs/components/button",
+      "viewport": 375,
+      "scheme": "light",
+      "selector": "div.group.relative:nth-of-type(16) > div.relative.overflow-hidden:nth-of-type(2) > div.relative > div.relative:nth-of-type(1) > figure.\\[\\&\\>pre\\]\\:max-h-96 > div > pre.no-scrollbar.min-w-0 > code > span.line:nth-of-type(1) > span:nth-of-type(1)",
+      "text": "import",
+      "fontSizePx": 14,
+      "fontWeight": 400,
+      "largeText": false,
+      "foreground": "#D73A49",
+      "background": {
+        "kind": "solid",
+        "worst": "#F7F7F7",
+        "median": "#F8F8F8",
+        "sampled": 850
+      },
+      "wcag": {
+        "ratio": 4.27,
+        "min": 4.27,
+        "median": 4.31,
+        "required": 4.5,
+        "pass": false
+      },
+      "apca": {
+        "lc": 65.7,
+        "required": 100,
+        "pass": false
+      },
+      "axeVerdict": "incomplete",
+      "suggestion": {
+        "token": "color.rose.700",
+        "value": "#C70036",
+        "target": "foreground",
+        "ratio": 5.65,
+        "lc": 72.7,
+        "against": "#F7F7F7",
+        "deltaE": 6.61,
+        "replacement": "color: var(--color-rose-700)"
+      },
+      "image": "case-studies/shadcn-sample-02.png"
+    },
+    {
+      "id": "S03",
+      "site": "shadcn",
+      "type": "contrast",
+      "severity": "error",
+      "page": "https://ui.shadcn.com/docs/components/button",
+      "viewport": 1440,
+      "scheme": "light",
+      "selector": "div.group.relative:nth-of-type(16) > div.relative.overflow-hidden:nth-of-type(2) > div.relative > div.relative:nth-of-type(1) > figure.\\[\\&\\>pre\\]\\:max-h-96 > div > pre.no-scrollbar.min-w-0 > code > span.line:nth-of-type(1) > span:nth-of-type(1)",
+      "text": "import",
+      "fontSizePx": 14,
+      "fontWeight": 400,
+      "largeText": false,
+      "foreground": "#D73A49",
+      "background": {
+        "kind": "solid",
+        "worst": "#F8F8F8",
+        "median": "#F8F8F8",
+        "sampled": 850
+      },
+      "wcag": {
+        "ratio": 4.31,
+        "min": 4.31,
+        "median": 4.31,
+        "required": 4.5,
+        "pass": false
+      },
+      "apca": {
+        "lc": 66.3,
+        "required": 100,
+        "pass": false
+      },
+      "axeVerdict": "incomplete",
+      "suggestion": {
+        "token": "color.rose.700",
+        "value": "#C70036",
+        "target": "foreground",
+        "ratio": 5.7,
+        "lc": 73.3,
+        "against": "#F8F8F8",
+        "deltaE": 6.61,
+        "replacement": "color: var(--color-rose-700)"
+      },
+      "image": "case-studies/shadcn-sample-03.png"
+    },
+    {
+      "id": "S04",
+      "site": "tailwind",
+      "type": "contrast",
+      "severity": "error",
+      "page": "https://tailwindcss.com/",
+      "viewport": 375,
+      "scheme": "light",
+      "selector": "div.relative.max-w-full:nth-of-type(4) > div.flex.h-6:nth-of-type(4)",
+      "text": "text-base",
+      "fontSizePx": 12,
+      "fontWeight": 400,
+      "largeText": false,
+      "foreground": "#CCCCCC",
+      "background": {
+        "kind": "solid",
+        "worst": "#FFFFFF",
+        "median": "#FFFFFF",
+        "sampled": 1008
+      },
+      "wcag": {
+        "ratio": 1.61,
+        "min": 1.61,
+        "median": 1.61,
+        "required": 4.5,
+        "pass": false
+      },
+      "apca": {
+        "lc": 27.3,
+        "required": 100,
+        "pass": false
+      },
+      "axeVerdict": "incomplete",
+      "suggestion": {
+        "token": "color.black",
+        "value": "#000000",
+        "target": "foreground",
+        "ratio": 21,
+        "lc": 106,
+        "against": "#FFFFFF",
+        "deltaE": 0,
+        "replacement": "color: var(--color-black)"
+      },
+      "image": "case-studies/tailwind-sample-04.png"
+    },
+    {
+      "id": "S05",
+      "site": "tailwind",
+      "type": "contrast",
+      "severity": "warning",
+      "page": "https://tailwindcss.com/",
+      "viewport": 1440,
+      "scheme": "light",
+      "selector": "div.absolute.-right-3:nth-of-type(2) > div.flex.items-center:nth-of-type(3) > div.flex.flex-col:nth-of-type(2) > span.truncate.text-sm\\/6:nth-of-type(2)",
+      "text": "مصمم واجهات المستخدم",
+      "fontSizePx": 14,
+      "fontWeight": 400,
+      "largeText": false,
+      "foreground": "#6A7282",
+      "background": {
+        "kind": "gradient",
+        "worst": "#F0F0F0",
+        "median": "#FFFFFF",
+        "sampled": 1616
+      },
+      "wcag": {
+        "ratio": 4.24,
+        "min": 4.09,
+        "median": 4.84,
+        "required": 4.5,
+        "pass": false
+      },
+      "apca": {
+        "lc": 64.6,
+        "required": 100,
+        "pass": false
+      },
+      "axeVerdict": "not-checked",
+      "suggestion": {
+        "token": "color.olive.600",
+        "value": "#5B5B4B",
+        "target": "foreground",
+        "ratio": 6.06,
+        "lc": 75,
+        "against": "#F0F0F0",
+        "deltaE": 9.91,
+        "replacement": "color: var(--color-olive-600)"
+      },
+      "image": "case-studies/tailwind-sample-05.png"
+    },
+    {
+      "id": "S06",
+      "site": "stripe",
+      "type": "contrast",
+      "severity": "error",
+      "page": "https://stripe.com/",
+      "viewport": 375,
+      "scheme": "light",
+      "selector": "div:nth-of-type(2) > div:nth-of-type(1) > span:nth-of-type(2) > span.tabular-nums--tight",
+      "text": "25%",
+      "fontSizePx": 11,
+      "fontWeight": 400,
+      "largeText": false,
+      "foreground": "#6B59FE",
+      "background": {
+        "kind": "solid",
+        "worst": "#ECEDFE",
+        "median": "#ECEDFE",
+        "sampled": 140
+      },
+      "wcag": {
+        "ratio": 4.04,
+        "min": 4.04,
+        "median": 4.04,
+        "required": 4.5,
+        "pass": false
+      },
+      "apca": {
+        "lc": 61.8,
+        "required": 100,
+        "pass": false
+      },
+      "axeVerdict": "fail",
+      "suggestion": {
+        "token": "color.hds.color.accent.border.solid",
+        "value": "#533AFD",
+        "target": "foreground",
+        "ratio": 5.34,
+        "lc": 69.6,
+        "against": "#ECEDFE",
+        "deltaE": 7,
+        "replacement": "color: var(--hds-color-accent-border-solid)"
+      },
+      "image": "case-studies/stripe-sample-06.png"
+    },
+    {
+      "id": "S07",
+      "site": "stripe",
+      "type": "contrast",
+      "severity": "error",
+      "page": "https://stripe.com/",
+      "viewport": 1440,
+      "scheme": "light",
+      "selector": "div:nth-of-type(3) > div:nth-of-type(3) > div:nth-of-type(1) > div > div:nth-of-type(1)",
+      "text": "Shipping",
+      "fontSizePx": 10,
+      "fontWeight": 300,
+      "largeText": false,
+      "foreground": "#50617A",
+      "background": {
+        "kind": "solid",
+        "worst": "#E583F4",
+        "median": "#E784F7",
+        "sampled": 429
+      },
+      "wcag": {
+        "ratio": 2.67,
+        "min": 2.67,
+        "median": 2.71,
+        "required": 4.5,
+        "pass": false
+      },
+      "apca": {
+        "lc": 33.1,
+        "required": 100,
+        "pass": false
+      },
+      "axeVerdict": "pass",
+      "notes": [
+        "APCA advises against this font size/weight for text"
+      ],
+      "suggestion": {
+        "token": "color.hds.color.core.neutral.800",
+        "value": "#273951",
+        "target": "foreground",
+        "ratio": 4.96,
+        "lc": 48.6,
+        "against": "#E583F4",
+        "deltaE": 14.79,
+        "replacement": "color: var(--hds-color-core-neutral-800)"
+      },
+      "image": "case-studies/stripe-sample-07.png"
+    },
+    {
+      "id": "S08",
+      "site": "stripe",
+      "type": "contrast",
+      "severity": "error",
+      "page": "https://stripe.com/payments",
+      "viewport": 375,
+      "scheme": "light",
+      "selector": "div.GraphicFormFieldList:nth-of-type(1) > div.GraphicFormField.GraphicFormPaymentMethodField:nth-of-type(1) > div.GraphicFormField__content > div.GraphicFormPaymentMethodField__list > div.GraphicFormPaymentMethodField__item:nth-of-type(3) > span",
+      "text": "Revolut Pay",
+      "fontSizePx": 10,
+      "fontWeight": 300,
+      "largeText": false,
+      "foreground": "#727F96",
+      "background": {
+        "kind": "solid",
+        "worst": "#FFFFFF",
+        "median": "#FFFFFF",
+        "sampled": 130
+      },
+      "wcag": {
+        "ratio": 4.04,
+        "min": 4.04,
+        "median": 4.04,
+        "required": 4.5,
+        "pass": false
+      },
+      "apca": {
+        "lc": 67.7,
+        "required": 100,
+        "pass": false
+      },
+      "axeVerdict": "not-checked",
+      "notes": [
+        "APCA advises against this font size/weight for text"
+      ],
+      "suggestion": {
+        "token": "color.hds.color.action.icon.navigation.subdued",
+        "value": "#64748D",
+        "target": "foreground",
+        "ratio": 4.75,
+        "lc": 72.9,
+        "against": "#FFFFFF",
+        "deltaE": 3.92,
+        "replacement": "color: var(--hds-color-action-icon-navigation-subdued)"
+      },
+      "image": "case-studies/stripe-sample-08.png"
+    },
+    {
+      "id": "S09",
+      "site": "stripe",
+      "type": "contrast",
+      "severity": "error",
+      "page": "https://stripe.com/payments",
+      "viewport": 375,
+      "scheme": "light",
+      "selector": "span.CodeEditorLineNumbers__number:nth-of-type(6)",
+      "text": "6",
+      "fontSizePx": 14,
+      "fontWeight": 500,
+      "largeText": false,
+      "foreground": "#55718D",
+      "background": {
+        "kind": "solid",
+        "worst": "#0C2E4E",
+        "median": "#0C2E4E",
+        "sampled": 136
+      },
+      "wcag": {
+        "ratio": 2.73,
+        "min": 2.73,
+        "median": 2.73,
+        "required": 4.5,
+        "pass": false
+      },
+      "apca": {
+        "lc": -22.1,
+        "required": 100,
+        "pass": false
+      },
+      "axeVerdict": "incomplete",
+      "suggestion": {
+        "token": "color.hds.color.core.neutralDark.400",
+        "value": "#839BC8",
+        "target": "foreground",
+        "ratio": 4.94,
+        "lc": -43.3,
+        "against": "#0C2E4E",
+        "deltaE": 15.17,
+        "replacement": "color: var(--hds-color-core-neutralDark-400)"
+      },
+      "image": "case-studies/stripe-sample-09.png"
+    },
+    {
+      "id": "S10",
+      "site": "stripe",
+      "type": "contrast",
+      "severity": "error",
+      "page": "https://stripe.com/payments",
+      "viewport": 375,
+      "scheme": "dark",
+      "selector": "section.Copy.PaymentsAdvancedCapabilitiesCard__copy > footer.Copy__footer > a.CtaButton.variant--Button",
+      "text": "Contact sales",
+      "fontSizePx": 15,
+      "fontWeight": 425,
+      "largeText": false,
+      "foreground": "#FFFFFF",
+      "background": {
+        "kind": "solid",
+        "worst": "#9966FF",
+        "median": "#9966FF",
+        "sampled": 1748
+      },
+      "wcag": {
+        "ratio": 3.68,
+        "min": 3.68,
+        "median": 3.68,
+        "required": 4.5,
+        "pass": false
+      },
+      "apca": {
+        "lc": -69.5,
+        "required": 100,
+        "pass": false
+      },
+      "axeVerdict": "incomplete",
+      "suggestion": {
+        "token": "color.hds.color.core.brandDark.975",
+        "value": "#171055",
+        "target": "foreground",
+        "ratio": 4.59,
+        "lc": 37.4,
+        "against": "#9966FF",
+        "deltaE": 76.77,
+        "replacement": "color: var(--hds-color-core-brandDark-975)"
+      },
+      "image": "case-studies/stripe-sample-10.png"
+    },
+    {
+      "id": "S11",
+      "site": "stripe",
+      "type": "contrast",
+      "severity": "error",
+      "page": "https://stripe.com/payments",
+      "viewport": 1440,
+      "scheme": "light",
+      "selector": "#global-payments > div.Section__masked > div.Section__container:nth-of-type(2) > div.Section__layoutContainer > div.Section__layout > div.RowLayout > section.Copy.variant--Section > header.Copy__header > h2.Copy__caption",
+      "text": "Global payments",
+      "fontSizePx": 18,
+      "fontWeight": 500,
+      "largeText": false,
+      "foreground": "#9966FF",
+      "background": {
+        "kind": "solid",
+        "worst": "#F6F9FC",
+        "median": "#F6F9FC",
+        "sampled": 3058
+      },
+      "wcag": {
+        "ratio": 3.49,
+        "min": 3.49,
+        "median": 3.49,
+        "required": 4.5,
+        "pass": false
+      },
+      "apca": {
+        "lc": 60.1,
+        "required": 70,
+        "pass": false
+      },
+      "axeVerdict": "pass",
+      "suggestion": {
+        "token": "color.accent.gradient.color.stop.2",
+        "value": "#643AFD",
+        "target": "foreground",
+        "ratio": 5.57,
+        "lc": 74.4,
+        "against": "#F6F9FC",
+        "deltaE": 12.68,
+        "replacement": "color: var(--accent-gradient-color-stop-2)"
+      },
+      "image": "case-studies/stripe-sample-11.png"
+    },
+    {
+      "id": "S12",
+      "site": "stripe",
+      "type": "contrast",
+      "severity": "error",
+      "page": "https://stripe.com/payments",
+      "viewport": 1440,
+      "scheme": "light",
+      "selector": "a.Link.newsletter-signup__link:nth-of-type(2)",
+      "text": "Privacy Policy",
+      "fontSizePx": 12,
+      "fontWeight": 300,
+      "largeText": false,
+      "foreground": "#707F98",
+      "background": {
+        "kind": "solid",
+        "worst": "#F6F9FC",
+        "median": "#F6F9FC",
+        "sampled": 1008
+      },
+      "wcag": {
+        "ratio": 3.84,
+        "min": 3.84,
+        "median": 3.84,
+        "required": 4.5,
+        "pass": false
+      },
+      "apca": {
+        "lc": 63.9,
+        "required": 100,
+        "pass": false
+      },
+      "axeVerdict": "pass",
+      "notes": [
+        "APCA advises against this font size/weight for text"
+      ],
+      "suggestion": {
+        "token": "color.hds.color.action.icon.navigation.soft",
+        "value": "#50617A",
+        "target": "foreground",
+        "ratio": 5.96,
+        "lc": 77.5,
+        "against": "#F6F9FC",
+        "deltaE": 10.5,
+        "replacement": "color: var(--hds-color-action-icon-navigation-soft)"
+      },
+      "image": "case-studies/stripe-sample-12.png"
+    },
+    {
+      "id": "S13",
+      "site": "stripe",
+      "type": "contrast",
+      "severity": "error",
+      "page": "https://stripe.com/payments",
+      "viewport": 1440,
+      "scheme": "dark",
+      "selector": "div.AuthenticationFeatureGraphic__ui:nth-of-type(2) > div:nth-of-type(4)",
+      "text": "Resend code",
+      "fontSizePx": 14,
+      "fontWeight": 300,
+      "largeText": false,
+      "foreground": "#ABB5C5",
+      "background": {
+        "kind": "solid",
+        "worst": "#F8F9FB",
+        "median": "#F8FAFB",
+        "sampled": 1360
+      },
+      "wcag": {
+        "ratio": 1.96,
+        "min": 1.96,
+        "median": 1.98,
+        "required": 4.5,
+        "pass": false
+      },
+      "apca": {
+        "lc": 36.8,
+        "required": 100,
+        "pass": false
+      },
+      "axeVerdict": "incomplete",
+      "notes": [
+        "APCA advises against this font size/weight for text"
+      ],
+      "suggestion": {
+        "token": "color.hds.color.action.icon.navigation.subdued",
+        "value": "#64748D",
+        "target": "foreground",
+        "ratio": 4.51,
+        "lc": 69.3,
+        "against": "#F8F9FB",
+        "deltaE": 21.59,
+        "replacement": "color: var(--hds-color-action-icon-navigation-subdued)"
+      },
+      "image": "case-studies/stripe-sample-13.png"
+    },
+    {
+      "id": "S14",
+      "site": "linear",
+      "type": "contrast",
+      "severity": "error",
+      "page": "https://linear.app/",
+      "viewport": 375,
+      "scheme": "light",
+      "selector": "div.KFZpfa_connectedRow:nth-of-type(1) > div.ImRUSq_root.ImRUSq_align-center > div.ImRUSq_root.ImRUSq_align-baseline > span.sc-KOGVz.jwDQSd:nth-of-type(4)",
+      "text": "2 min ago",
+      "fontSizePx": 12,
+      "fontWeight": 400,
+      "largeText": false,
+      "foreground": "#62666D",
+      "background": {
+        "kind": "solid",
+        "worst": "#1C1C1E",
+        "median": "#1A1A1C",
+        "sampled": 182
+      },
+      "wcag": {
+        "ratio": 2.95,
+        "min": 2.95,
+        "median": 3.01,
+        "required": 4.5,
+        "pass": false
+      },
+      "apca": {
+        "lc": -21.3,
+        "required": 100,
+        "pass": false
+      },
+      "axeVerdict": "incomplete",
+      "suggestion": {
+        "token": "color.fg.tertiary",
+        "value": "#8A8F98",
+        "target": "foreground",
+        "ratio": 5.24,
+        "lc": -40.3,
+        "against": "#1C1C1E",
+        "deltaE": 13.97,
+        "replacement": "color: var(--color-fg-tertiary)"
+      },
+      "image": "case-studies/linear-sample-14.png"
+    },
+    {
+      "id": "S15",
+      "site": "linear",
+      "type": "contrast",
+      "severity": "error",
+      "page": "https://linear.app/",
+      "viewport": 1440,
+      "scheme": "light",
+      "selector": "div.KFZpfa_activityList:nth-of-type(4) > div.KFZpfa_activityListRow:nth-of-type(1) > div.KFZpfa_activityText:nth-of-type(2) > span:nth-of-type(2)",
+      "text": "·",
+      "fontSizePx": 12,
+      "fontWeight": 400,
+      "largeText": false,
+      "foreground": "#62666D",
+      "background": {
+        "kind": "solid",
+        "worst": "#17191A",
+        "median": "#161819",
+        "sampled": 28
+      },
+      "wcag": {
+        "ratio": 3.06,
+        "min": 3.05,
+        "median": 3.09,
+        "required": 4.5,
+        "pass": false
+      },
+      "apca": {
+        "lc": -21.7,
+        "required": 100,
+        "pass": false
+      },
+      "axeVerdict": "incomplete",
+      "suggestion": {
+        "token": "color.fg.tertiary",
+        "value": "#8A8F98",
+        "target": "foreground",
+        "ratio": 5.43,
+        "lc": -40.7,
+        "against": "#17191A",
+        "deltaE": 13.97,
+        "replacement": "color: var(--color-fg-tertiary)"
+      },
+      "image": "case-studies/linear-sample-15.png"
+    },
+    {
+      "id": "S16",
+      "site": "linear",
+      "type": "contrast",
+      "severity": "error",
+      "page": "https://linear.app/",
+      "viewport": 1440,
+      "scheme": "light",
+      "selector": "div.qM9FAa_col:nth-of-type(3) > div.ImRUSq_root.ImRUSq_column:nth-of-type(2) > div:nth-of-type(3) > div._5k-xcq_card.qM9FAa_issue > div._5k-xcq_header:nth-of-type(1) > span.sc-KOGVz.gHBLUR:nth-of-type(1)",
+      "text": "ENG-2187",
+      "fontSizePx": 10,
+      "fontWeight": 400,
+      "largeText": false,
+      "foreground": "#52555B",
+      "background": {
+        "kind": "solid",
+        "worst": "#121314",
+        "median": "#111214",
+        "sampled": 506
+      },
+      "wcag": {
+        "ratio": 2.5,
+        "min": 2.49,
+        "median": 2.51,
+        "required": 4.5,
+        "pass": false
+      },
+      "apca": {
+        "lc": -15.5,
+        "required": 100,
+        "pass": false
+      },
+      "axeVerdict": "incomplete",
+      "notes": [
+        "effective opacity 0.8 applied to the text color"
+      ],
+      "suggestion": {
+        "token": "color.sx.1dd5bcf",
+        "value": "#9C9DA1",
+        "target": "foreground",
+        "ratio": 4.8,
+        "lc": -34.8,
+        "against": "#121314",
+        "deltaE": 18.74,
+        "replacement": "color: var(--sx-1dd5bcf)"
+      },
+      "image": "case-studies/linear-sample-16.png"
+    },
+    {
+      "id": "S17",
+      "site": "linear",
+      "type": "contrast",
+      "severity": "error",
+      "page": "https://linear.app/",
+      "viewport": 1440,
+      "scheme": "light",
+      "selector": "div._rhIjq_row:nth-of-type(4) > div._rhIjq_milestones:nth-of-type(3) > div._rhIjq_milestoneLabel:nth-of-type(2) > span.sc-KOGVz.ipHSrD",
+      "text": "GA",
+      "fontSizePx": 10,
+      "fontWeight": 400,
+      "largeText": false,
+      "foreground": "#50545A",
+      "background": {
+        "kind": "solid",
+        "worst": "#0A0C0C",
+        "median": "#0A0B0C",
+        "sampled": 143
+      },
+      "wcag": {
+        "ratio": 2.58,
+        "min": 2.58,
+        "median": 2.58,
+        "required": 4.5,
+        "pass": false
+      },
+      "apca": {
+        "lc": -15.4,
+        "required": 100,
+        "pass": false
+      },
+      "axeVerdict": "incomplete",
+      "notes": [
+        "effective opacity 0.8 applied to the text color"
+      ],
+      "suggestion": {
+        "token": "color.sx.1dd5bcf",
+        "value": "#9C9DA1",
+        "target": "foreground",
+        "ratio": 4.96,
+        "lc": -34.5,
+        "against": "#0A0C0C",
+        "deltaE": 18.74,
+        "replacement": "color: var(--sx-1dd5bcf)"
+      },
+      "image": "case-studies/linear-sample-17.png"
+    },
+    {
+      "id": "S18",
+      "site": "linear",
+      "type": "contrast",
+      "severity": "error",
+      "page": "https://linear.app/",
+      "viewport": 1440,
+      "scheme": "dark",
+      "selector": "div.KFZpfa_commentEntry:nth-of-type(3) > div.ImRUSq_root.ImRUSq_align-center > div.ImRUSq_root.ImRUSq_align-baseline > span.sc-KOGVz.jwDQSd:nth-of-type(2)",
+      "text": "·",
+      "fontSizePx": 12,
+      "fontWeight": 400,
+      "largeText": false,
+      "foreground": "#62666D",
+      "background": {
+        "kind": "solid",
+        "worst": "#1E1E1F",
+        "median": "#1C1C1D",
+        "sampled": 42
+      },
+      "wcag": {
+        "ratio": 2.89,
+        "min": 2.89,
+        "median": 2.95,
+        "required": 4.5,
+        "pass": false
+      },
+      "apca": {
+        "lc": -21.1,
+        "required": 100,
+        "pass": false
+      },
+      "axeVerdict": "incomplete",
+      "suggestion": {
+        "token": "color.fg.tertiary",
+        "value": "#8A8F98",
+        "target": "foreground",
+        "ratio": 5.13,
+        "lc": -40.1,
+        "against": "#1E1E1F",
+        "deltaE": 13.97,
+        "replacement": "color: var(--color-fg-tertiary)"
+      },
+      "image": "case-studies/linear-sample-18.png"
+    },
+    {
+      "id": "S19",
+      "site": "linear",
+      "type": "contrast",
+      "severity": "error",
+      "page": "https://linear.app/",
+      "viewport": 1440,
+      "scheme": "dark",
+      "selector": "div._5k-xcq_card.qM9FAa_issue:nth-of-type(3) > div._5k-xcq_tags:nth-of-type(3) > span._5k-xcq_label:nth-of-type(2) > span.sc-KOGVz.jRjUFu",
+      "text": "61202",
+      "fontSizePx": 12,
+      "fontWeight": 510,
+      "largeText": false,
+      "foreground": "#70747C",
+      "background": {
+        "kind": "solid",
+        "worst": "#08090A",
+        "median": "#08090A",
+        "sampled": 490
+      },
+      "wcag": {
+        "ratio": 4.26,
+        "min": 4.26,
+        "median": 4.26,
+        "required": 4.5,
+        "pass": false
+      },
+      "apca": {
+        "lc": -29,
+        "required": 100,
+        "pass": false
+      },
+      "axeVerdict": "incomplete",
+      "notes": [
+        "effective opacity 0.8 applied to the text color"
+      ],
+      "suggestion": {
+        "token": "color.sx.1dd5bcf",
+        "value": "#9C9DA1",
+        "target": "foreground",
+        "ratio": 5.01,
+        "lc": -34.3,
+        "against": "#08090A",
+        "deltaE": 4.84,
+        "replacement": "color: var(--sx-1dd5bcf)"
+      },
+      "image": "case-studies/linear-sample-19.png"
+    },
+    {
+      "id": "S20",
+      "site": "linear",
+      "type": "contrast",
+      "severity": "error",
+      "page": "https://linear.app/",
+      "viewport": 1440,
+      "scheme": "dark",
+      "selector": "section.b-30Va_root.b-30Va_rootHomepage:nth-of-type(2) > div.b-30Va_footer.hide-mobile:nth-of-type(3) > div.Fzcv4W_inset.b-30Va_footerContent:nth-of-type(2) > div.M31rWW_ingredients:nth-of-type(2) > div.M31rWW_ingredient:nth-of-type(5) > button.M31rWW_ingredientButton > span.M31rWW_ingredientLink > span.sc-KOGVz.jqlWID > span.M31rWW_ingredientPlus",
+      "text": "+",
+      "fontSizePx": 18,
+      "fontWeight": 400,
+      "largeText": false,
+      "foreground": "#62666D",
+      "background": {
+        "kind": "solid",
+        "worst": "#08090A",
+        "median": "#08090A",
+        "sampled": 220
+      },
+      "wcag": {
+        "ratio": 3.45,
+        "min": 3.45,
+        "median": 3.45,
+        "required": 4.5,
+        "pass": false
+      },
+      "apca": {
+        "lc": -22.8,
+        "required": 75,
+        "pass": false
+      },
+      "axeVerdict": "not-checked",
+      "suggestion": {
+        "token": "color.fg.tertiary",
+        "value": "#8A8F98",
+        "target": "foreground",
+        "ratio": 6.13,
+        "lc": -41.8,
+        "against": "#08090A",
+        "deltaE": 13.97,
+        "replacement": "color: var(--color-fg-tertiary)"
+      },
+      "image": "case-studies/linear-sample-20.png"
+    }
+  ]
+}
