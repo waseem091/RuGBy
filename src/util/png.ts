@@ -98,25 +98,58 @@ export function decodePng(input: Uint8Array): RgbaImage {
   const bitsPerPixel = channels * bitDepth;
   const bpp = Math.max(1, bitsPerPixel >> 3);
   const stride = Math.ceil((width * bitsPerPixel) / 8);
+  if (raw.length < (stride + 1) * height) throw new PngError("PNG image data is truncated");
   const pixels = new Uint8Array(stride * height);
-  let prev = new Uint8Array(stride);
+  // One tight loop per filter type: this decoder runs on full-page screenshots.
   for (let y = 0; y < height; y++) {
     const filter = raw[y * (stride + 1)]!;
-    const line = raw.subarray(y * (stride + 1) + 1, (y + 1) * (stride + 1));
-    const cur = pixels.subarray(y * stride, (y + 1) * stride);
-    for (let x = 0; x < stride; x++) {
-      const left = x >= bpp ? cur[x - bpp]! : 0;
-      const up = prev[x]!;
-      const upLeft = x >= bpp ? prev[x - bpp]! : 0;
-      let v = line[x]!;
-      if (filter === 1) v += left;
-      else if (filter === 2) v += up;
-      else if (filter === 3) v += (left + up) >> 1;
-      else if (filter === 4) v += paeth(left, up, upLeft);
-      else if (filter !== 0) throw new PngError(`Bad PNG filter type ${filter}`);
-      cur[x] = v & 0xff;
+    const src = y * (stride + 1) + 1;
+    const dst = y * stride;
+    const up = dst - stride;
+    switch (filter) {
+      case 0:
+        pixels.set(raw.subarray(src, src + stride), dst);
+        break;
+      case 1:
+        for (let x = 0; x < stride; x++) {
+          pixels[dst + x] = (raw[src + x]! + (x >= bpp ? pixels[dst + x - bpp]! : 0)) & 0xff;
+        }
+        break;
+      case 2:
+        if (y === 0) pixels.set(raw.subarray(src, src + stride), dst);
+        else
+          for (let x = 0; x < stride; x++)
+            pixels[dst + x] = (raw[src + x]! + pixels[up + x]!) & 0xff;
+        break;
+      case 3:
+        for (let x = 0; x < stride; x++) {
+          const left = x >= bpp ? pixels[dst + x - bpp]! : 0;
+          const above = y > 0 ? pixels[up + x]! : 0;
+          pixels[dst + x] = (raw[src + x]! + ((left + above) >> 1)) & 0xff;
+        }
+        break;
+      case 4:
+        for (let x = 0; x < stride; x++) {
+          const left = x >= bpp ? pixels[dst + x - bpp]! : 0;
+          const above = y > 0 ? pixels[up + x]! : 0;
+          const upLeft = x >= bpp && y > 0 ? pixels[up + x - bpp]! : 0;
+          pixels[dst + x] = (raw[src + x]! + paeth(left, above, upLeft)) & 0xff;
+        }
+        break;
+      default:
+        throw new PngError(`Bad PNG filter type ${filter}`);
     }
-    prev = cur;
+  }
+  if (bitDepth === 8 && colorType === 6) return { width, height, data: pixels };
+  if (bitDepth === 8 && colorType === 2) {
+    const out = new Uint8Array(width * height * 4);
+    for (let i = 0, o = 0; i < pixels.length; i += 3, o += 4) {
+      out[o] = pixels[i]!;
+      out[o + 1] = pixels[i + 1]!;
+      out[o + 2] = pixels[i + 2]!;
+      out[o + 3] = 255;
+    }
+    return { width, height, data: out };
   }
   const out = new Uint8Array(width * height * 4);
   const sample = (row: Uint8Array, index: number): number =>

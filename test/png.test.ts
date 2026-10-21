@@ -93,6 +93,8 @@ describe("PNG codec", () => {
     expect(() => decodePng(rawPng(1, 1, 8, 5, [[1]]))).toThrow(/color type/);
     expect(() => decodePng(rawPng(1, 1, 4, 2, [[1]]))).toThrow(/bit depth/);
     expect(() => decodePng(rawPng(1, 1, 8, 3, [[0]]))).toThrow(/PLTE/);
+    expect(() => decodePng(rawPng(4, 2, 8, 2, [[1, 2, 3]]))).toThrow(/truncated/);
+    expect(() => decodePng(Buffer.from(rawPng(1, 1, 8, 0, [[1]])).fill(0, 41, 42))).toThrow();
     const bad = rawPng(1, 1, 8, 0, [[1]]);
     expect(() => decodePng(Buffer.concat([bad.subarray(0, 8), bad.subarray(33)]))).toThrow(/IHDR/);
   });
